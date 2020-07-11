@@ -17,10 +17,15 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.thebugslayers.surakshare"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "android": {
+      "package": "com.thebugslayers.surakshare"
+    },
+    "entryPoint": "node_modules/expo/AppEntry.js"
   }
 }
