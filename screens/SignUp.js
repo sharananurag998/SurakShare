@@ -11,6 +11,10 @@ import {
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
 
+import { StackActions } from 'react-navigation';
+import { NavigationActions } from 'react-navigation';
+
+
 function SignUp(props) {
   return (
     <View style={styles.root}>
@@ -69,7 +73,15 @@ function SignUp(props) {
           <View style={styles.text3ColumnFiller}></View>
           <View style={styles.buttonColumn}>
             <TouchableOpacity
-              onPress={() => props.navigation.navigate("Home")}
+              onPress={() => {
+                const resetAction = StackActions.reset({
+                  index: 0,
+                  actions: [
+                    NavigationActions.navigate({ routeName: 'DrawerRoute' }),
+                  ],
+                });
+                props.navigation.dispatch(resetAction);
+              }}
               style={styles.button}
             >
               <Text style={styles.text2}>Continue</Text>
