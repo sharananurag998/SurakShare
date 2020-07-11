@@ -6,7 +6,7 @@ import { globalStyles } from '../styles/global';
 export default function Home() {
     return(
         <View style={globalStyles.container}>
-            <Text>USer Profile Screen</Text>
+            <Text>User Profile Screen</Text>
             <StatusBar style="auto" />
         </View>
     ); 
