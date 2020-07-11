@@ -7,20 +7,30 @@ import UserProfileStack from './userProfileStack';
 
 const RootDrawerNavigator = createDrawerNavigator({
     Home:{
-        screen: HomeStack
+        name: 'Home',
+        screen: HomeStack,
+        navigationOptions:{
+            headerMode: 'screen'
+        }
     },
     ShareFilesStack:{
+        name:'Offline File Sharing',
         screen: ShareFileStack,
         navigationOptions: {
-            title: 'Offline File Sharing'
+            title: 'Offline File Sharing',
+            headerMode: 'screen'
         },
     },
     UserProfileStack:{
+        name: 'Your Profile',
         screen: UserProfileStack,
         navigationOptions: {
-            title: 'Your Profile'
+            title: 'Your Profile',
+            headerMode: 'screen'
         },
     },
 })
 
-export default createAppContainer(RootDrawerNavigator);
+const DrawerRoute = RootDrawerNavigator;
+
+export default DrawerRoute;

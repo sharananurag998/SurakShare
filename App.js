@@ -4,16 +4,6 @@ import AppContainer from './routes/mainRoute';
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
 
-
-import Navigator from './routes/drawer';
-
-// export default function App() {
-//   return (
-//     <Navigator/>
-//   );
-// }
-
-
 function App() {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
   if (!isLoadingComplete) {

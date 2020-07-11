@@ -1,22 +1,23 @@
 import { createAppContainer } from 'react-navigation'
 import {createStackNavigator} from 'react-navigation-stack';
 import TestPage from '../screens/containers/TestPage';
-import AfterTestPage from '../screens/Login.js';
+import Login from '../screens/Login.js';
 
-const AppNavigator = createStackNavigator(
+const WalkthroughNavigator = createStackNavigator(
     {
-        TestPage         : { screen : TestPage },
-        AfterTestPage    : { screen : AfterTestPage }
+        TestPage         : { screen : TestPage, navigationOptions: {
+            headerShown: false,
+        } },
+        AfterTestPage    : { screen : Login, navigationOptions: {
+            headerShown: false,
+        } }
     },
     {
         initialRouteName : 'TestPage',
-        navigationOptions : {
-
+        navigationOptions: {
+            headerShown: false,
         },
-        headerMode : 'none'
     }
 )
 
-const App = createAppContainer(AppNavigator);
-
-export default AppNavigator;
+export default WalkthroughNavigator;
