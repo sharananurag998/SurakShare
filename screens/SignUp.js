@@ -8,11 +8,11 @@ import {
   TextInput,
   TouchableOpacity
 } from "react-native";
+
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
 
-import { StackActions } from 'react-navigation';
-import { NavigationActions } from 'react-navigation';
+import { CommonActions } from '@react-navigation/native';
 
 
 function SignUp(props) {
@@ -73,15 +73,19 @@ function SignUp(props) {
           <View style={styles.text3ColumnFiller}></View>
           <View style={styles.buttonColumn}>
             <TouchableOpacity
-              onPress={() => {
-                const resetAction = StackActions.reset({
-                  index: 0,
-                  actions: [
-                    NavigationActions.navigate({ routeName: 'SurakShare' }),
-                  ],
-                });
-                props.navigation.dispatch(resetAction);
-              }}
+              onPress={()=>{
+                props.navigation.dispatch(
+                  CommonActions.reset({
+                    index: 0,
+                    routes: [
+                      { name: 'SurakShare' },
+                    ],
+                  })
+                );
+              }
+
+              }
+
               style={styles.button}
             >
               <Text style={styles.text2}>Continue</Text>

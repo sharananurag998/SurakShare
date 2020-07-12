@@ -4,7 +4,8 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import 'react-native-gesture-handler';
 
 import * as React from 'react';
-import { Button, View, Text, TouchableOpacity, Image } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
+import {MaterialIcons} from '@expo/vector-icons';
 
 //Screen Imports
 import Home from '../screens/home'; 
@@ -23,11 +24,7 @@ const NavigationDrawerStructure = (props)=> {
   return (
     <View style={{ flexDirection: 'row' }}>
       <TouchableOpacity onPress={()=> toggleDrawer()}>
-        {/*Donute Button Image */}
-        <Image
-          source={{uri: 'https://raw.githubusercontent.com/AboutReact/sampleresource/master/drawerWhite.png'}}
-          style={{ width: 25, height: 25, marginLeft: 5 }}
-        />
+        <MaterialIcons name='menu' size={29} style={{left: 20, color:'white'}} />
       </TouchableOpacity>
     </View>
   );
@@ -99,8 +96,9 @@ function ShareFilesStackNavigator({ navigation }) {
   
   export default function SurakShare() {
     return (
-      <NavigationContainer>
+      <NavigationContainer independent={true} >
         <Drawer.Navigator 
+        headerMode="none"
         initialRouteName="Home" 
         drawerContentOptions={{
           activeTintColor: '#5B0A91',

@@ -17,12 +17,12 @@ const flowData = {
 }
 
 export default class TestPage extends Component {
-    componentDidMount(){
-        StatusBar.setHidden(true);
-        setTimeout(() => {
-            this.props.navigation.navigate('loginScreen');
-        }, 1000);
-    }
+    // componentDidMount(){
+    //     StatusBar.setHidden(true);
+    //     setTimeout(() => {
+    //         this.props.navigation.navigate('loginScreen');
+    //     }, 1000);
+    // }
 
     _onWorkFlowFinished = () => {
         this.props.navigation.navigate('AfterTestPage');
