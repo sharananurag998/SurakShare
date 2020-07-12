@@ -77,7 +77,7 @@ function SignUp(props) {
                 const resetAction = StackActions.reset({
                   index: 0,
                   actions: [
-                    NavigationActions.navigate({ routeName: 'DrawerRoute' }),
+                    NavigationActions.navigate({ routeName: 'SurakShare' }),
                   ],
                 });
                 props.navigation.dispatch(resetAction);

@@ -6,7 +6,7 @@ import SignUp from "../screens/SignUp";
 import SignUp1 from "../screens/SignUp1";
 
 import WalkthroughNavigator from './walkthroughRoutes';
-import DrawerRoute from './drawerRoute';
+import SurakShare from './stackAndDrawer';
 
 const StackNavigation = createStackNavigator(
 {
@@ -20,7 +20,7 @@ const StackNavigation = createStackNavigator(
   SignUp1:{screen: SignUp1, navigationOptions:{
     headerShown: false
   }},
-  DrawerRoute,
+  SurakShare,
 },
 );
 
