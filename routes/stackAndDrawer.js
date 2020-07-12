@@ -1,37 +1,97 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import React, { Component } from "react";
+import 'react-native-gesture-handler';
+
+import * as React from 'react';
+import { Button, View, Text, TouchableOpacity, Image } from 'react-native';
+
 //Screen Imports
 import Home from '../screens/home'; 
 import UserProfile from '../screens/userProfile'; 
-import ShareFiles from '../screens/shareFiles'; 
-import shareFiles from '../screens/shareFiles';
+import ShareFiles from '../screens/shareFiles';
 
 const Stack = createStackNavigator();
 
-function HomeStackNavigator() {
+const NavigationDrawerStructure = (props)=> {
+  //Structure for the navigatin Drawer
+  const toggleDrawer = () => {
+    //Props to open/close the drawer
+    props.navigationProps.toggleDrawer();
+  };
+
+  return (
+    <View style={{ flexDirection: 'row' }}>
+      <TouchableOpacity onPress={()=> toggleDrawer()}>
+        {/*Donute Button Image */}
+        <Image
+          source={{uri: 'https://raw.githubusercontent.com/AboutReact/sampleresource/master/drawerWhite.png'}}
+          style={{ width: 25, height: 25, marginLeft: 5 }}
+        />
+      </TouchableOpacity>
+    </View>
+  );
+}
+
+
+function HomeStackNavigator({ navigation }) {
+  return (
+    <Stack.Navigator initialRouteName="Home">
+      <Stack.Screen 
+        name="Home" 
+        component={Home} 
+        options={{
+          title: 'Home', //Set Header Title
+          headerLeft: ()=> <NavigationDrawerStructure navigationProps={navigation} />,
+          headerStyle: {
+            backgroundColor: '#5b0a91', //Set Header color
+          },
+          headerTintColor: '#fff', //Set Header text color
+        }}/>
+    </Stack.Navigator>
+  );
+}
+
+function ProfileStackNavigator({ navigation }) {
     return (
-      <Stack.Navigator headerMode="none" initialRouteName="SurakShare">
-        <Stack.Screen name="Home" component={Home} />
+      <Stack.Navigator 
+        initialRouteName="Home"
+        screenOptions={{
+          headerLeft: ()=> <NavigationDrawerStructure navigationProps={navigation} />,
+          headerStyle: {
+            backgroundColor: '#5b0a91', //Set Header color
+          },
+          headerTintColor: '#fff', //Set Header text color
+        }}>
+        <Stack.Screen 
+          name="Profile" 
+          component={UserProfile} 
+          options={{
+            title: 'User Profile', //Set Header Title
+          }}/>
       </Stack.Navigator>
     );
 }
 
-function ProfileStackNavigator() {
-    return (
-      <Stack.Navigator headerMode="none" initialRouteName="SurakShare">
-        <Stack.Screen name="Profile" component={UserProfile} />
-      </Stack.Navigator>
-    );
-}
-
-function ShareFilesStackNavigator() {
-    return (
-      <Stack.Navigator headerMode="none" initialRouteName="SurakShare">
-        <Stack.Screen name="Share Files" component={shareFiles} />
-      </Stack.Navigator>
-    );
+function ShareFilesStackNavigator({ navigation }) {
+  return (
+    <Stack.Navigator
+      initialRouteName="Home"
+      screenOptions={{
+        headerLeft: ()=> <NavigationDrawerStructure navigationProps={navigation} />,
+        headerStyle: {
+          backgroundColor: '#5b0a91', //Set Header color
+        },
+        headerTintColor: '#fff', //Set Header text color
+      }}>
+      <Stack.Screen 
+        name="Share Files" 
+        component={ShareFiles} 
+        options={{
+          title: 'Share Files', //Set Header Title
+        }}/>
+    </Stack.Navigator>
+  );
 }
 
 
@@ -41,7 +101,6 @@ function ShareFilesStackNavigator() {
     return (
       <NavigationContainer>
         <Drawer.Navigator 
-        headerMode="none" 
         initialRouteName="Home" 
         drawerContentOptions={{
           activeTintColor: '#5B0A91',
