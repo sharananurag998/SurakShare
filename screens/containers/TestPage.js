@@ -4,25 +4,18 @@ import {StyleSheet, View, StatusBar} from 'react-native';
 import WorkThrough from './WorkThrough';
 import {icons} from '../../icons';
 
-// example data
 const flowData = {
     bgColor: "#788eec", 
     fgColor: "white", 
     screens:
     [
-        {icon: "react-native.png", title: "React Native Walkthrough", description: "Welcome your users with a beautiful app walkthrough."},
-        {icon: "educate.png", title: "Educate", description: "Showcase features to new users so that they get to love your app."},
-        {icon: "bell.png", title: "Get Notified", description: "Describe the value proposition of each core feature."},
+        {icon: "share.png", title: "Quick and Secure File Sharing", description: "Share documents, images, apps with your friends quickly and securely."},
+        {icon: "ethereum.png", title: "Blockchain Based File Sharing", description: "Share confidential files securely using the Blockchain-based Online File Sharing option. "},
+        {icon: "hotspot.png", title: "WiFi P2P Support", description: "You can also use the Offline File Sharing feature to send large files using WiFi P2P."},
     ]
 }
 
 export default class TestPage extends Component {
-    // componentDidMount(){
-    //     StatusBar.setHidden(true);
-    //     setTimeout(() => {
-    //         this.props.navigation.navigate('loginScreen');
-    //     }, 1000);
-    // }
 
     _onWorkFlowFinished = () => {
         this.props.navigation.navigate('AfterTestPage');
