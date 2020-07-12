@@ -12,7 +12,7 @@ const Stack = createStackNavigator();
 
 function HomeStackNavigator() {
     return (
-      <Stack.Navigator headerMode="none" initialRouteName="Home">
+      <Stack.Navigator headerMode="none" initialRouteName="SurakShare">
         <Stack.Screen name="Home" component={Home} />
       </Stack.Navigator>
     );
@@ -20,7 +20,7 @@ function HomeStackNavigator() {
 
 function ProfileStackNavigator() {
     return (
-      <Stack.Navigator headerMode="none" initialRouteName="Home">
+      <Stack.Navigator headerMode="none" initialRouteName="SurakShare">
         <Stack.Screen name="Profile" component={UserProfile} />
       </Stack.Navigator>
     );
@@ -28,7 +28,7 @@ function ProfileStackNavigator() {
 
 function ShareFilesStackNavigator() {
     return (
-      <Stack.Navigator headerMode="none" initialRouteName="Home">
+      <Stack.Navigator headerMode="none" initialRouteName="SurakShare">
         <Stack.Screen name="Share Files" component={shareFiles} />
       </Stack.Navigator>
     );
@@ -40,7 +40,13 @@ function ShareFilesStackNavigator() {
   export default function SurakShare() {
     return (
       <NavigationContainer>
-        <Drawer.Navigator headerMode="none" initialRouteName="Home">
+        <Drawer.Navigator 
+        headerMode="none" 
+        initialRouteName="Home" 
+        drawerContentOptions={{
+          activeTintColor: '#5B0A91',
+          itemStyle: { marginVertical: 5 },
+        }}>
           <Drawer.Screen name="Home" component={HomeStackNavigator} />
           <Drawer.Screen name="Profile" component={ProfileStackNavigator} />
           <Drawer.Screen name="Share Files" component={ShareFilesStackNavigator} />
