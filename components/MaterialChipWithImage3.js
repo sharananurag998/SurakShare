@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Text, Image } from "react-native";
 
-function MaterialChipWithImage(props) {
+function MaterialChipWithImage3(props) {
   return (
     <View style={[styles.container, props.style]}>
-      <Text style={styles.chipText}>Example Chip</Text>
+      <Text style={styles.batDocSize}>bat.doc{"\n"}Size</Text>
       <Image
-        source={require("../assets/images/cardImage.png")}
+        source={require("../assets/images/aniketh.jpg")}
         style={styles.leftImage}
       ></Image>
     </View>
@@ -21,11 +21,12 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     flexDirection: "row"
   },
-  chipText: {
+  batDocSize: {
     fontSize: 13,
     color: "rgba(0,0,0,0.87)",
     paddingLeft: 8,
-    paddingRight: 12
+    paddingRight: 12,
+    textAlign: "left"
   },
   leftImage: {
     height: 32,
@@ -35,4 +36,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default MaterialChipWithImage;
+export default MaterialChipWithImage3;

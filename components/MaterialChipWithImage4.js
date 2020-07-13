@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Text, Image } from "react-native";
 
-function MaterialChipWithImage(props) {
+function MaterialChipWithImage4(props) {
   return (
     <View style={[styles.container, props.style]}>
-      <Text style={styles.chipText}>Example Chip</Text>
+      <Text style={styles.chipText}>123.pdf{"\n"}Size</Text>
       <Image
-        source={require("../assets/images/cardImage.png")}
+        source={require("../assets/images/aniketh1.jpg")}
         style={styles.leftImage}
       ></Image>
     </View>
@@ -35,4 +35,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default MaterialChipWithImage;
+export default MaterialChipWithImage4;
