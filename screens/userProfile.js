@@ -39,7 +39,6 @@ export default function Home() {
       ></SimpleLineIconsIcon>
     </View>
   </View>
-  <View style={styles.scrollAreaStack}>
   <ScrollView horizontal="false">
     <View style={styles.rect}>
       <Text style={styles.emailId}>Email ID</Text>
@@ -79,7 +78,6 @@ export default function Home() {
       </View>
     </TouchableOpacity>
     </ScrollView>
-  </View>
 </View>
     ); 
 }
@@ -114,8 +112,8 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderRadius: 21,
     flexDirection: "row",
-    marginTop: 411,
-    marginLeft: 19
+    marginTop: 370,
+    alignSelf: "center",
   },
   logOut: {
     color: "#121212",
@@ -138,7 +136,7 @@ const styles = StyleSheet.create({
     marginTop: 17
   },
   rect: {
-    top: 20,
+    marginTop: 10,
     width: 322,
     height: 78,
     position: "absolute",
@@ -147,7 +145,7 @@ const styles = StyleSheet.create({
     borderColor: "#000000",
     borderStyle: "solid",
     borderRadius: 21,
-    left: 19
+    alignSelf: "center"
   },
   emailId: {
     color: "#121212",
@@ -162,7 +160,7 @@ const styles = StyleSheet.create({
     marginLeft: 27
   },
   button: {
-    top: 122,
+    top: 100,
     width: 322,
     height: 78,
     position: "absolute",
@@ -171,7 +169,7 @@ const styles = StyleSheet.create({
     borderColor: "#000000",
     borderStyle: "solid",
     borderRadius: 21,
-    left: 19,
+    alignSelf: "center",
     flexDirection: "row"
   },
   changePassword: {
@@ -195,7 +193,7 @@ const styles = StyleSheet.create({
     marginTop: 16
   },
   button2: {
-    top: 216,
+    top: 190,
     width: 322,
     height: 78,
     position: "absolute",
@@ -204,7 +202,7 @@ const styles = StyleSheet.create({
     borderColor: "#000000",
     borderStyle: "solid",
     borderRadius: 21,
-    left: 19,
+    alignSelf: "center",
     flexDirection: "row"
   },
   groups: {
@@ -228,7 +226,7 @@ const styles = StyleSheet.create({
     marginTop: 18
   },
   button3: {
-    top: 311,
+    top: 280,
     width: 322,
     height: 78,
     position: "absolute",
@@ -237,7 +235,7 @@ const styles = StyleSheet.create({
     borderColor: "#000000",
     borderStyle: "solid",
     borderRadius: 21,
-    left: 19,
+    alignSelf: "center",
     flexDirection: "row"
   },
   recentDevices: {
