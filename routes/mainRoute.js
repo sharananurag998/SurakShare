@@ -14,7 +14,7 @@ function AppContainer(){
   return (
   <NavigationContainer independent={true} >  
     <Stack.Navigator>
-    {/* <Stack.Screen name="Walkthrough" component={WalkthroughNavigator} options= {{headerShown: false}} /> */}
+    <Stack.Screen name="Walkthrough" component={WalkthroughNavigator} options= {{headerShown: false}} />
     <Stack.Screen name="Login" component={Login} options= {{headerShown: false}} />
     <Stack.Screen name="SignUp" component={SignUp} options= {{headerShown: false}} />
     <Stack.Screen name="SurakShare" component={SurakShare} options= {{headerShown: false}} />
