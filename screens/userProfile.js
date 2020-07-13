@@ -99,10 +99,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#E6E6E6",
     opacity: 0
   },
-  scrollArea_contentContainerStyle: {
-    height: 504,
-    width: 360
-  },
   button4: {
     width: 322,
     height: 78,
@@ -112,7 +108,7 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderRadius: 21,
     flexDirection: "row",
-    marginTop: 370,
+    marginTop: 415,
     alignSelf: "center",
   },
   logOut: {
@@ -131,12 +127,12 @@ const styles = StyleSheet.create({
     height: 44,
     flexDirection: "row",
     flex: 1,
-    marginRight: 20,
-    marginLeft: 30,
-    marginTop: 17
+    alignItems:"center",
+    alignSelf:"center",
+    justifyContent: "center"
   },
   rect: {
-    marginTop: 10,
+    marginTop: 15,
     width: 322,
     height: 78,
     position: "absolute",
@@ -160,7 +156,7 @@ const styles = StyleSheet.create({
     marginLeft: 27
   },
   button: {
-    top: 100,
+    top: 115,
     width: 322,
     height: 78,
     position: "absolute",
@@ -174,8 +170,7 @@ const styles = StyleSheet.create({
   },
   changePassword: {
     color: "#121212",
-    fontSize: 18,
-    marginTop: 11
+    fontSize: 18
   },
   icon: {
     color: "rgba(0,0,0,1)",
@@ -188,12 +183,12 @@ const styles = StyleSheet.create({
     height: 44,
     flexDirection: "row",
     flex: 1,
-    marginRight: 16,
-    marginLeft: 27,
-    marginTop: 16
+    alignSelf:"center",
+    alignItems:"center",
+    justifyContent: "center",
   },
   button2: {
-    top: 190,
+    top: 215,
     width: 322,
     height: 78,
     position: "absolute",
@@ -208,7 +203,6 @@ const styles = StyleSheet.create({
   groups: {
     color: "#121212",
     fontSize: 18,
-    marginTop: 11
   },
   icon4: {
     color: "rgba(9,8,8,1)",
@@ -221,12 +215,12 @@ const styles = StyleSheet.create({
     height: 32,
     flexDirection: "row",
     flex: 1,
-    marginRight: 22,
-    marginLeft: 33,
-    marginTop: 18
+    alignSelf:"center",
+    alignItems:"center",
+    justifyContent: "center",
   },
   button3: {
-    top: 280,
+    top: 315,
     width: 322,
     height: 78,
     position: "absolute",
@@ -236,12 +230,12 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderRadius: 21,
     alignSelf: "center",
+    justifyContent: "center",
     flexDirection: "row"
   },
   recentDevices: {
     color: "#121212",
     fontSize: 18,
-    marginTop: 12
   },
   icon5: {
     color: "rgba(26,25,25,1)",
@@ -254,9 +248,9 @@ const styles = StyleSheet.create({
     height: 33,
     flexDirection: "row",
     flex: 1,
-    marginRight: 21,
-    marginLeft: 27,
-    marginTop: 17
+    alignSelf:"center",
+    alignItems:"center",
+    justifyContent: "center",
   },
   scrollAreaStack: {
     width: 360,
@@ -266,17 +260,16 @@ const styles = StyleSheet.create({
   rect5: {
     width: 342,
     height: 155,
-    backgroundColor: "rgba(255,255,255,0.35)",
-    transform: [
-      {
-        rotate: "0.19deg"
-      }
-    ],
+    backgroundColor: "rgba(255,255,255,0.25)",
     borderWidth: 8,
     borderColor: "rgba(0,0,0,0.35)",
     borderRadius: 21,
     marginTop: 10,
-    marginLeft: 9
+    display:"flex",
+    flexDirection:"row",
+    alignSelf:"center",
+    alignItems:"center",
+    justifyContent: "center"
   },
   ellipse: {
     top: 0,
@@ -296,16 +289,18 @@ const styles = StyleSheet.create({
   },
   ellipseStack: {
     width: 89,
-    height: 92,
-    marginTop: 14
+    height: 92
   },
   Name: {
-    color: "#121212",
+    color: "#FFF",
     fontSize: 26
   },
   username: {
-    color: "#121212",
-    marginTop: 19
+    color: "#FFF",
+    marginTop: 10,
+    alignSelf:"center",
+    alignItems:"center",
+    justifyContent: "center",
   },
   UserColumn: {
     width: 145,
@@ -314,18 +309,18 @@ const styles = StyleSheet.create({
     marginBottom: 19
   },
   icon3: {
-    color: "rgba(0,0,0,1)",
+    color: "white",
     fontSize: 25,
     opacity: 0.71,
     height: 28,
     width: 25,
-    marginLeft: 27
+    marginLeft: 10
   },
   ellipseStackRow: {
     height: 106,
     flexDirection: "row",
-    marginTop: 14,
-    marginLeft: 19,
-    marginRight: 14
+    alignSelf:"center",
+    alignItems:"center",
+    justifyContent: "center",
   }
 });
