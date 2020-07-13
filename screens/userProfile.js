@@ -13,81 +13,73 @@ import SimpleLineIconsIcon from "react-native-vector-icons/SimpleLineIcons";
 export default function Home() {
     return(
 <View style={styles.container}>
-<View style={styles.scrollAreaStack}>
-  <View style={styles.scrollArea}>
-    <ScrollView
-      horizontal={false}
-      contentContainerStyle={styles.scrollArea_contentContainerStyle}
-    >
-      <TouchableOpacity style={styles.button4}>
-        <View style={styles.logOutRow}>
-          <Text style={styles.logOut}>Log Out</Text>
-          <IoniconsIcon
-            name="ios-exit"
-            style={styles.icon2}
-          ></IoniconsIcon>
-        </View>
-      </TouchableOpacity>
+  <View style={styles.rect5}>
+    <View style={styles.ellipseStackRow}>
+      <View style={styles.ellipseStack}>
+        <Svg viewBox="0 0 89.43 91.7" style={styles.ellipse}>
+          <Ellipse
+            stroke="rgba(230, 230, 230,1)"
+            strokeWidth={0}
+            cx={45}
+            cy={46}
+            rx={45}
+            ry={46}
+            fill="rgba(230, 230, 230,1)"
+          ></Ellipse>
+        </Svg>
+        <FeatherIcon name="plus-circle" style={styles.icon6}></FeatherIcon>
+      </View>
+      <View style={styles.UserColumn}>
+        <Text style={styles.Name}>Adarsh Nair</Text>
+        <Text style={styles.username}>adarshnair210</Text>
+      </View>
+      <SimpleLineIconsIcon
+        name="pencil"
+        style={styles.icon3}
+      ></SimpleLineIconsIcon>
+    </View>
+  </View>
+  <View style={styles.scrollAreaStack}>
+  <ScrollView horizontal="false">
+    <View style={styles.rect}>
+      <Text style={styles.emailId}>Email ID</Text>
+      <Text style={styles.loremIpsum}>adarshnair210@gmail.com</Text>
+    </View>
+    <TouchableOpacity style={styles.button}>
+      <View style={styles.changePasswordRow}>
+        <Text style={styles.changePassword}>Change Password</Text>
+        <EntypoIcon
+          name="chevron-small-right"
+          style={styles.icon}
+        ></EntypoIcon>
+      </View>
+    </TouchableOpacity>
+    <TouchableOpacity style={styles.button2}>
+      <View style={styles.groupsRow}>
+        <Text style={styles.groups}>Groups</Text>
+        <FontAwesomeIcon
+          name="group"
+          style={styles.icon4}
+        ></FontAwesomeIcon>
+      </View>
+    </TouchableOpacity>
+    <TouchableOpacity style={styles.button3}>
+      <View style={styles.recentDevicesRow}>
+        <Text style={styles.recentDevices}>Recent Devices</Text>
+        <MaterialCommunityIconsIcon
+          name="monitor-cellphone"
+          style={styles.icon5}
+        ></MaterialCommunityIconsIcon>
+      </View>
+    </TouchableOpacity>
+    <TouchableOpacity style={styles.button4}>
+      <View style={styles.logOutRow}>
+        <Text style={styles.logOut}>Log Out</Text>
+          <IoniconsIcon name="ios-exit" style={styles.icon2}/>
+      </View>
+    </TouchableOpacity>
     </ScrollView>
   </View>
-  <View style={styles.rect}>
-    <Text style={styles.emailId}>Email ID</Text>
-    <Text style={styles.loremIpsum}>adarshnair210@gmail.com</Text>
-  </View>
-  <TouchableOpacity style={styles.button}>
-    <View style={styles.changePasswordRow}>
-      <Text style={styles.changePassword}>Change Password</Text>
-      <EntypoIcon
-        name="chevron-small-right"
-        style={styles.icon}
-      ></EntypoIcon>
-    </View>
-  </TouchableOpacity>
-  <TouchableOpacity style={styles.button2}>
-    <View style={styles.groupsRow}>
-      <Text style={styles.groups}>Groups</Text>
-      <FontAwesomeIcon
-        name="group"
-        style={styles.icon4}
-      ></FontAwesomeIcon>
-    </View>
-  </TouchableOpacity>
-  <TouchableOpacity style={styles.button3}>
-    <View style={styles.recentDevicesRow}>
-      <Text style={styles.recentDevices}>Recent Devices</Text>
-      <MaterialCommunityIconsIcon
-        name="monitor-cellphone"
-        style={styles.icon5}
-      ></MaterialCommunityIconsIcon>
-    </View>
-  </TouchableOpacity>
-</View>
-<View style={styles.rect5}>
-  <View style={styles.ellipseStackRow}>
-    <View style={styles.ellipseStack}>
-      <Svg viewBox="0 0 89.43 91.7" style={styles.ellipse}>
-        <Ellipse
-          stroke="rgba(230, 230, 230,1)"
-          strokeWidth={0}
-          cx={45}
-          cy={46}
-          rx={45}
-          ry={46}
-          fill="rgba(230, 230, 230,1)"
-        ></Ellipse>
-      </Svg>
-      <FeatherIcon name="plus-circle" style={styles.icon6}></FeatherIcon>
-    </View>
-    <View style={styles.UserColumn}>
-      <Text style={styles.Name}>Adarsh Nair</Text>
-      <Text style={styles.username}>adarshnair210</Text>
-    </View>
-    <SimpleLineIconsIcon
-      name="pencil"
-      style={styles.icon3}
-    ></SimpleLineIconsIcon>
-  </View>
-</View>
 </View>
     ); 
 }
@@ -107,11 +99,6 @@ const styles = StyleSheet.create({
     height: 504,
     position: "absolute",
     backgroundColor: "#E6E6E6",
-    transform: [
-      {
-        rotate: "-0.46deg"
-      }
-    ],
     opacity: 0
   },
   scrollArea_contentContainerStyle: {
@@ -131,7 +118,6 @@ const styles = StyleSheet.create({
     marginLeft: 19
   },
   logOut: {
-    fontFamily: "raleway-700",
     color: "#121212",
     fontSize: 18,
     marginTop: 12
@@ -164,14 +150,12 @@ const styles = StyleSheet.create({
     left: 19
   },
   emailId: {
-    fontFamily: "raleway-700",
     color: "#121212",
     fontSize: 18,
     marginTop: 18,
     marginLeft: 27
   },
   loremIpsum: {
-    fontFamily: "raleway-500",
     color: "#121212",
     fontSize: 16,
     marginTop: 6,
@@ -191,7 +175,6 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   changePassword: {
-    fontFamily: "raleway-700",
     color: "#121212",
     fontSize: 18,
     marginTop: 11
@@ -225,7 +208,6 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   groups: {
-    fontFamily: "raleway-700",
     color: "#121212",
     fontSize: 18,
     marginTop: 11
@@ -259,7 +241,6 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   recentDevices: {
-    fontFamily: "raleway-700",
     color: "#121212",
     fontSize: 18,
     marginTop: 12
@@ -282,7 +263,7 @@ const styles = StyleSheet.create({
   scrollAreaStack: {
     width: 360,
     height: 504,
-    marginTop: 248
+    marginTop: 5
   },
   rect5: {
     width: 342,
@@ -296,7 +277,7 @@ const styles = StyleSheet.create({
     borderWidth: 8,
     borderColor: "rgba(0,0,0,0.35)",
     borderRadius: 21,
-    marginTop: -662,
+    marginTop: 10,
     marginLeft: 9
   },
   ellipse: {
@@ -321,12 +302,10 @@ const styles = StyleSheet.create({
     marginTop: 14
   },
   Name: {
-    fontFamily: "raleway-700",
     color: "#121212",
     fontSize: 26
   },
   username: {
-    fontFamily: "raleway-700",
     color: "#121212",
     marginTop: 19
   },
