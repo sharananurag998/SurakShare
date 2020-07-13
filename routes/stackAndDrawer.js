@@ -11,8 +11,6 @@ import {MaterialIcons} from '@expo/vector-icons';
 import Home from '../screens/home'; 
 import UserProfile from '../screens/userProfile'; 
 import ShareFiles from '../screens/shareFiles';
-import TransferHistory from '../screens/transferHistory';
-import AboutUs from '../screens/aboutUs';
 
 const Stack = createStackNavigator();
 
@@ -94,48 +92,6 @@ function ShareFilesStackNavigator({ navigation }) {
 }
 
 
-function TransferHistoryStackNavigator({ navigation }) {
-  return (
-    <Stack.Navigator
-      initialRouteName="Home"
-      screenOptions={{
-        headerLeft: ()=> <NavigationDrawerStructure navigationProps={navigation} />,
-        headerStyle: {
-          backgroundColor: '#5b0a91', //Set Header color
-        },
-        headerTintColor: '#fff', //Set Header text color
-      }}>
-      <Stack.Screen 
-        name="Transfer History" 
-        component={TransferHistory} 
-        options={{
-          title: 'Transfer History', //Set Header Title
-        }}/>
-    </Stack.Navigator>
-  );
-}
-
-function AboutUsStackNavigator({ navigation }) {
-  return (
-    <Stack.Navigator
-      initialRouteName="Home"
-      screenOptions={{
-        headerLeft: ()=> <NavigationDrawerStructure navigationProps={navigation} />,
-        headerStyle: {
-          backgroundColor: '#5b0a91', //Set Header color
-        },
-        headerTintColor: '#fff', //Set Header text color
-      }}>
-      <Stack.Screen 
-        name="About Us" 
-        component={AboutUs} 
-        options={{
-          title: 'About Us', //Set Header Title
-        }}/>
-    </Stack.Navigator>
-  );
-}
-
   const Drawer = createDrawerNavigator();
   
   export default function SurakShare() {
@@ -151,11 +107,6 @@ function AboutUsStackNavigator({ navigation }) {
           <Drawer.Screen name="Home" component={HomeStackNavigator} />
           <Drawer.Screen name="Profile" component={ProfileStackNavigator} />
           <Drawer.Screen name="Share Files" component={ShareFilesStackNavigator} />
-          <Drawer.Screen name="Groups" component={TransferHistoryStackNavigator} />
-          <Drawer.Screen name="Transfer History" component={TransferHistoryStackNavigator} />
-          <Drawer.Screen name="Document Scanner" component={TransferHistoryStackNavigator} />
-          <Drawer.Screen name="About Us" component={AboutUsStackNavigator} />
-          
         </Drawer.Navigator>
       </NavigationContainer>
     );
