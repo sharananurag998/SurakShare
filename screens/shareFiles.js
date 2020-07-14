@@ -33,6 +33,8 @@ import {
 } from 'react-native-wifi-p2p';
 import { PermissionsAndroid } from 'react-native';
 
+import Dialog, { DialogFooter, DialogButton, DialogContent, DialogTitle, Doa } from 'react-native-popup-dialog';
+
 export default class App extends PureComponent {
   state = {
     devices: []
@@ -298,7 +300,7 @@ export default class App extends PureComponent {
                 />
                 <DialogButton
                   text="OK"
-                  onPress={() => {this.props.navigation.navigate("connectToDevice")}} //Navigate to device connection screen
+                  // onPress={() => {this.props.navigation.navigate("connectToDevice")}} //Navigate to device connection screen
                 />
               </DialogFooter>
             }
