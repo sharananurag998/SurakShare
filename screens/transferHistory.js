@@ -1,9 +1,9 @@
 import React from "react";
 import { StyleSheet, View, Text, FlatList } from "react-native";
-import { ListItem } from 'react-native-elements'
+import { ListItem } from 'react-native-elements';
 
-import senderImage from'../assets/images/aniketh1.jpg'
-import receiverImage from'../assets/images/aniketh1.jpg'
+import senderImage from'../assets/images/aniketh1.jpg';
+import receiverImage from'../assets/images/aniketh1.jpg';
 
 function TransferHistory(props) {
 
