@@ -1,8 +1,17 @@
-import { registerRootComponent } from 'expo';
+import { registerRootComponent } from 'expo'
 
-import App from './App';
+import './utils/shims'
+import App from './App'
+
+// YellowBox.ignoreWarnings([
+//   'Warning: componentWillMount',
+//   'Warning: componentWillReceiveProps',
+//   'Module RCTImageLoader',
+//   'Class RCTCxxModule was not exported',
+//   'Remote debugger',
+// ])
 
 // registerRootComponent calls AppRegistry.registerComponent('main', () => App);
 // It also ensures that whether you load the app in the Expo client or in a native build,
 // the environment is set up appropriately
-registerRootComponent(App);
+registerRootComponent(App)
