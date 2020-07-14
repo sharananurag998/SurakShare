@@ -86,25 +86,16 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "rgba(124,25,202,1)",
+    backgroundColor: "#fbeeff",
     borderWidth: 0,
     borderColor: "#000000"
-  },
-  scrollArea: {
-    top: 0,
-    left: 0,
-    width: 360,
-    height: 504,
-    position: "absolute",
-    backgroundColor: "#E6E6E6",
-    opacity: 0
   },
   button4: {
     width: 322,
     height: 78,
-    backgroundColor: "#E6E6E6",
-    borderWidth: 0,
-    borderColor: "#000000",
+    backgroundColor: "rgba(124,25,202,0.3)",
+    borderWidth: 4,
+    borderColor: "rgba(124,25,202,0.7)",
     borderStyle: "solid",
     borderRadius: 21,
     flexDirection: "row",
@@ -112,9 +103,8 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   logOut: {
-    color: "#121212",
+    color: "#5b0a91",
     fontSize: 18,
-    marginTop: 12
   },
   icon2: {
     color: "rgba(19,18,18,1)",
@@ -136,21 +126,26 @@ const styles = StyleSheet.create({
     width: 322,
     height: 78,
     position: "absolute",
-    backgroundColor: "#E6E6E6",
-    borderWidth: 0,
-    borderColor: "#000000",
+    backgroundColor: "rgba(124,25,202,0.3)",
+    borderWidth: 4,
+    shadowColor:"rgba(124,25,202,1)",
+    shadowRadius:10,
+    shadowOpacity:1,
+    borderColor: "rgba(124,25,202,0.7)",
     borderStyle: "solid",
     borderRadius: 21,
     alignSelf: "center"
   },
   emailId: {
-    color: "#121212",
     fontSize: 18,
-    marginTop: 18,
-    marginLeft: 27
+    marginTop: 10,
+    marginLeft: 27,
+    color: "#5b0a91",
+    fontSize: 18,
   },
   loremIpsum: {
-    color: "#121212",
+    
+    color: "#5b0a91",
     fontSize: 16,
     marginTop: 6,
     marginLeft: 27
@@ -160,16 +155,16 @@ const styles = StyleSheet.create({
     width: 322,
     height: 78,
     position: "absolute",
-    backgroundColor: "#E6E6E6",
-    borderWidth: 0,
-    borderColor: "#000000",
-    borderStyle: "solid",
+    backgroundColor: "rgba(124,25,202,0.3)",
+    borderWidth: 4,
+    borderColor: "rgba(124,25,202,0.7)",
+    borderStyle:"solid",
     borderRadius: 21,
     alignSelf: "center",
     flexDirection: "row"
   },
   changePassword: {
-    color: "#121212",
+    color: "#5b0a91",
     fontSize: 18
   },
   icon: {
@@ -192,16 +187,16 @@ const styles = StyleSheet.create({
     width: 322,
     height: 78,
     position: "absolute",
-    backgroundColor: "#E6E6E6",
-    borderWidth: 0,
-    borderColor: "#000000",
+    backgroundColor: "rgba(124,25,202,0.3)",
+    borderWidth: 4,
+    borderColor: "rgba(124,25,202,0.7)",
     borderStyle: "solid",
     borderRadius: 21,
     alignSelf: "center",
     flexDirection: "row"
   },
   groups: {
-    color: "#121212",
+    color: "#5b0a91",
     fontSize: 18,
   },
   icon4: {
@@ -224,9 +219,9 @@ const styles = StyleSheet.create({
     width: 322,
     height: 78,
     position: "absolute",
-    backgroundColor: "#E6E6E6",
-    borderWidth: 0,
-    borderColor: "#000000",
+    backgroundColor: "rgba(124,25,202,0.3)",
+    borderWidth: 4,
+    borderColor: "rgba(124,25,202,0.7)",
     borderStyle: "solid",
     borderRadius: 21,
     alignSelf: "center",
@@ -234,7 +229,7 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   recentDevices: {
-    color: "#121212",
+    color: "#5b0a91",
     fontSize: 18,
   },
   icon5: {
@@ -260,9 +255,9 @@ const styles = StyleSheet.create({
   rect5: {
     width: 342,
     height: 155,
-    backgroundColor: "rgba(255,255,255,0.25)",
+    backgroundColor: "rgba(124,25,202,0.7)",
     borderWidth: 8,
-    borderColor: "rgba(0,0,0,0.35)",
+    borderColor: "rgba(124,25,202,1)",
     borderRadius: 21,
     marginTop: 10,
     display:"flex",
