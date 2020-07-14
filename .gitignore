@@ -145,3 +145,9 @@ buck-out/
 # Expo
 .expo/*
 web-build/
+android/.settings/org.eclipse.buildship.core.prefs
+android/app/.settings/org.eclipse.buildship.core.prefs
+android/app/.project
+android/app/.classpath
+android/.project
+android/java_pid16932.hprof

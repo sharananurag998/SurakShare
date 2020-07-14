@@ -16,6 +16,7 @@ import TransferHistory from '../screens/transferHistory';
 import WalletOverview from '../screens/WalletOverview';
 import CreateWallet from '../screens/CreateWallet';
 import AboutUs from '../screens/aboutUs';
+import QrScan from '../screens/qrScan';
 
 const Stack = createStackNavigator();
 

@@ -16,6 +16,18 @@ function aboutUs(props)
         {
             name:"Aniketh Hotagi",
             role:"Full Stack Developer"
+        },
+        {
+            name:"Abdul Mateen",
+            role:"Full Stack Developer"
+        },
+        {
+            name:"Adarsh Nair",
+            role:"Full Stack Developer"
+        },
+        {
+            name:"Ankit Jaiswal",
+            role:"Full Stack Developer"
         }
     ]
     const keyExtractor = (item, index) => index.toString()
