@@ -6,6 +6,7 @@ import 'react-native-gesture-handler';
 import * as React from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import {MaterialIcons} from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 
 //Screen Imports
 import Home from '../screens/home'; 
@@ -32,6 +33,18 @@ const NavigationDrawerStructure = (props)=> {
   );
 }
 
+// App Header Config 
+
+const header = {
+  headerLeft: ()=> <NavigationDrawerStructure navigationProps={navigation} />,
+  headerStyle: {
+    backgroundColor: '#5b0a91', //Set Header color
+  },
+  headerTintColor: '#fff', //Set Header text color
+  title: 'SurakShare',
+  headerRight: ()=> <TouchableOpacity><MaterialCommunityIcons name="qrcode-scan" size={24} color="white" /></TouchableOpacity>,
+  headerLayoutPreset: 'center'
+}
 
 function HomeStackNavigator({ navigation }) {
   return (
@@ -40,12 +53,27 @@ function HomeStackNavigator({ navigation }) {
         name="Home" 
         component={Home} 
         options={{
-          title: 'Home', //Set Header Title
           headerLeft: ()=> <NavigationDrawerStructure navigationProps={navigation} />,
           headerStyle: {
             backgroundColor: '#5b0a91', //Set Header color
           },
           headerTintColor: '#fff', //Set Header text color
+          title: 'SurakShare',
+          headerRight: ()=> <TouchableOpacity><MaterialCommunityIcons name="qrcode-scan" size={24} color="white" style={{right:10}}/></TouchableOpacity>,
+          headerLayoutPreset: 'center'
+        }}/>
+      <Stack.Screen 
+        name="TransferHistory" 
+        component={TransferHistory} 
+        options={{
+          headerLeft: ()=> <NavigationDrawerStructure navigationProps={navigation} />,
+          headerStyle: {
+            backgroundColor: '#5b0a91', //Set Header color
+          },
+          headerTintColor: '#fff', //Set Header text color
+          title: 'Transfer History',
+          headerRight: ()=> <TouchableOpacity><MaterialCommunityIcons name="qrcode-scan" size={24} color="white" style={{right:10}}/></TouchableOpacity>,
+          headerLayoutPreset: 'center'
         }}/>
     </Stack.Navigator>
   );
@@ -61,6 +89,9 @@ function ProfileStackNavigator({ navigation }) {
             backgroundColor: '#5b0a91', //Set Header color
           },
           headerTintColor: '#fff', //Set Header text color
+          title: 'SurakShare',
+          headerRight: ()=> <TouchableOpacity><MaterialCommunityIcons name="qrcode-scan" size={24} color="white" style={{right:10}}/></TouchableOpacity>,
+          headerLayoutPreset: 'center'
         }}>
         <Stack.Screen 
           name="Profile" 
@@ -82,6 +113,9 @@ function ShareFilesStackNavigator({ navigation }) {
           backgroundColor: '#5b0a91', //Set Header color
         },
         headerTintColor: '#fff', //Set Header text color
+        title: 'SurakShare',
+        headerRight: ()=> <TouchableOpacity><MaterialCommunityIcons name="qrcode-scan" size={24} color="white" style={{right:10}}/></TouchableOpacity>,
+        headerLayoutPreset: 'center'
       }}>
       <Stack.Screen 
         name="Share Files" 
@@ -104,6 +138,9 @@ function TransferHistoryStackNavigator({ navigation }) {
           backgroundColor: '#5b0a91', //Set Header color
         },
         headerTintColor: '#fff', //Set Header text color
+        title: 'SurakShare',
+        headerRight: ()=> <TouchableOpacity><MaterialCommunityIcons name="qrcode-scan" size={24} color="white" style={{right:10}}/></TouchableOpacity>,
+        headerLayoutPreset: 'center'
       }}>
       <Stack.Screen 
         name="Transfer History" 
@@ -125,6 +162,9 @@ function AboutUsStackNavigator({ navigation }) {
           backgroundColor: '#5b0a91', //Set Header color
         },
         headerTintColor: '#fff', //Set Header text color
+        title: 'SurakShare',
+        headerRight: ()=> <TouchableOpacity><MaterialCommunityIcons name="qrcode-scan" size={24} color="white" style={{right:10}}/></TouchableOpacity>,
+        headerLayoutPreset: 'center'
       }}>
       <Stack.Screen 
         name="About Us" 
