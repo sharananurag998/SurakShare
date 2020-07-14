@@ -85,7 +85,8 @@ const styles = StyleSheet.create({
     },
     SendButton:{
         height:90,
-        color:"white",
+        borderWidth:4,
+        borderColor:"#005221",
         backgroundColor:"#006400",
         fontSize:40,
         flexDirection:"row",
@@ -104,6 +105,8 @@ const styles = StyleSheet.create({
         alignContent:"center",
         alignSelf:"center",
         width:"90%",
+        borderWidth:4,
+        borderColor:"#1c2e4a",
     }, 
     PrivateButton:{
         height:100,
@@ -115,6 +118,8 @@ const styles = StyleSheet.create({
         alignContent:"center",
         alignSelf:"center",
         width:"90%",
+        borderWidth:4,
+        borderColor:"#7C0A02",
     }, 
     ButtonRow:{
         margin:10,
