@@ -14,6 +14,7 @@ import UserProfile from '../screens/userProfile';
 import ShareFiles from '../screens/shareFiles';
 import TransferHistory from '../screens/transferHistory';
 import AboutUs from '../screens/aboutUs';
+import QrScan from '../screens/qrScan';
 
 const Stack = createStackNavigator();
 
@@ -42,7 +43,7 @@ const header = {
   },
   headerTintColor: '#fff', //Set Header text color
   title: 'SurakShare',
-  headerRight: ()=> <TouchableOpacity><MaterialCommunityIcons name="qrcode-scan" size={24} color="white" /></TouchableOpacity>,
+  headerRight: ()=> <TouchableOpacity onPress={()=>{navigation.navigate("QrScan")}}><MaterialCommunityIcons name="qrcode-scan" size={24} color="white" /></TouchableOpacity>,
   headerLayoutPreset: 'center'
 }
 
@@ -59,7 +60,7 @@ function HomeStackNavigator({ navigation }) {
           },
           headerTintColor: '#fff', //Set Header text color
           title: 'SurakShare',
-          headerRight: ()=> <TouchableOpacity><MaterialCommunityIcons name="qrcode-scan" size={24} color="white" style={{right:10}}/></TouchableOpacity>,
+          headerRight: ()=> <TouchableOpacity onPress={()=>{navigation.navigate("QrScan")}}><MaterialCommunityIcons name="qrcode-scan" size={24} color="white" style={{right:10}}/></TouchableOpacity>,
           headerLayoutPreset: 'center'
         }}/>
       <Stack.Screen 
@@ -72,7 +73,20 @@ function HomeStackNavigator({ navigation }) {
           },
           headerTintColor: '#fff', //Set Header text color
           title: 'Transfer History',
-          headerRight: ()=> <TouchableOpacity><MaterialCommunityIcons name="qrcode-scan" size={24} color="white" style={{right:10}}/></TouchableOpacity>,
+          headerRight: ()=> <TouchableOpacity onPress={()=>{navigation.navigate("QrScan")}}><MaterialCommunityIcons name="qrcode-scan" size={24} color="white" style={{right:10}}/></TouchableOpacity>,
+          headerLayoutPreset: 'center'
+        }}/>
+        <Stack.Screen 
+        name="QrScan" 
+        component={QrScan} 
+        options={{
+          headerLeft: ()=> <NavigationDrawerStructure navigationProps={navigation} />,
+          headerStyle: {
+            backgroundColor: '#5b0a91', //Set Header color
+          },
+          headerTintColor: '#fff', //Set Header text color
+          title: 'QR Scanner',
+          headerRight: ()=> <TouchableOpacity onPress={()=>{navigation.navigate("QrScan")}}><MaterialCommunityIcons name="qrcode-scan" size={24} color="white" style={{right:10}}/></TouchableOpacity>,
           headerLayoutPreset: 'center'
         }}/>
     </Stack.Navigator>
@@ -90,7 +104,7 @@ function ProfileStackNavigator({ navigation }) {
           },
           headerTintColor: '#fff', //Set Header text color
           title: 'SurakShare',
-          headerRight: ()=> <TouchableOpacity><MaterialCommunityIcons name="qrcode-scan" size={24} color="white" style={{right:10}}/></TouchableOpacity>,
+          headerRight: ()=> <TouchableOpacity onPress={()=>{navigation.navigate("QrScan")}}><MaterialCommunityIcons name="qrcode-scan" size={24} color="white" style={{right:10}}/></TouchableOpacity>,
           headerLayoutPreset: 'center'
         }}>
         <Stack.Screen 
@@ -99,6 +113,19 @@ function ProfileStackNavigator({ navigation }) {
           options={{
             title: 'User Profile', //Set Header Title
           }}/>
+        <Stack.Screen 
+        name="QrScan" 
+        component={QrScan} 
+        options={{
+          headerLeft: ()=> <NavigationDrawerStructure navigationProps={navigation} />,
+          headerStyle: {
+            backgroundColor: '#5b0a91', //Set Header color
+          },
+          headerTintColor: '#fff', //Set Header text color
+          title: 'QR Scanner',
+          headerRight: ()=> <TouchableOpacity onPress={()=>{navigation.navigate("QrScan")}}><MaterialCommunityIcons name="qrcode-scan" size={24} color="white" style={{right:10}}/></TouchableOpacity>,
+          headerLayoutPreset: 'center'
+        }}/>
       </Stack.Navigator>
     );
 }
@@ -114,7 +141,7 @@ function ShareFilesStackNavigator({ navigation }) {
         },
         headerTintColor: '#fff', //Set Header text color
         title: 'SurakShare',
-        headerRight: ()=> <TouchableOpacity><MaterialCommunityIcons name="qrcode-scan" size={24} color="white" style={{right:10}}/></TouchableOpacity>,
+        headerRight: ()=> <TouchableOpacity onPress={()=>{navigation.navigate("QrScan")}}><MaterialCommunityIcons name="qrcode-scan" size={24} color="white" style={{right:10}}/></TouchableOpacity>,
         headerLayoutPreset: 'center'
       }}>
       <Stack.Screen 
@@ -122,6 +149,19 @@ function ShareFilesStackNavigator({ navigation }) {
         component={ShareFiles} 
         options={{
           title: 'Share Files', //Set Header Title
+        }}/>
+      <Stack.Screen 
+        name="QrScan" 
+        component={QrScan} 
+        options={{
+          headerLeft: ()=> <NavigationDrawerStructure navigationProps={navigation} />,
+          headerStyle: {
+            backgroundColor: '#5b0a91', //Set Header color
+          },
+          headerTintColor: '#fff', //Set Header text color
+          title: 'QR Scanner',
+          headerRight: ()=> <TouchableOpacity onPress={()=>{navigation.navigate("QrScan")}}><MaterialCommunityIcons name="qrcode-scan" size={24} color="white" style={{right:10}}/></TouchableOpacity>,
+          headerLayoutPreset: 'center'
         }}/>
     </Stack.Navigator>
   );
@@ -139,7 +179,7 @@ function TransferHistoryStackNavigator({ navigation }) {
         },
         headerTintColor: '#fff', //Set Header text color
         title: 'SurakShare',
-        headerRight: ()=> <TouchableOpacity><MaterialCommunityIcons name="qrcode-scan" size={24} color="white" style={{right:10}}/></TouchableOpacity>,
+        headerRight: ()=> <TouchableOpacity onPress={()=>{navigation.navigate("QrScan")}}><MaterialCommunityIcons name="qrcode-scan" size={24} color="white" style={{right:10}}/></TouchableOpacity>,
         headerLayoutPreset: 'center'
       }}>
       <Stack.Screen 
@@ -147,6 +187,19 @@ function TransferHistoryStackNavigator({ navigation }) {
         component={TransferHistory} 
         options={{
           title: 'Transfer History', //Set Header Title
+        }}/>
+      <Stack.Screen 
+        name="QrScan" 
+        component={QrScan} 
+        options={{
+          headerLeft: ()=> <NavigationDrawerStructure navigationProps={navigation} />,
+          headerStyle: {
+            backgroundColor: '#5b0a91', //Set Header color
+          },
+          headerTintColor: '#fff', //Set Header text color
+          title: 'QR Scanner',
+          headerRight: ()=> <TouchableOpacity><MaterialCommunityIcons name="qrcode-scan" size={24} color="white" style={{right:10}}/></TouchableOpacity>,
+          headerLayoutPreset: 'center'
         }}/>
     </Stack.Navigator>
   );
@@ -163,7 +216,7 @@ function AboutUsStackNavigator({ navigation }) {
         },
         headerTintColor: '#fff', //Set Header text color
         title: 'SurakShare',
-        headerRight: ()=> <TouchableOpacity><MaterialCommunityIcons name="qrcode-scan" size={24} color="white" style={{right:10}}/></TouchableOpacity>,
+        headerRight: ()=> <TouchableOpacity onPress={()=>{navigation.navigate("QrScan")}}><MaterialCommunityIcons name="qrcode-scan" size={24} color="white" style={{right:10}}/></TouchableOpacity>,
         headerLayoutPreset: 'center'
       }}>
       <Stack.Screen 
@@ -171,6 +224,19 @@ function AboutUsStackNavigator({ navigation }) {
         component={AboutUs} 
         options={{
           title: 'About Us', //Set Header Title
+        }}/>
+      <Stack.Screen 
+        name="QrScan" 
+        component={QrScan} 
+        options={{
+          headerLeft: ()=> <NavigationDrawerStructure navigationProps={navigation} />,
+          headerStyle: {
+            backgroundColor: '#5b0a91', //Set Header color
+          },
+          headerTintColor: '#fff', //Set Header text color
+          title: 'QR Scanner',
+          headerRight: ()=> <TouchableOpacity><MaterialCommunityIcons name="qrcode-scan" size={24} color="white" style={{right:10}}/></TouchableOpacity>,
+          headerLayoutPreset: 'center'
         }}/>
     </Stack.Navigator>
   );
