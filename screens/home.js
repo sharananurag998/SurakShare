@@ -65,7 +65,7 @@ export default function Home(props) {
                         keyExtractor={keyExtractor}
                         data={shortTransfers}
                         renderItem={renderItem}/>
-                    <View style={{alignSelf:"center", marginTop:-50, backgroundColor:"#5b0a91", height: 40, borderRadius:20}}><TouchableOpacity onPress={() => props.navigation.navigate("TransferHistory")}><Text style={{color:"white", padding:10}}>View More</Text></TouchableOpacity></View>
+                    <View style={{alignSelf:"center", marginTop:-90,marginBottom:10, backgroundColor:"#5b0a91", height: 40, borderRadius:20}}><TouchableOpacity onPress={() => props.navigation.navigate("TransferHistory")}><Text style={{color:"white", padding:10}}>View More</Text></TouchableOpacity></View>
                 </View>
             </View>    
             
@@ -84,11 +84,14 @@ const styles = StyleSheet.create({
         maxHeight: "70%"
     },
     SendButton:{
-        height:100,
+        height:90,
         color:"white",
         backgroundColor:"#006400",
         fontSize:40,
         flexDirection:"row",
+        alignContent:"center",
+        alignSelf:"center",
+        width:"90%",
         borderRadius:20,
     }, 
     ReceiveButton:{
@@ -98,6 +101,9 @@ const styles = StyleSheet.create({
         fontSize:40,
         flexDirection:"row",
         borderRadius:20,
+        alignContent:"center",
+        alignSelf:"center",
+        width:"90%",
     }, 
     PrivateButton:{
         height:100,
@@ -106,6 +112,9 @@ const styles = StyleSheet.create({
         fontSize:40,
         flexDirection:"row",
         borderRadius:20,
+        alignContent:"center",
+        alignSelf:"center",
+        width:"90%",
     }, 
     ButtonRow:{
         margin:10,
@@ -127,7 +136,7 @@ const styles = StyleSheet.create({
     RecentItemsContainer:{
         margin:10,
         borderRadius:10,
-        width:"95%",
+        width:"90%",
         height:"70%",
         backgroundColor:"#f3ccff",
     },
