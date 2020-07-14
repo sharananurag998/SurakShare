@@ -33,7 +33,7 @@ import {
 } from 'react-native-wifi-p2p';
 import { PermissionsAndroid } from 'react-native';
 
-import Dialog, { DialogFooter, DialogButton, DialogContent, DialogTitle, Doa } from 'react-native-popup-dialog';
+import Dialog, { DialogFooter, DialogButton, DialogContent, DialogTitle } from 'react-native-popup-dialog';
 
 export default class App extends PureComponent {
   state = {
@@ -232,58 +232,6 @@ export default class App extends PureComponent {
   render() {
     return (
       <View style={styles.container}>
-        {/* <Button
-          title="Connect"
-          onPress={this.connectToFirstDevice}
-        />
-        <Button
-          title="Cancel connect"
-          onPress={this.onCancelConnect}
-        />
-        <Button
-          title="Create group"
-          onPress={this.onCreateGroup}
-        />
-        <Button
-          title="Remove group"
-          onPress={this.onRemoveGroup}
-        />
-        <Button
-          title="Investigate"
-          onPress={this.onStartInvestigate}
-        />
-        <Button
-          title="Prevent Investigation"
-          onPress={this.onStopInvestigation}
-        />
-        <Button
-          title="Get Available Devices"
-          onPress={this.onGetAvailableDevices}
-        />
-        <Button
-          title="Get connection Info"
-          onPress={this.onGetConnectionInfo}
-        />
-        <Button
-          title="Get group info"
-          onPress={this.onGetGroupInfo}
-        />
-        <Button
-          title="Send file"
-          onPress={this.onSendFile}
-        />
-        <Button
-          title="Receive file"
-          onPress={this.onReceiveFile}
-        />
-        <Button
-          title="Send message"
-          onPress={this.onSendMessage}
-        />
-        <Button
-          title="Receive message"
-          onPress={this.onReceiveMessage}
-        /> */}
 
         <Text>Select a device from the list: -</Text>
         <Dialog
