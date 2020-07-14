@@ -11,14 +11,14 @@ function TransferHistory(props) {
     {
       from:"Adarsh",
       to:"Anurag",
-      date:"12-10-2020",
+      date:"10-07-2020",
       filename:"file.jpg"
     },
     {
       from:"Aniketh",
       to:"Anurag",
-      date:"12-10-2020",
-      filename:"file.jpg"
+      date:"13-07-2020",
+      filename:"file2.jpg"
     },
   ]
 
