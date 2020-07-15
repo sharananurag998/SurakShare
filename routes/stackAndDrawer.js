@@ -20,6 +20,7 @@ import ConfirmMnemonics from '../screens/ConfirmMnemonics';
 import WalletCreated from '../screens/WalletCreated';
 import AboutUs from '../screens/aboutUs';
 import QrScan from '../screens/qrScan';
+import DocScanner from '../screens/DocumentScanner';
 
 const Stack = createStackNavigator();
 
@@ -272,6 +273,38 @@ function AboutUsStackNavigator({ navigation }) {
     );
 }
 
+function DocumentScannerStackNavigator({ navigation }) {
+    return (
+        <Stack.Navigator
+            initialRouteName='Home'
+            screenOptions={{
+                headerLeft: () => <NavigationDrawerStructure navigationProps={navigation} />,
+                headerStyle: {
+                    backgroundColor: '#5b0a91', //Set Header color
+                },
+                headerTintColor: '#fff', //Set Header text color
+                title: 'SurakShare',
+                headerRight: () => (
+                    <TouchableOpacity
+                        onPress={() => {
+                            navigation.navigate('QrScan');
+                        }}>
+                        <MaterialCommunityIcons name='qrcode-scan' size={24} color='white' style={{ right: 10 }} />
+                    </TouchableOpacity>
+                ),
+                headerLayoutPreset: 'center',
+            }}>
+            <Stack.Screen
+                name='Document Scanner'
+                component={DocScanner}
+                options={{
+                    title: 'Document Scanner', //Set Header Title
+                }}
+            />
+        </Stack.Navigator>
+    );
+}
+
 const Drawer = createDrawerNavigator();
 
 export default function SurakShare() {
@@ -289,7 +322,8 @@ export default function SurakShare() {
                 <Drawer.Screen name='Share Files' component={ShareFilesStackNavigator} />
                 <Drawer.Screen name='Groups' component={TransferHistoryStackNavigator} />
                 <Drawer.Screen name='Transfer History' component={TransferHistoryStackNavigator} />
-                <Drawer.Screen name='Document Scanner' component={TransferHistoryStackNavigator} />
+                <Drawer.Screen name='Document Scanner' component={DocumentScannerStackNavigator} />
+                <Drawer.Screen name='About Us' component={AboutUsStackNavigator} />
                 <Drawer.Screen
                     name='OnlineFileShare'
                     component={OnlineFileStackNavigator}
@@ -297,7 +331,6 @@ export default function SurakShare() {
                         title: 'Share Files on BlockChain', //Set Header Title
                     }}
                 />
-                <Drawer.Screen name='About Us' component={AboutUsStackNavigator} />
             </Drawer.Navigator>
         </NavigationContainer>
     );

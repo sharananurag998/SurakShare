@@ -21,7 +21,7 @@ export default class WalletCreated extends Component {
 
         const wallet = Wallet.fromMnemonic(mnemonics);
         wallet.provider = this.state.PROVIDER;
-        this.props.navigation.navigate('Home');
+        this.props.navigation.navigate('Home', { wallet });
     };
 
     render() {

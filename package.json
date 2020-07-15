@@ -7,6 +7,7 @@
     "android-linux": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res && react-native run-android"
   },
   "dependencies": {
+    "@react-native-community/cli-platform-android": "^4.10.1",
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/drawer": "^5.8.5",
     "@react-navigation/native": "^5.7.0",
@@ -24,6 +25,7 @@
     "react-dom": "~16.11.0",
     "react-native": "0.63.0",
     "react-native-camera": "^3.31.1",
+    "react-native-document-scanner": "^1.4.2",
     "react-native-elements": "^2.0.4",
     "react-native-gesture-handler": "~1.6.0",
     "react-native-linear-gradient": "^2.5.6",
@@ -32,6 +34,7 @@
     "react-native-qrcode-scanner": "^1.4.1",
     "react-native-reanimated": "~1.9.0",
     "react-native-safe-area-context": "~3.0.7",
+    "react-native-scanbot-sdk": "^4.0.1",
     "react-native-screens": "~2.9.0",
     "react-native-svg": "^12.1.0",
     "react-native-touchable-scale": "^2.1.1",
@@ -52,5 +55,6 @@
   },
   "private": true,
   "name": "SurakShare",
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "author": "The Bug Slayers"
 }
