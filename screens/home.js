@@ -141,6 +141,7 @@ const styles = StyleSheet.create({
     },
     RecentItemsContainer:{
         margin:10,
+        marginTop:35,
         borderRadius:10,
         width:"90%",
         height:"70%",
