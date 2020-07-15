@@ -51,13 +51,13 @@ export default function Home(props) {
             
             <View style={styles.ButtonContainer}>
                 <View style={styles.ButtonRow}>
-                    <TouchableScale ><View style={styles.SendButton}><Text style={styles.ButtonText}>Send Files</Text><MaterialIcons name="send" color="white" size={40} style={styles.icon}/></View></TouchableScale >
+                    <TouchableScale ><View style={styles.SendButton}><Text style={styles.ButtonText}>Send Files</Text><MaterialIcons name="send" color="white" size={30} style={styles.icon}/></View></TouchableScale >
                 </View>
                 <View style={styles.ButtonRow}>
-                    <TouchableScale ><View style={styles.ReceiveButton}><Text style={styles.ButtonText}>Receive Files</Text><MaterialIcons name="file-download" color="white" size={40} style={styles.icon}/></View></TouchableScale >
+                    <TouchableScale ><View style={styles.ReceiveButton}><Text style={styles.ButtonText}>Receive Files</Text><MaterialIcons name="file-download" color="white" size={30} style={styles.icon}/></View></TouchableScale >
                 </View>
                 <View style={styles.ButtonRow}>
-                    <TouchableScale ><View style={styles.PrivateButton}><Text style={styles.ButtonText}>Online Sharing</Text><Entypo name="network" color="white" size={40} style={styles.icon}/></View></TouchableScale >
+                    <TouchableScale ><View style={styles.PrivateButton}><Text style={styles.ButtonText}>Online Sharing</Text><Entypo name="network" color="white" size={30} style={styles.icon}/></View></TouchableScale >
                 </View>
                 <View style={styles.RecentItemsContainer}>
                     <Text style={{alignSelf:"center", fontSize:20, color:"black", margin:10 }}>Recently Shared</Text>
@@ -84,49 +84,50 @@ const styles = StyleSheet.create({
         maxHeight: "70%"
     },
     SendButton:{
-        height:90,
-        borderWidth:4,
-        borderColor:"#005221",
-        backgroundColor:"#006400",
+        height:80,
+        // borderWidth:4,
+        // borderColor:"#005221",
+        backgroundColor:"#20C203",
         fontSize:40,
         flexDirection:"row",
         alignContent:"center",
         alignSelf:"center",
-        width:"90%",
-        borderRadius:20,
+        width:"80%",
+        borderRadius:45,
     }, 
     ReceiveButton:{
-        height:100,
+        height:80,
         color:"white",
-        backgroundColor:"#113F99",
+        backgroundColor:"#0B6FA4",
         fontSize:40,
         flexDirection:"row",
-        borderRadius:20,
+        borderRadius:45,
         alignContent:"center",
         alignSelf:"center",
-        width:"90%",
-        borderWidth:4,
-        borderColor:"#1c2e4a",
+        width:"80%",
+        //borderWidth:4,
+        //borderColor:"#1c2e4a",
     }, 
     PrivateButton:{
-        height:100,
+        height:80,
         color:"white",
-        backgroundColor:"#A91B0D",
+        backgroundColor:"#C40B0B",
         fontSize:40,
         flexDirection:"row",
-        borderRadius:20,
+        borderRadius:45,
         alignContent:"center",
         alignSelf:"center",
-        width:"90%",
-        borderWidth:4,
-        borderColor:"#7C0A02",
+        width:"80%",
+        //borderWidth:4,
+        //borderColor:"#7C0A02",
     }, 
     ButtonRow:{
         margin:10,
         width:370,
+        paddingBottom:10
     },
     ButtonText:{
-        fontSize:30,
+        fontSize:25,
         color:"white",
         justifyContent:"center",
         marginLeft:"10%",
