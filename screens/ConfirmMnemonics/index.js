@@ -6,8 +6,8 @@ export default class VeifyMnemonic extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text>Verify Mnemonic</Text>
-                <TouchableOpacity onPress={this.props.navigation.navigate('Home')}>
+                <Text>Confirm Mnemonic</Text>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}>
                     <Text>PP Soft</Text>
                 </TouchableOpacity>
             </View>

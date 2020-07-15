@@ -10,14 +10,7 @@ export default class CreateWallet extends Component {
             <View style={styles.container}>
                 <View style={styles.ellipseStack}>
                     <Svg viewBox='0 0 705.44 582.3' style={styles.ellipse}>
-                        <Ellipse
-                            stroke='rgba(0,0,0,0.29)'
-                            strokeWidth={6}
-                            fill='rgba(230, 230, 230,1)'
-                            cx={353}
-                            cy={291}
-                            rx={350}
-                            ry={288}></Ellipse>
+                        <Ellipse stroke='rgba(0,0,0,0.29)' strokeWidth={6} fill='rgba(230, 230, 230,1)' cx={353} cy={291} rx={350} ry={288}></Ellipse>
                     </Svg>
                     <Image
                         source={require('../../assets/images/nick-adams-yTWq8n3-4k0-unsplash.jpg')}
@@ -30,11 +23,11 @@ export default class CreateWallet extends Component {
                                 <Text style={styles.title}>Manual Backup </Text>
                                 <Text style={styles.textBlock}>If you lose your wallet, you will need the Recovery Phrase.</Text>
                                 <Text style={styles.textBlock}>
-                                    Write these twelve words down and save them, think of it as your password for the wallet
+                                    Write these twelve words down and save them, think of it as the password for your wallet
                                 </Text>
                                 <Text style={styles.textBlock}>Never share these with anyone else.</Text>
                             </View>
-                            <TouchableOpacity style={styles.button} onPress={this.props.navigation.navigate('RevealMnemonic')}>
+                            <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('RevealMnemonic')}>
                                 <Text style={styles.text}>Manual Backup</Text>
                             </TouchableOpacity>
                         </View>

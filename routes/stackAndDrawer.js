@@ -15,6 +15,8 @@ import ShareFiles from '../screens/shareFiles';
 import TransferHistory from '../screens/transferHistory';
 import WalletOverview from '../screens/WalletOverview';
 import CreateWallet from '../screens/CreateWallet';
+import RevealMnemonic from '../screens/RevealMnemonic';
+import ConfirmMnemonics from '../screens/ConfirmMnemonics';
 import AboutUs from '../screens/aboutUs';
 import QrScan from '../screens/qrScan';
 
@@ -213,6 +215,20 @@ function OnlineFileStackNavigator({ navigation }) {
                 component={CreateWallet}
                 options={{
                     title: 'Create a Wallet', //Set Header Title
+                }}
+            />
+            <Stack.Screen
+                name='RevealMnemonic'
+                component={RevealMnemonic}
+                options={{
+                    title: 'Reveal Mnemonic', //Set Header Title
+                }}
+            />
+            <Stack.Screen
+                name='ConfirmMnemonics'
+                component={ConfirmMnemonics}
+                options={{
+                    title: 'Confirm Mnemonic', //Set Header Title
                 }}
             />
         </Stack.Navigator>

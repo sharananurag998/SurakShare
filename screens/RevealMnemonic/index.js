@@ -2,33 +2,49 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Image, TouchableOpacity, Text } from 'react-native';
 import Svg, { Ellipse } from 'react-native-svg';
 import ethers from 'ethers';
+import { color } from 'react-native-reanimated';
 const { HDNode, providers, utils, Wallet } = ethers;
 
 export default class RevealMnemonic extends Component {
-    state = { wallet: null };
+    state = { mnemonics: null };
 
-    componentDidMount() {
-        this.generateMnemonics();
-    }
+    renderMnemonic = (mnemonicWord, index) => {
+        return (
+            <View style={styles.mnemonic} key={index}>
+                <Text style={{ color: 'white', fontSize: 17.5 }}>{mnemonicWord}</Text>
+            </View>
+        );
+    };
 
-    generateMnemonics() {
-        // return
-        console.log(HDNode.entropyToMnemonic(utils.randomBytes(16)).split(' '));
-    }
+    onPressRender = () => {
+        const { mnemonics } = this.state;
+
+        return mnemonics ? (
+            <View style={styles.mnemonicsContainer}>{mnemonics.map(this.renderMnemonic)}</View>
+        ) : (
+            <TouchableOpacity style={styles.button} onPress={this.onPressReveal}>
+                <Text style={styles.text}>Reveal</Text>
+            </TouchableOpacity>
+        );
+    };
+
+    onPressReveal = () => {
+        const mnemonics = HDNode.entropyToMnemonic(utils.randomBytes(16)).split(' ');
+        this.setState({ mnemonics });
+    };
+
+    onPressProceed = () => {
+        const { mnemonics } = this.state;
+
+        this.props.navigation.navigate('ConfirmMnemonics', { mnemonics });
+    };
 
     render() {
         return (
             <View style={styles.container}>
                 <View style={styles.ellipseStack}>
                     <Svg viewBox='0 0 705.44 582.3' style={styles.ellipse}>
-                        <Ellipse
-                            stroke='rgba(0,0,0,0.29)'
-                            strokeWidth={6}
-                            fill='rgba(230, 230, 230,1)'
-                            cx={353}
-                            cy={291}
-                            rx={350}
-                            ry={288}></Ellipse>
+                        <Ellipse stroke='rgba(0,0,0,0.29)' strokeWidth={6} fill='rgba(230, 230, 230,1)' cx={353} cy={291} rx={350} ry={288}></Ellipse>
                     </Svg>
                     <Image
                         source={require('../../assets/images/nick-adams-yTWq8n3-4k0-unsplash.jpg')}
@@ -37,17 +53,20 @@ export default class RevealMnemonic extends Component {
                     <View style={styles.rect}>
                         <View style={styles.endWrapperFiller}></View>
                         <View style={styles.textColumn}>
-                            <View style={styles.rect2}>
-                                <Text style={styles.title}>Write That Down.</Text>
-                                <Text style={styles.textBlock}>Think of these following words as your password for the wallet</Text>
-                                <Text style={styles.textBlock}>
-                                    save the given mnemonic and keept it secured. You'll need it to access your wallet.
-                                </Text>
-                                <Text style={styles.textBlock}>Click on the button verify the mnemonic</Text>
+                            {this.state.mnemonics ? null : (
+                                <View style={styles.rect2}>
+                                    <Text style={styles.title}>Reveal Mnemonic</Text>
+                                    <Text style={styles.textBlock}>Click on the button Reveal the mnemonics</Text>
+                                </View>
+                            )}
+                            {this.onPressRender()}
+                            <View>
+                                {this.state.mnemonics ? (
+                                    <TouchableOpacity style={styles.button} onPress={this.onPressProceed}>
+                                        <Text style={styles.text}>Continue</Text>
+                                    </TouchableOpacity>
+                                ) : null}
                             </View>
-                            <TouchableOpacity style={styles.button} onPress={this.props.navigation.navigate('VeifyMnemonic')}>
-                                <Text style={styles.text}>Proceed.</Text>
-                            </TouchableOpacity>
                         </View>
                     </View>
                 </View>
@@ -56,6 +75,23 @@ export default class RevealMnemonic extends Component {
     }
 }
 const styles = StyleSheet.create({
+    mnemonicsContainer: {
+        top: 40,
+        justifyContent: 'center',
+        width: '100%',
+        width: '100%',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+    },
+    mnemonic: {
+        backgroundColor: 'rgba(93,161,172,0.96)',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 10,
+        height: 50,
+        margin: 6,
+        padding: 15,
+    },
     container: {
         flex: 1,
         backgroundColor: 'rgba(56,107,122,1)',
@@ -98,6 +134,14 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     button: {
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 5,
+            height: 5,
+        },
+        shadowOpacity: 1,
+        shadowRadius: 50,
+        elevation: 15,
         backgroundColor: 'rgba(93,161,172,1)',
         borderRadius: 5,
         justifyContent: 'center',
@@ -123,13 +167,13 @@ const styles = StyleSheet.create({
         shadowRadius: 0,
     },
     rect2: {
-        top: 40,
-        height: 350,
+        top: -100,
+        height: 'auto',
         backgroundColor: 'rgba(93,161,172,0.96)',
         borderRadius: 5,
         opacity: 0.79,
         borderWidth: 5,
-        borderColor: 'rgba(81,79,79,1)',
+        borderColor: 'rgba(81,79,79,0.75)',
         alignItems: 'center',
     },
     textColumn: {
@@ -144,6 +188,7 @@ const styles = StyleSheet.create({
         color: 'white',
     },
     textBlock: {
+        marginBottom: 10,
         lineHeight: 25,
         fontSize: 20,
         textAlign: 'center',
