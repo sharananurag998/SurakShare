@@ -50,6 +50,7 @@ function aboutUs(props)
             titleStyle={{ color: 'white', fontWeight: 'bold' }}
             subtitleStyle={{ color: 'white' }}
             subtitle={item.role}
+            style={styles.aboutus}
             chevron={{ color: 'white' }}
             bottomDivider
         />
@@ -63,3 +64,9 @@ function aboutUs(props)
 }
 
 export default aboutUs;
+
+const styles = StyleSheet.create({
+    aboutus:{
+        margin:15,
+    },
+});
