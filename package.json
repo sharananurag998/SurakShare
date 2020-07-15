@@ -6,6 +6,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@react-native-community/cli-platform-android": "^4.10.1",
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/drawer": "^5.8.5",
     "@react-navigation/native": "^5.7.0",

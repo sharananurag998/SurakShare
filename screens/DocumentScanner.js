@@ -2,8 +2,17 @@ import React, { Component } from "react";
 import { View, Image } from "react-native";
 
 import DocumentScanner from "react-native-document-scanner";
+import defaultImage from "../assets/defaultImage.jpg";
+
 
 class DocScanner extends Component {
+
+  // constructor(){
+  //   this.setState({image:defaultImage})
+  // }
+  state = { 
+    image: defaultImage
+  }
     
   render() {
     
@@ -32,15 +41,15 @@ class DocScanner extends Component {
           detectionRefreshRateInMS={50}
           onPermissionsDenied={() => console.log("Permissions Denied")}
         />
-        
-        {/* <DocumentScanner ref={ref => (this.scanner = ref)} /> */}
-        
         <Image
           source={{ uri: `data:image/jpeg;base64,${this.state.image}` }}
           resizeMode="contain"
         />
       </View>
     );
+
+
+    {/* <DocumentScanner ref={ref => (this.scanner = ref)} /> */}
     // this.scanner.capture();
     
   }
