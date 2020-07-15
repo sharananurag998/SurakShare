@@ -3,8 +3,10 @@ import { View, Image } from "react-native";
 
 import DocumentScanner from "react-native-document-scanner";
 
-class YourComponent extends Component {
+class DocScanner extends Component {
+    
   render() {
+    
     return (
       <View>
         <DocumentScanner
@@ -30,11 +32,18 @@ class YourComponent extends Component {
           detectionRefreshRateInMS={50}
           onPermissionsDenied={() => console.log("Permissions Denied")}
         />
+        
+        {/* <DocumentScanner ref={ref => (this.scanner = ref)} /> */}
+        
         <Image
           source={{ uri: `data:image/jpeg;base64,${this.state.image}` }}
           resizeMode="contain"
         />
       </View>
     );
+    // this.scanner.capture();
+    
   }
 }
+
+export default DocScanner;
