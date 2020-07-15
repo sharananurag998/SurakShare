@@ -16,7 +16,7 @@ export default class RevealMnemonic extends Component {
         );
     };
 
-    onPressRender = () => {
+    renderBody = () => {
         const { mnemonics } = this.state;
 
         return mnemonics ? (
@@ -59,7 +59,7 @@ export default class RevealMnemonic extends Component {
                                     <Text style={styles.textBlock}>Click on the button Reveal the mnemonics</Text>
                                 </View>
                             )}
-                            {this.onPressRender()}
+                            {this.renderBody()}
                             <View>
                                 {this.state.mnemonics ? (
                                     <TouchableOpacity style={styles.button} onPress={this.onPressProceed}>
@@ -78,7 +78,6 @@ const styles = StyleSheet.create({
     mnemonicsContainer: {
         top: 40,
         justifyContent: 'center',
-        width: '100%',
         width: '100%',
         flexDirection: 'row',
         flexWrap: 'wrap',

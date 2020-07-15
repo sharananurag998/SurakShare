@@ -1,8 +1,29 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Image, TouchableOpacity, Text } from 'react-native';
 import Svg, { Ellipse } from 'react-native-svg';
+import { Wallet, providers } from 'ethers';
 
-export default class WalletOverview extends Component {
+export default class WalletCreated extends Component {
+    state = { mnemonics: [], PROVIDER: null };
+
+    componentDidMount = () => {
+        const { mnemonics } = this.props.route.params;
+        const PROVIDER = providers.getDefaultProvider('ropsten');
+
+        this.setState({ mnemonics, PROVIDER });
+    };
+
+    generateWalletFromMnemonics = () => {
+        let { mnemonics } = this.state;
+
+        if (!(mnemonics instanceof Array) && typeof mnemonics !== 'string') throw new Error('invalid mnemonic');
+        else if (mnemonics instanceof Array) mnemonics = mnemonics.join(' ');
+
+        const wallet = Wallet.fromMnemonic(mnemonics);
+        wallet.provider = this.state.PROVIDER;
+        this.props.navigation.navigate('Home');
+    };
+
     render() {
         return (
             <View style={styles.container}>
@@ -18,15 +39,13 @@ export default class WalletOverview extends Component {
                         <View style={styles.endWrapperFiller}></View>
                         <View style={styles.textColumn}>
                             <View style={styles.rect2}>
-                                <Text style={styles.title}>How It Works</Text>
+                                <Text style={styles.title}>Generate Wallet</Text>
                                 <Text style={styles.textBlock}>SurakShare let's you share files on the blockchain through IPFS.</Text>
-                                <Text style={styles.textBlock}>
-                                    In order to communicate to the blockchain and share files securely, you'll need a wallet.
-                                </Text>
-                                <Text style={styles.textBlock}>Click on the button below to begin</Text>
+                                <Text style={styles.textBlock}>Final Step</Text>
+                                <Text style={styles.textBlock}>Click on the button below to generate your wallet</Text>
                             </View>
-                            <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('CreateWallet')}>
-                                <Text style={styles.text}>Create A Wallet</Text>
+                            <TouchableOpacity style={styles.button} onPress={this.generateWalletFromMnemonics}>
+                                <Text style={styles.text}>Generate Wallet</Text>
                             </TouchableOpacity>
                         </View>
                     </View>

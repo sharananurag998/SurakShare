@@ -17,6 +17,7 @@ import WalletOverview from '../screens/WalletOverview';
 import CreateWallet from '../screens/CreateWallet';
 import RevealMnemonic from '../screens/RevealMnemonic';
 import ConfirmMnemonics from '../screens/ConfirmMnemonics';
+import WalletCreated from '../screens/WalletCreated';
 import AboutUs from '../screens/aboutUs';
 import QrScan from '../screens/qrScan';
 
@@ -188,7 +189,7 @@ function TransferHistoryStackNavigator({ navigation }) {
 function OnlineFileStackNavigator({ navigation }) {
     return (
         <Stack.Navigator
-            initialRouteName='Home'
+            initialRouteName='WalletOverview'
             screenOptions={{
                 headerLeft: () => <NavigationDrawerStructure navigationProps={navigation} />,
                 headerStyle: {
@@ -229,6 +230,13 @@ function OnlineFileStackNavigator({ navigation }) {
                 component={ConfirmMnemonics}
                 options={{
                     title: 'Confirm Mnemonic', //Set Header Title
+                }}
+            />
+            <Stack.Screen
+                name='WalletCreated'
+                component={WalletCreated}
+                options={{
+                    title: 'Generate Wallet', //Set Header Title
                 }}
             />
         </Stack.Navigator>
@@ -282,7 +290,13 @@ export default function SurakShare() {
                 <Drawer.Screen name='Groups' component={TransferHistoryStackNavigator} />
                 <Drawer.Screen name='Transfer History' component={TransferHistoryStackNavigator} />
                 <Drawer.Screen name='Document Scanner' component={TransferHistoryStackNavigator} />
-                <Drawer.Screen name='Share Files Online' component={OnlineFileStackNavigator} />
+                <Drawer.Screen
+                    name='OnlineFileShare'
+                    component={OnlineFileStackNavigator}
+                    options={{
+                        title: 'Share Files on BlockChain', //Set Header Title
+                    }}
+                />
                 <Drawer.Screen name='About Us' component={AboutUsStackNavigator} />
             </Drawer.Navigator>
         </NavigationContainer>

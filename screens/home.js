@@ -64,7 +64,7 @@ export default function Home(props) {
                     </TouchableScale>
                 </View>
                 <View style={styles.ButtonRow}>
-                    <TouchableScale>
+                    <TouchableScale onPress={() => props.navigation.navigate('OnlineFileShare', { screen: 'WalletOverview' })}>
                         <View style={styles.PrivateButton}>
                             <Text style={styles.ButtonText}>Online Sharing</Text>
                             <Entypo name='network' color='white' size={40} style={styles.icon} />
