@@ -151,5 +151,3 @@ android/app/.project
 android/app/.classpath
 android/.project
 android/java_pid16932.hprof
-.vscode/settings.json
-scanbotKey.secret
