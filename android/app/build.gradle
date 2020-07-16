@@ -136,7 +136,8 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0.0"
-        missingDimensionStrategy 'react-native-camera', 'general' 
+        missingDimensionStrategy 'react-native-camera', 'general'
+        multiDexEnabled true //For Scanbot
     }
     splits {
         abi {
@@ -172,6 +173,7 @@ android {
         pickFirst "lib/arm64-v8a/libc++_shared.so"
         pickFirst "lib/x86/libc++_shared.so"
         pickFirst "lib/x86_64/libc++_shared.so"
+        pickFirst '**/libc++_shared.so'
     }
 
     // applicationVariants are e.g. debug, release
@@ -187,6 +189,25 @@ android {
             }
 
         }
+    }
+}
+
+// Adding Scanbot SDK Maven Repositories
+
+allprojects {
+    repositories {
+        mavenLocal()
+        maven {
+            // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
+            url "$rootDir/../node_modules/react-native/android"
+        }
+
+        google()
+        jcenter()
+
+        // Scanbot SDK Maven repositories:
+        maven { url 'https://nexus.scanbot.io/nexus/content/repositories/releases/' }
+        maven { url 'https://nexus.scanbot.io/nexus/content/repositories/snapshots/' }
     }
 }
 
