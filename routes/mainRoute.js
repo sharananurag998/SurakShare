@@ -19,7 +19,7 @@ function AppContainer() {
                 <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
                 <Stack.Screen name='SignUp' component={SignUp} options={{ headerShown: false }} />
                 <Stack.Screen name='SurakShare' component={SurakShare} options={{ headerShown: false }} />
-                {/* <Stack.Screen name='OnlineFileShare' component={OnlineFileStack} options={{ headerShown: false }} /> */}
+                <Stack.Screen name='OnlineFileShare' component={OnlineFileStack} options={{ headerShown: false }} />
             </Stack.Navigator>
         </NavigationContainer>
     );

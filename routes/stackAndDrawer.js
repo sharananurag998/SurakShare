@@ -311,6 +311,7 @@ export default function SurakShare() {
                 <Drawer.Screen name='Home' component={HomeStackNavigator} />
                 <Drawer.Screen name='Profile' component={ProfileStackNavigator} />
                 <Drawer.Screen name='Share Files' component={ShareFilesStackNavigator} />
+                <Drawer.Screen name='OnlineFileShare' component={OnlineFileStackNavigator} />
                 <Drawer.Screen name='Groups' component={TransferHistoryStackNavigator} />
                 <Drawer.Screen name='Transfer History' component={TransferHistoryStackNavigator} />
                 <Drawer.Screen name='Document Scanner' component={TransferHistoryStackNavigator} />
