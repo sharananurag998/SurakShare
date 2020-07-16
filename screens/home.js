@@ -27,9 +27,31 @@ export default function Home(props) {
         },
     ];
 
-    const shortTransfers = transfers.slice(0, 2);
+export default function Home(props) {
+    const transfers=[
+        {
+          from:"Adarsh",
+          to:"Anurag",
+          date:"12-10-2020",
+          filename:"file.jpg"
+        },
+        {
+          from:"Aniketh",
+          to:"Anurag",
+          date:"12-10-2020",
+          filename:"file.jpg"
+        },
+        {
+          from:"Aniketh",
+          to:"Anurag",
+          date:"12-10-2020",
+          filename:"file.jpg"
+        },
+    ]
 
-    const keyExtractor = (item, index) => index.toString();
+    const shortTransfers = transfers.slice(0,2);
+
+    const keyExtractor = (item, index) => index.toString()
 
     const renderItem = ({ item }) => (
         <ListItem
@@ -86,115 +108,83 @@ export default function Home(props) {
 }
 
 const styles = StyleSheet.create({
-    ButtonContainer: {
-        position: 'absolute',
-        top: 25,
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        maxHeight: '70%',
+    ButtonContainer:{
+        position:"absolute",
+        top:25,
+        flex:1,
+        flexDirection:"column",
+        justifyContent:"flex-start",
+        alignItems:"center",
+        maxHeight: "70%"
     },
-    SendButton: {
-        height: 90,
-        borderWidth: 4,
-        borderColor: '#005221',
-        backgroundColor: '#006400',
-        fontSize: 40,
-        flexDirection: 'row',
-        alignContent: 'center',
-        alignSelf: 'center',
-        width: '90%',
-        borderRadius: 20,
-    },
-    ReceiveButton: {
-        height: 100,
-        color: 'white',
-        backgroundColor: '#113F99',
-        fontSize: 40,
-        flexDirection: 'row',
-        borderRadius: 20,
-        alignContent: 'center',
-        alignSelf: 'center',
-        width: '90%',
-        borderWidth: 4,
-        borderColor: '#1c2e4a',
-    },
-    SendButton: {
-        height: 80,
+    SendButton:{
+        height:80,
         // borderWidth:4,
         // borderColor:"#005221",
-        backgroundColor: '#20C203',
-        fontSize: 40,
-        flexDirection: 'row',
-        alignContent: 'center',
-        alignSelf: 'center',
-        width: '80%',
-        borderRadius: 45,
-    },
-    ReceiveButton: {
-        height: 80,
-        color: 'white',
-        backgroundColor: '#0B6FA4',
-        fontSize: 40,
-        flexDirection: 'row',
-        borderRadius: 45,
-        alignContent: 'center',
-        alignSelf: 'center',
-        width: '80%',
+        backgroundColor:"#20C203",
+        fontSize:40,
+        flexDirection:"row",
+        alignContent:"center",
+        alignSelf:"center",
+        width:"80%",
+        borderRadius:45,
+    }, 
+    ReceiveButton:{
+        height:80,
+        color:"white",
+        backgroundColor:"#0B6FA4",
+        fontSize:40,
+        flexDirection:"row",
+        borderRadius:45,
+        alignContent:"center",
+        alignSelf:"center",
+        width:"80%",
         //borderWidth:4,
         //borderColor:"#1c2e4a",
-    },
-    PrivateButton: {
-        height: 80,
-        color: 'white',
-        backgroundColor: '#C40B0B',
-        fontSize: 40,
-        flexDirection: 'row',
-        borderRadius: 45,
-        alignContent: 'center',
-        alignSelf: 'center',
-        width: '80%',
+    }, 
+    PrivateButton:{
+        height:80,
+        color:"white",
+        backgroundColor:"#C40B0B",
+        fontSize:40,
+        flexDirection:"row",
+        borderRadius:45,
+        alignContent:"center",
+        alignSelf:"center",
+        width:"80%",
         //borderWidth:4,
         //borderColor:"#7C0A02",
+    }, 
+    ButtonRow:{
+        margin:10,
+        width:370,
+        paddingBottom:10
     },
-    ButtonRow: {
-        margin: 10,
-        width: 370,
-        paddingBottom: 10,
+    ButtonText:{
+        fontSize:25,
+        color:"white",
+        justifyContent:"center",
+        marginLeft:"10%",
+        marginTop:"8%",
     },
-    ButtonText: {
-        fontSize: 25,
-        color: 'white',
-        justifyContent: 'center',
-        marginLeft: '10%',
-        marginTop: '8%',
+    icon:{
+        position:"absolute",
+        right:"10%",
+        top:"30%",
+        paddingTop:"8%",
     },
-    ButtonText: {
-        fontSize: 30,
-        color: 'white',
-        justifyContent: 'center',
-        marginLeft: '10%',
-        marginTop: '8%',
+    RecentItemsContainer:{
+        margin:10,
+        marginTop:35,
+        borderRadius:10,
+        width:"90%",
+        height:"70%",
+        backgroundColor:"#f3ccff",
     },
-    RecentItemsContainer: {
-        margin: 10,
-        marginTop: 35,
-        borderRadius: 10,
-        width: '90%',
-        height: '70%',
-        backgroundColor: '#f3ccff',
-    },
-    RecentItemsContainer: {
-        margin: 10,
-        borderRadius: 10,
-        width: '90%',
-        height: '70%',
-        backgroundColor: '#f3ccff',
-    },
-    list: {
+    list:{
         marginTop: 10,
         marginLeft: 7,
-        marginRight: 7,
-    },
+        marginRight: 7
+    }
+
 });
