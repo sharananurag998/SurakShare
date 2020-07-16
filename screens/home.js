@@ -6,28 +6,6 @@ import { MaterialIcons, Entypo } from '@expo/vector-icons';
 import { ListItem, Badge } from 'react-native-elements';
 
 export default function Home(props) {
-    const transfers = [
-        {
-            from: 'Adarsh',
-            to: 'Anurag',
-            date: '12-10-2020',
-            filename: 'file.jpg',
-        },
-        {
-            from: 'Aniketh',
-            to: 'Anurag',
-            date: '12-10-2020',
-            filename: 'file.jpg',
-        },
-        {
-            from: 'Aniketh',
-            to: 'Anurag',
-            date: '12-10-2020',
-            filename: 'file.jpg',
-        },
-    ];
-
-export default function Home(props) {
     const transfers=[
         {
           from:"Adarsh",
