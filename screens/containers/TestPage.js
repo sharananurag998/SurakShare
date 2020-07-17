@@ -3,6 +3,7 @@ import {StyleSheet, View, StatusBar} from 'react-native';
 
 import WorkThrough from './WorkThrough';
 import {icons} from '../../icons';
+import SyncStorage from 'sync-storage';
 
 const flowData = {
     bgColor: "#788eec", 
