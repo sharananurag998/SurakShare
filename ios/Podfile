@@ -90,6 +90,8 @@ target 'SurakShare' do
 
   pod 'RNPermissions', :path => '../node_modules/react-native-permissions'
 
+  pod 'react-native-document-picker', :path => '../node_modules/react-native-document-picker'
+
   post_install do |installer|
     flipper_post_install(installer)
   end
