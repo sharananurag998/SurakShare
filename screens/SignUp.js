@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import {
   StyleSheet,
   View,
@@ -14,8 +14,23 @@ import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
 
 import { CommonActions } from '@react-navigation/native';
 
+import SyncStorage from 'sync-storage';
 
 function SignUp(props) {
+
+  const storeData = async (name, email, password) => {
+    try {
+      SyncStorage.set('name', name);
+      SyncStorage.set('email', email);
+      SyncStorage.set('password', password);
+      SyncStorage.set('isLoggedIn', "true");
+    } catch (e) {
+        alert("Can't save user");
+    }
+  }
+
+  var name, email, password = "";
+
   return (
     <View style={styles.root}>
       <StatusBar barStyle="light-content" backgroundColor="rgba(0,0,0,0)" />
@@ -43,6 +58,7 @@ function SignUp(props) {
                     placeholderTextColor="rgba(255,255,255,1)"
                     secureTextEntry={false}
                     style={styles.nameInput}
+                    onChangeText={(text) => name=text}
                   ></TextInput>
                 </View>
                 <View style={styles.email}>
@@ -55,6 +71,7 @@ function SignUp(props) {
                     placeholderTextColor="rgba(255,255,255,1)"
                     secureTextEntry={false}
                     style={styles.emailInput}
+                    onChangeText={(text) => email=text}
                   ></TextInput>
                 </View>
               </View>
@@ -66,6 +83,7 @@ function SignUp(props) {
                   placeholderTextColor="rgba(255,255,255,1)"
                   secureTextEntry={true}
                   style={styles.passwordInput}
+                  onChangeText={(text) => password=text}
                 ></TextInput>
               </View>
             </View>
@@ -74,18 +92,21 @@ function SignUp(props) {
           <View style={styles.buttonColumn}>
             <TouchableOpacity
               onPress={()=>{
-                props.navigation.dispatch(
-                  CommonActions.reset({
-                    index: 0,
-                    routes: [
-                      { name: 'SurakShare' },
-                    ],
-                  })
-                );
-              }
-
-              }
-
+                if(name=="" || email == "" ||password==""){
+                  alert("Please enter all details")
+                }
+                else{
+                  storeData(name,email, password);
+                  props.navigation.dispatch(
+                    CommonActions.reset({
+                      index: 0,
+                      routes: [
+                        { name: 'SurakShare' },
+                      ],
+                    })
+                  );
+                }
+              }}
               style={styles.button}
             >
               <Text style={styles.text2}>Continue</Text>
@@ -143,7 +164,7 @@ const styles = StyleSheet.create({
     alignSelf: "center"
   },
   nameInput: {
-    height: 30,
+    height: 35,
     color: "rgba(255,255,255,1)",
     fontSize: 14,
     flex: 1,
@@ -165,7 +186,7 @@ const styles = StyleSheet.create({
     alignSelf: "center"
   },
   emailInput: {
-    height: 30,
+    height: 35,
     color: "rgba(255,255,255,1)",
     flex: 1,
     marginRight: 17,
@@ -189,7 +210,7 @@ const styles = StyleSheet.create({
     marginTop: 13
   },
   passwordInput: {
-    height: 30,
+    height: 35,
     color: "rgba(255,255,255,1)",
     flex: 1,
     marginRight: 17,
