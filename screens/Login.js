@@ -32,7 +32,15 @@ function Login(props) {
               onPress={() => props.navigation.navigate("SignUp")}
               style={styles.button3}
             >
-              <Text style={styles.text2}>Get Started</Text>
+              <Text style={styles.text2}>Sign Up</Text>
+
+            </TouchableOpacity>
+            
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate("LoginForm")}
+              style={styles.loginButton}
+            >
+              <Text style={styles.text2}>Log In</Text>
 
             </TouchableOpacity>
           </View>
@@ -49,7 +57,6 @@ function Login(props) {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: "rgba(189,16,224,1)"
   },
   background: {
     flex: 1
@@ -83,6 +90,24 @@ const styles = StyleSheet.create({
     opacity: 0.87,
     backgroundColor: "rgba(31,178,204,1)",
     marginTop: 136,
+    marginLeft: 17,
+    marginRight: 16,
+    justifyContent: "center"
+  },
+  loginButton: {
+    height: 59,
+    shadowColor: "rgba(0,0,0,1)",
+    shadowOffset: {
+      width: 3,
+      height: 3
+    },
+    elevation: 5,
+    shadowOpacity: 0.01,
+    shadowRadius: 0,
+    borderRadius: 50,
+    opacity: 0.87,
+    backgroundColor: "rgba(31,178,204,1)",
+    marginTop: 16,
     marginLeft: 17,
     marginRight: 16,
     justifyContent: "center"

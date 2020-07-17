@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Modal, FlatList } from 'react-native';
+import { StyleSheet, Modal, FlatList, ScrollView } from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
 import { Block, Button, Text } from 'galio-framework';
 
@@ -103,6 +103,19 @@ export default function UploadFile(props) {
     );
   };
 
+  const FooterPromptComponent = () => {
+    return (
+      <Block style={styles.footerContainer}>
+        <Button style={styles.actionPrompt} color='#ccc' onPress={() => setFiles([])}>
+          Start Over
+        </Button>
+        <Button style={styles.actionPrompt} color='rgba(93,161,172,0.96)' onPress={nextButtonHandler}>
+          Next
+        </Button>
+      </Block>
+    );
+  };
+
   const nextButtonHandler = () => {
     props.navigation.navigate('Home', { files, wallet });
   };
@@ -110,24 +123,23 @@ export default function UploadFile(props) {
   return (
     <Block style={{ backgroundColor: '#eee', flex: 1 }}>
       <Modal animationType='slide' transparent={true} visible={!isVisible}>
-        <Block style={styles.container}>
-          <Block style={styles.blockAddMore}>
-            <AddFileButton size={45} />
-            <Block style={styles.textBlock}>
-              <Text style={{ fontWeight: '700', fontSize: 25 }}>Add more files</Text>
-              <Text muted>Share on BlockChain</Text>
+        <ScrollView
+          contentContainerStyle={{
+            flexGrow: 1,
+            justifyContent: 'space-between',
+          }}>
+          <Block style={styles.container}>
+            <Block style={styles.blockAddMore}>
+              <AddFileButton size={45} />
+              <Block style={styles.textBlock}>
+                <Text style={{ fontWeight: '700', fontSize: 25 }}>Add more files</Text>
+                <Text muted>Share on BlockChain</Text>
+              </Block>
             </Block>
+            <FlatList data={files} renderItem={renderFileItem} keyExtractor={(file) => file.uri} />
           </Block>
-          <FlatList data={files} renderItem={renderFileItem} keyExtractor={(file) => file.uri} />
-        </Block>
-        <Block style={styles.bottomContainer}>
-          <Button style={styles.actionPrompt} color='#ccc' onPress={() => setFiles([])}>
-            Start Over
-          </Button>
-          <Button style={styles.actionPrompt} color='rgba(93,161,172,0.96)' onPress={nextButtonHandler}>
-            Next
-          </Button>
-        </Block>
+          <FooterPromptComponent />
+        </ScrollView>
       </Modal>
       <AddFilesModal />
     </Block>
@@ -163,7 +175,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     borderBottomColor: '#ddd',
   },
-  bottomContainer: {
+  footerContainer: {
     flex: 1,
     flexDirection: 'row',
     margin: '5%',
