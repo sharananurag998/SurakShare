@@ -20,6 +20,7 @@
     "galio-framework": "^0.7.1",
     "lodash.isequal": "^4.5.0",
     "lodash.shuffle": "^4.2.0",
+    "lottie-react-native": "^3.4.0",
     "node": "^14.5.0",
     "react": "16.13.1",
     "react-dom": "~16.11.0",
