@@ -1,10 +1,11 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerContent } from '@react-navigation/drawer';
 import 'react-native-gesture-handler';
 
 import * as React from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import { Avatar, Title, Caption, Paragraph, Text, TouchableRipple, Switch } from 'react-native-paper'; 
 import { MaterialIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -281,15 +282,22 @@ function AboutUsStackNavigator({ navigation }) {
 
 const Drawer = createDrawerNavigator();
 
-export default function SurakShare() {
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
+export default function SurakShare(props) {
     return (
         <NavigationContainer independent={true}>
-            <Drawer.Navigator
+            <Drawer.Navigator                
                 headerMode='none'
                 initialRouteName='Home'
                 drawerContentOptions={{
                     activeTintColor: '#5B0A91',
                     itemStyle: { marginVertical: 5 },
+                }}
+                
+                drawerStyle={{
+                    backgroundColor:'#fbeeff',
+                    width:'70%'
                 }}>
                 <Drawer.Screen name='Home' component={HomeStackNavigator} />
                 <Drawer.Screen name='Profile' component={ProfileStackNavigator} />
@@ -299,7 +307,13 @@ export default function SurakShare() {
                 <Drawer.Screen name='Transfer History' component={TransferHistoryStackNavigator} />
                 <Drawer.Screen name='Document Scanner' component={TransferHistoryStackNavigator} />
                 <Drawer.Screen name='About Us' component={AboutUsStackNavigator} />
+                <Drawer.Screen  name='Sign Out'component={HomeStackNavigator} />
             </Drawer.Navigator>
         </NavigationContainer>
     );
 }
+
+const styles = StyleSheet.create({
+    
+
+});
