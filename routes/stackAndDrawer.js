@@ -21,7 +21,9 @@ import ConfirmMnemonics from '../screens/ConfirmMnemonics';
 import WalletCreated from '../screens/WalletCreated';
 import UploadFile from '../screens/UploadFile';
 import AboutUs from '../screens/aboutUs';
+import Welcome from '../screens/welcomeScreen';
 import QrScan from '../screens/qrScan';
+import Login from '../screens/Login';
 
 const Stack = createStackNavigator();
 
@@ -335,6 +337,35 @@ function AboutUsStackNavigator({ navigation }) {
     );
 }
 
+function SignOutStackNavigator({ navigation }) {
+    return (
+        <Stack.Navigator
+            initialRouteName='Home'
+            screenOptions={{
+                headerLeft: () => <NavigationDrawerStructure navigationProps={navigation} />,
+                headerStyle: {
+                    backgroundColor: '#5b0a91', //Set Header color
+                },
+                headerTintColor: '#fff', //Set Header text color
+                title: 'SurakShare',
+                headerRight: () => (
+                    <TouchableOpacity>
+                        <MaterialCommunityIcons name='qrcode-scan' size={24} color='white' style={{ right: 10 }} />
+                    </TouchableOpacity>
+                ),
+                headerLayoutPreset: 'center',
+            }}>
+            <Stack.Screen
+                name='Sign Out'
+                component={Login}
+                options={{
+                    title: 'Sign Out', //Set Header Title
+                }}
+            />
+        </Stack.Navigator>
+    );
+}
+
 const Drawer = createDrawerNavigator();
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -352,7 +383,7 @@ export default function SurakShare(props) {
                 
                 drawerStyle={{
                     backgroundColor:'#fbeeff',
-                    width:'70%'
+                    width:'70%',
                 }}>
                 <Drawer.Screen name='Home' component={HomeStackNavigator} />
                 <Drawer.Screen name='Profile' component={ProfileStackNavigator} />
@@ -362,7 +393,7 @@ export default function SurakShare(props) {
                 <Drawer.Screen name='Transfer History' component={TransferHistoryStackNavigator} />
                 <Drawer.Screen name='Document Scanner' component={TransferHistoryStackNavigator} />
                 <Drawer.Screen name='About Us' component={AboutUsStackNavigator} />
-                <Drawer.Screen  name='Sign Out'component={HomeStackNavigator} />
+                <Drawer.Screen name='Sign Out'component={SignOutStackNavigator} />
             </Drawer.Navigator>
         </NavigationContainer>
     );
