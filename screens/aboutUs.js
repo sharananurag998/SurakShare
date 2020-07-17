@@ -5,6 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { StyleSheet, View, Text, Image, FlatList } from "react-native";
 import { Card, ListItem, Button, Icon, Badge } from 'react-native-elements'
 import avatarImage from '../assets/images/aniketh1.jpg'
+
 function aboutUs(props)
 {
     const members = [
