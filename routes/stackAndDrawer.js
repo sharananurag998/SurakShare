@@ -1,6 +1,5 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { FontAwesomeIcon } from 'react-native-fontawesome';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerContent } from '@react-navigation/drawer';
 import 'react-native-gesture-handler';
 
