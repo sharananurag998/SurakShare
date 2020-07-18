@@ -475,30 +475,75 @@ export default function SurakShare(props) {
           width: "70%",
         }}
       >
-        <Drawer.Screen name="Home" component={HomeStackNavigator} />
-        <Drawer.Screen name="Profile" component={ProfileStackNavigator} />
-        <Drawer.Screen
-          name="Share Files"
-          component={ShareFilesStackNavigator}
-        />
-        <Drawer.Screen
-          name="OnlineFileShare"
-          component={OnlineFileStackNavigator}
-        />
-        <Drawer.Screen
-          name="Groups"
-          component={TransferHistoryStackNavigator}
-        />
-        <Drawer.Screen
-          name="Transfer History"
-          component={TransferHistoryStackNavigator}
-        />
-        <Drawer.Screen
-          name="Document Scanner"
-          component={TransferHistoryStackNavigator}
-        />
-        <Drawer.Screen name="About Us" component={AboutUsStackNavigator} />
-        <Drawer.Screen name="Sign Out" component={SignOutStackNavigator} />
+        <Drawer.Screen 
+                name='Home'
+                options={{
+                    drawerIcon: ({focused, color, size}) => (<Icon name="home" style={{color:'#000',fontSize:30}}/>)
+                }} 
+                component={HomeStackNavigator} />
+                
+                <Drawer.Screen 
+                name='Profile' 
+                options={{
+                    drawerIcon: ({focused, color, size}) => (<MaterialCommunityIcons name="account" style={{color:'#000',fontSize:30}}/>)
+                }} 
+                component={ProfileStackNavigator} />
+
+                <Drawer.Screen 
+                name='Share Files' 
+                options={{
+                    drawerIcon: ({focused, color, size}) => (<MaterialCommunityIcons name="share-variant" style={{color:'#000',fontSize:30}}/>)
+                }} 
+                component={ShareFilesStackNavigator} />
+
+                <Drawer.Screen 
+                name='OnlineFileShare' 
+                options={{
+                    drawerIcon: ({focused, color, size}) => (<MaterialCommunityIcons name="web" style={{color:'#000',fontSize:30}}/>)
+                }} 
+                component={OnlineFileStackNavigator} />
+
+                <Drawer.Screen 
+                name='Groups' 
+                options={{
+                    drawerIcon: ({focused, color, size}) => (<MaterialCommunityIcons name="account-group" style={{color:'#000',fontSize:30}}/>)
+                }} 
+                component={TransferHistoryStackNavigator} />
+
+                <Drawer.Screen 
+                name='Transfer History' 
+                options={{
+                    drawerIcon: ({focused, color, size}) => (<MaterialCommunityIcons name="history" style={{color:'#000',fontSize:30}}/>)
+                }} 
+                component={TransferHistoryStackNavigator} />
+
+                <Drawer.Screen 
+                name='Document Scanner' 
+                options={{
+                    drawerIcon: ({focused, color, size}) => (<MaterialCommunityIcons name="file-document" style={{color:'#000',fontSize:30}}/>)
+                }} 
+                component={TransferHistoryStackNavigator} />
+
+                <Drawer.Screen 
+                name='About Us' 
+                options={{
+                    drawerIcon: ({focused, color, size}) => (<MaterialCommunityIcons name="dev-to" style={{color:'#000',fontSize:30}}/>)
+                }} 
+                component={AboutUsStackNavigator} />
+
+                <Drawer.Screen 
+                name='Setting' 
+                options={{
+                    drawerIcon: ({focused, color, size}) => (<MaterialCommunityIcons name="settings" style={{color:'#000',fontSize:30,}}/>)
+                }} 
+                component={ProfileStackNavigator} />
+                
+                <Drawer.Screen 
+                name='Sign Out'
+                options={{
+                    drawerIcon: ({focused, color, size}) => (<MaterialCommunityIcons name="logout" style={{color:'#000',fontSize:30}}/>)
+                }} 
+                component={SignOutStackNavigator} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
