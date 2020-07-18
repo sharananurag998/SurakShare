@@ -7,6 +7,7 @@ import RevealMnemonic from '../screens/RevealMnemonic';
 import ConfirmMnemonics from '../screens/ConfirmMnemonics';
 import WalletCreated from '../screens/WalletCreated';
 import UploadFile from '../screens/UploadFile';
+import ReceiveFile from '../screens/ReceiveFile';
 
 const Stack = createStackNavigator();
 
@@ -18,6 +19,7 @@ const onlineFileStack = () => {
         <Stack.screen name='ConfirmMnemonics' component={ConfirmMnemonics} options={{ headerShown: false }} />
         <Stack.screen name='WalletCreated' component={WalletCreated} options={{ headerShown: false }} />
         <Stack.screen name='UploadFile' component={UploadFile} options={{ headerShown: false }} />
+        <Stack.screen name='ReceiveFile' component={ReceiveFile} options={{ headerShown: false }} />
     </Stack.Navigator>;
 };
 

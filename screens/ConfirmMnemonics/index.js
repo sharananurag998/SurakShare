@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Image, TouchableOpacity, Text, Alert } from 'react-native';
-import ethers from 'ethers';
 import _ from 'lodash';
 
 export default class ConfirmMnemonics extends Component {

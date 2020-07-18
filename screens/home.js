@@ -48,7 +48,13 @@ export default function Home(props) {
 
             <View style={styles.ButtonContainer}>
                 <View style={styles.ButtonRow}>
-                    <TouchableScale onPress={() => props.navigation.navigate('OnlineFileShare', { screen: 'UploadFile' })}>
+                    <TouchableScale
+                        onPress={() =>
+                            props.navigation.navigate('OnlineFileShare', {
+                                screen: 'UploadFile',
+                                params: { methodOfSharing: 'Share files P2P via Wifi' },
+                            })
+                        }>
                         <View style={styles.SendButton}>
                             <Text style={styles.ButtonText}>Send Files</Text>
                             <MaterialIcons name='send' color='white' size={40} style={styles.icon} />

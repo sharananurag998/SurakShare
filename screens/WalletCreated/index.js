@@ -2,26 +2,35 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Image, TouchableOpacity, Text } from 'react-native';
 import Svg, { Ellipse } from 'react-native-svg';
 import { Wallet, providers } from 'ethers';
+import SyncStorage from 'sync-storage';
 
 export default class WalletCreated extends Component {
-    state = { mnemonics: [], PROVIDER: null };
-
-    componentDidMount = () => {
-        const { mnemonics } = this.props.route.params;
-        const PROVIDER = providers.getDefaultProvider('ropsten');
-
-        this.setState({ mnemonics, PROVIDER });
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            mnemonics: this.props.route.params.mnemonics,
+            PROVIDER: providers.getDefaultProvider('ropsten'),
+        };
+    }
 
     generateWalletFromMnemonics = () => {
         let { mnemonics } = this.state;
+        console.log('[DEBUG] mnemonics: ', this.props.route.params.mnemonics);
 
         if (!(mnemonics instanceof Array) && typeof mnemonics !== 'string') throw new Error('invalid mnemonic');
         else if (mnemonics instanceof Array) mnemonics = mnemonics.join(' ');
 
-        const wallet = Wallet.fromMnemonic(mnemonics);
-        wallet.provider = this.state.PROVIDER;
-        this.props.navigation.navigate('UploadFile', { wallet });
+        try {
+            const wallet = Wallet.fromMnemonic(mnemonics);
+            wallet.provider = this.state.PROVIDER;
+            SyncStorage.set('wallet', wallet);
+            console.log('[DEBUG] wallet (local): ', wallet);
+            console.log('[DEBUG] wallet in storage: ', SyncStorage.get('wallet'));
+        } catch (err) {
+            alert('Error Occured: ' + JSON.stringify(err));
+            throw err;
+        }
+        this.props.navigation.navigate('UploadFile', { methodOfSharing: 'Share on BlockChain' });
     };
 
     render() {
