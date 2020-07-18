@@ -8,19 +8,10 @@ import {
 } from "@react-navigation/drawer";
 import "react-native-gesture-handler";
 
-import * as React from "react";
-import { View, TouchableOpacity, StyleSheet } from "react-native";
-import {
-  Avatar,
-  Title,
-  Caption,
-  Paragraph,
-  Text,
-  TouchableRipple,
-  Switch,
-} from "react-native-paper";
-import { MaterialIcons } from "@expo/vector-icons";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import * as React from 'react';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import { Avatar, Title, Caption, Paragraph, Text, TouchableRipple, Switch } from 'react-native-paper'; 
+import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 //Screen Imports
 import Home from "../screens/home";
@@ -437,25 +428,29 @@ function AboutUsStackNavigator({ navigation }) {
 }
 
 function SignOutStackNavigator({ navigation }) {
-  return (
-    <Stack.Navigator
-      initialRouteName="Home"
-      screenOptions={{
-        headerLeft: () => (
-          <NavigationDrawerStructure navigationProps={navigation} />
-        ),
-        headerStyle: {
-          backgroundColor: "#5b0a91", //Set Header color
-        },
-        headerTintColor: "#fff", //Set Header text color
-        title: "SurakShare",
-        headerRight: () => (
-          <TouchableOpacity>
-            <MaterialCommunityIcons
-              name="qrcode-scan"
-              size={24}
-              color="white"
-              style={{ right: 10 }}
+    return (
+        <Stack.Navigator
+            initialRouteName='Home'
+            screenOptions={{
+                headerLeft: () => <NavigationDrawerStructure navigationProps={navigation} />,
+                headerStyle: {
+                    backgroundColor: '#5b0a91', //Set Header color
+                },
+                headerTintColor: '#fff', //Set Header text color
+                title: 'SurakShare',
+                headerRight: () => (
+                    <TouchableOpacity>
+                        <MaterialCommunityIcons name='qrcode-scan' size={24} color='white' style={{ right: 10 }} />
+                    </TouchableOpacity>
+                ),
+                headerLayoutPreset: 'center',
+            }}>
+            <Stack.Screen
+                name='Sign Out'
+                component={Welcome}
+                options={{
+                    title: 'Sign Out', //Set Header Title
+                }}
             />
           </TouchableOpacity>
         ),
