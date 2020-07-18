@@ -16,7 +16,7 @@ import Svg, { Ellipse } from "react-native-svg";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import SimpleLineIconsIcon from "react-native-vector-icons/SimpleLineIcons";
 
-export default function Home() {
+export default function Home(props) {
   return (
     <View style={styles.container}>
       <View style={styles.rect5}>
@@ -50,10 +50,7 @@ export default function Home() {
           <Text style={styles.emailId}>Email ID</Text>
           <Text style={styles.loremIpsum}>adarshnair210@gmail.com</Text>
         </View>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={this.pops.navigation.navigate("Change Password")}
-        >
+        <TouchableOpacity style={styles.button} onPress={()=>{props.navigation.navigate("ChangePassword")}}>
           <View style={styles.changePasswordRow}>
             <Text style={styles.changePassword}>Change Password</Text>
             <EntypoIcon

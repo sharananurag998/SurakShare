@@ -28,7 +28,7 @@ import AboutUs from "../screens/aboutUs";
 import Welcome from "../screens/welcomeScreen";
 import QrScan from "../screens/qrScan";
 import Login from "../screens/Login";
-import changePasswordScreen from "../screens/changePasswordScreen";
+import changePassword from "../screens/changePassword";
 
 const Stack = createStackNavigator();
 
@@ -205,10 +205,10 @@ function ProfileStackNavigator({ navigation }) {
         }}
       />
       <Stack.Screen
-        name="Change Password"
-        component={changePasswordScreen}
+        name="ChangePassword"
+        component={changePassword}
         options={{
-          title: "Change Password", //Set Header Title
+          title: "ChangePassword", //Set Header Title
         }}
       />
       <Stack.Screen
@@ -452,19 +452,7 @@ function SignOutStackNavigator({ navigation }) {
                     title: 'Sign Out', //Set Header Title
                 }}
             />
-          </TouchableOpacity>
-        ),
-        headerLayoutPreset: "center",
-      }}
-    >
-      <Stack.Screen
-        name="Sign Out"
-        component={Login}
-        options={{
-          title: "Sign Out", //Set Header Title
-        }}
-      />
-    </Stack.Navigator>
+          </Stack.Navigator>
   );
 }
 

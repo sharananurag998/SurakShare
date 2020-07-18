@@ -4,8 +4,9 @@ import CupertinoButtonDanger from "../components/CupertinoButtonDanger";
 import CupertinoButtonLight from "../components/CupertinoButtonLight";
 import CupertinoButtonWhiteTextColor from "../components/CupertinoButtonWhiteTextColor";
 import Svg, { Ellipse } from "react-native-svg";
+import { TouchableHighlight, TouchableOpacity } from "react-native-gesture-handler";
 
-function changePasswordScreen(props) {
+function changePassword(props) {
   return (
     <View style={styles.container}>
       <TextInput
@@ -29,7 +30,7 @@ function changePasswordScreen(props) {
         placeholderTextColor="rgba(0,0,0,1)"
         style={styles.textInput2}
       ></TextInput>
-      <Text style={styles.cofirmPassword}>Cofirm Password*</Text>
+      <Text style={styles.cofirmPassword}>Confirm Password*</Text>
       <TextInput
         placeholder=""
         secureTextEntry={true}
@@ -41,9 +42,10 @@ function changePasswordScreen(props) {
         <CupertinoButtonDanger
           style={styles.cupertinoButtonDanger}
         ></CupertinoButtonDanger>
+        <TouchableOpacity onPress={()=>{props.navigation.goBack()}}>
         <CupertinoButtonLight
           style={styles.cupertinoButtonLight}
-        ></CupertinoButtonLight>
+        ></CupertinoButtonLight></TouchableOpacity>
       </View>
       <View style={styles.cupertinoButtonWhiteTextColorRow}>
         <CupertinoButtonWhiteTextColor
@@ -214,4 +216,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default changePasswordScreen;
+export default changePassword;
