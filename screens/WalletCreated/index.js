@@ -30,7 +30,7 @@ export default class WalletCreated extends Component {
             alert('Error Occured: ' + JSON.stringify(err));
             throw err;
         }
-        this.props.navigation.navigate('UploadFile', { methodOfSharing: 'Share on BlockChain' });
+        this.props.navigation.navigate('SelectFiles', { methodOfSharing: 'Share on BlockChain' });
     };
 
     render() {

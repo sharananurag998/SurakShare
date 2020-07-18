@@ -3,7 +3,7 @@ import { StyleSheet, FlatList, ScrollView, View, Alert } from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
 import { Block, Button, Text } from 'galio-framework';
 
-export default function UploadFile({ navigation, route }) {
+export default function SelectFiles({ navigation, route }) {
     const [files, setFiles] = useState([]);
     const [isVisibleAdd, setIsVisibleAdd] = useState(true);
     const [isVisibleMain, setIsVisibleMain] = useState(false);
@@ -117,7 +117,10 @@ export default function UploadFile({ navigation, route }) {
                 <Button style={styles.actionPrompt} color='#ccc' onPress={() => setFiles([])}>
                     Start Over
                 </Button>
-                <Button style={styles.actionPrompt} color='rgba(93,161,172,0.96)' onPress={() => navigation.navigate('ReceiveFile', { files })}>
+                <Button
+                    style={styles.actionPrompt}
+                    color='rgba(93,161,172,0.96)'
+                    onPress={() => navigation.navigate('UploadFilesToBlockChain', { files })}>
                     Next
                 </Button>
             </Block>

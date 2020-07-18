@@ -18,8 +18,8 @@ import CreateWallet from '../screens/CreateWallet';
 import RevealMnemonic from '../screens/RevealMnemonic';
 import ConfirmMnemonics from '../screens/ConfirmMnemonics';
 import WalletCreated from '../screens/WalletCreated';
-import UploadFile from '../screens/UploadFile';
-import ReceiveFile from '../screens/ReceiveFile';
+import SelectFiles from '../screens/SelectFiles';
+import UploadFilesToBlockChain from '../screens/UploadFilesToBlockChain';
 import AboutUs from '../screens/aboutUs';
 import Welcome from '../screens/welcomeScreen';
 import QrScan from '../screens/qrScan';
@@ -252,7 +252,7 @@ function TransferHistoryStackNavigator({ navigation }) {
     );
 }
 
-function OnlineFileStackNavigator({ navigation }) {
+function SecureFileShareStackNavigator({ navigation }) {
     return (
         <Stack.Navigator
             initialRouteName='WalletOverview'
@@ -306,17 +306,17 @@ function OnlineFileStackNavigator({ navigation }) {
                 }}
             />
             <Stack.Screen
-                name='UploadFile'
-                component={UploadFile}
+                name='SelectFiles'
+                component={SelectFiles}
                 options={{
-                    title: 'Upload File', //Set Header Title
+                    title: 'Select files to share', //Set Header Title
                 }}
             />
             <Stack.Screen
-                name='ReceiveFile'
-                component={ReceiveFile}
+                name='UploadFilesToBlockChain'
+                component={UploadFilesToBlockChain}
                 options={{
-                    title: 'Receive File', //Set Header Title
+                    title: 'Upload Files to BlockChain', //Set Header Title
                 }}
             />
         </Stack.Navigator>
@@ -430,7 +430,7 @@ export default function SurakShare(props) {
                     options={{
                         drawerIcon: ({ focused, color, size }) => <MaterialCommunityIcons name='web' style={{ color: '#000', fontSize: 30 }} />,
                     }}
-                    component={OnlineFileStackNavigator}
+                    component={SecureFileShareStackNavigator}
                 />
 
                 <Drawer.Screen

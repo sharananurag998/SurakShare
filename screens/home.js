@@ -51,7 +51,7 @@ export default function Home(props) {
                     <TouchableScale
                         onPress={() =>
                             props.navigation.navigate('OnlineFileShare', {
-                                screen: 'UploadFile',
+                                screen: 'SelectFiles',
                                 params: { methodOfSharing: 'Share files P2P via Wifi' },
                             })
                         }>
