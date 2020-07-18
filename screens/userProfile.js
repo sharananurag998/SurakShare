@@ -15,6 +15,8 @@ import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommun
 import Svg, { Ellipse } from "react-native-svg";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import SimpleLineIconsIcon from "react-native-vector-icons/SimpleLineIcons";
+import SyncStorage from 'sync-storage';
+import syncStorage from "sync-storage";
 
 export default function Home(props) {
   return (
@@ -36,8 +38,8 @@ export default function Home(props) {
             <FeatherIcon name="plus-circle" style={styles.icon6}></FeatherIcon>
           </View>
           <View style={styles.UserColumn}>
-            <Text style={styles.Name}>Adarsh Nair</Text>
-            <Text style={styles.username}>adarshnair210</Text>
+            <Text style={styles.Name}>{syncStorage.get('name')}</Text>
+            {/* <Text style={styles.username}>adarshnair210</Text> */}
           </View>
           <SimpleLineIconsIcon
             name="pencil"
@@ -48,7 +50,7 @@ export default function Home(props) {
       <ScrollView horizontal="false">
         <View style={styles.rect}>
           <Text style={styles.emailId}>Email ID</Text>
-          <Text style={styles.loremIpsum}>adarshnair210@gmail.com</Text>
+          <Text style={styles.loremIpsum}>{syncStorage.get('email')}</Text>
         </View>
         <TouchableOpacity style={styles.button} onPress={()=>{props.navigation.navigate("ChangePassword")}}>
           <View style={styles.changePasswordRow}>

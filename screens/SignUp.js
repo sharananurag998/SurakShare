@@ -18,7 +18,7 @@ import SyncStorage from 'sync-storage';
 
 function SignUp(props) {
 
-  const storeData = async (name, email, password) => {
+  const storeData = (name, email, password) => {
     try {
       SyncStorage.set('name', name);
       SyncStorage.set('email', email);
