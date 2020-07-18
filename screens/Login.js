@@ -26,7 +26,6 @@ function Login(props) {
               style={styles.image}
               imageStyle={styles.image_imageStyle}
             >
-              <Text style={styles.sharingSecured}>Sharing secured.</Text>
             </ImageBackground>
             <TouchableOpacity
               onPress={() => props.navigation.navigate("SignUp")}
