@@ -4,6 +4,8 @@ import AppContainer from './routes/mainRoute';
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
 
+import { setCustomText } from 'react-native-global-props';
+
 function App() {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
   if (!isLoadingComplete) {
@@ -32,5 +34,13 @@ function handleLoadingError(error) {
 function handleFinishLoading(setLoadingComplete) {
   setLoadingComplete(true);
 }
+
+const customTextProps = {
+  style: {
+    fontFamily: 'product-sans-regular',
+  }
+};
+
+setCustomText(customTextProps);
 
 export default App;
