@@ -7,15 +7,16 @@ export default function SelectFiles({ navigation, route }) {
     const [files, setFiles] = useState([]);
     const [isVisibleAdd, setIsVisibleAdd] = useState(true);
     const [isVisibleMain, setIsVisibleMain] = useState(false);
-    const [fileId, setFileId] = useState(0);
 
     const addFiles = async () => {
+        let fileId = 0;
+
         try {
             const results = await DocumentPicker.pickMultiple({
                 type: [DocumentPicker.types.allFiles],
             });
             for (const file of results) {
-                setFileId((fileId) => fileId + 1);
+                fileId += 1;
                 file.id = fileId;
 
                 //Printing the log realted to the file
