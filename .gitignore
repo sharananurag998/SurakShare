@@ -152,6 +152,8 @@ android/app/.classpath
 android/.project
 android/java_pid16932.hprof
 android/java_pid18910.hprof
+android/java_pid15721.hprof
 .vscode/settings.json
 scanbotKey.secret
 .env
+.textile/*

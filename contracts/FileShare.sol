@@ -1,8 +1,9 @@
 pragma solidity >=0.4.25 <0.6.0;
+pragma experimental ABIEncoderV2;
 
 contract FileShare
 {
-    mapping (address => mapping (address => bytes32)) fileHash;
+    mapping (address => string[]) fileHash;
     address owner;
 
     // constructor function
@@ -12,16 +13,16 @@ contract FileShare
     }
 
     // call this function to send a file
-    function sendFile(address _to, bytes32 _fileHash) public
+    function storeHash(string memory _fileHash) public
     {
-        fileHash[msg.sender][_to] = _fileHash;
+        fileHash[msg.sender].push(_fileHash);
     }
 
     // call this function to receive a file
-    function receiveFile(address _from, bytes32 _fileHash) public returns(bytes32)
+    function receiveHash(address _from) public view returns(string[] memory)
     {   
-        require(fileHash[_from][msg.sender].length > 0);
+        require(fileHash[_from].length > 0);
 
-        return fileHash[_from][msg.sender];
+        return fileHash[_from];
     }
 }
