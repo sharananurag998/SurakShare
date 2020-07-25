@@ -8,25 +8,23 @@ import SignUp from '../screens/SignUp';
 
 import WalkthroughNavigator from './walkthroughRoutes';
 import SurakShare from './stackAndDrawer';
-import OnlineFileStack from './onlineFileStack';
-
-import { startClock } from 'react-native-reanimated';
+import SecureFileShareStack from './SecureFileShareStack';
 
 const Stack = createStackNavigator();
 
 function AppContainer() {
-    return (
-        <NavigationContainer independent={true}>
-            <Stack.Navigator>
-                <Stack.Screen name="Walkthrough" component={WalkthroughNavigator} options= {{headerShown: false}} />
-                <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
-                <Stack.Screen name='LoginForm' component={LoginForm} options={{ headerShown: false }} />
-                <Stack.Screen name='SignUp' component={SignUp} options={{ headerShown: false }} />
-                <Stack.Screen name='SurakShare' component={SurakShare} options={{ headerShown: false }} />
-                <Stack.Screen name='OnlineFileShare' component={OnlineFileStack} options={{ headerShown: false }} />
-            </Stack.Navigator>
-        </NavigationContainer>
-    );
+	return (
+		<NavigationContainer independent={true}>
+			<Stack.Navigator>
+				<Stack.Screen name='Walkthrough' component={WalkthroughNavigator} options={{ headerShown: false }} />
+				<Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
+				<Stack.Screen name='LoginForm' component={LoginForm} options={{ headerShown: false }} />
+				<Stack.Screen name='SignUp' component={SignUp} options={{ headerShown: false }} />
+				<Stack.Screen name='SurakShare' component={SurakShare} options={{ headerShown: false }} />
+				<Stack.Screen name='SecureFileShare' component={SecureFileShareStack} options={{ headerShown: false }} />
+			</Stack.Navigator>
+		</NavigationContainer>
+	);
 }
 
 export default AppContainer;

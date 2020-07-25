@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Image, TouchableOpacity, Text } from 'react-native';
 import Svg, { Ellipse } from 'react-native-svg';
-import { Wallet, providers } from 'ethers';
+import { ethers } from 'ethers';
 import SyncStorage from 'sync-storage';
+
+import { INFURA_PROJECT_ID } from 'react-native-dotenv';
 
 export default class WalletCreated extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			mnemonics: this.props.route.params.mnemonics,
-			PROVIDER: providers.getDefaultProvider('ropsten'),
+			PROVIDER: new ethers.providers.InfuraProvider('ropsten', INFURA_PROJECT_ID),
+			// PROVIDER: new ethers.providers.JsonRpcProvider('http://localhost:9545'),
 		};
 	}
 
@@ -21,8 +24,7 @@ export default class WalletCreated extends Component {
 		else if (mnemonics instanceof Array) mnemonics = mnemonics.join(' ');
 
 		try {
-			const wallet = Wallet.fromMnemonic(mnemonics);
-			wallet.provider = this.state.PROVIDER;
+			const wallet = new ethers.Wallet.fromMnemonic(mnemonics).connect(this.state.PROVIDER);
 			SyncStorage.set('wallet', wallet);
 			SyncStorage.set('provider', this.state.PROVIDER);
 			console.log('[DEBUG] wallet (local): ', wallet);
@@ -31,7 +33,9 @@ export default class WalletCreated extends Component {
 			alert('Error Occured: ' + JSON.stringify(err));
 			throw err;
 		}
-		this.props.navigation.navigate('SelectFiles', { methodOfSharing: 'Share on BlockChain' });
+		this.props.navigation.navigate('SelectFiles', {
+			methodOfSharing: 'Share on BlockChain',
+		});
 	};
 
 	render() {

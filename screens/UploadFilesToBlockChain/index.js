@@ -16,10 +16,11 @@ import {
 	Surface,
 	DataTable,
 } from 'react-native-paper';
-import { Contract } from 'ethers';
+import { ethers } from 'ethers';
 
 import { generateBuckets, generateBucketKey, deleteBucket, deleteFromBucket } from './bucketUtils';
 import * as FileShare from '../../build/contracts/FileShare.json';
+import { TEST_PRIVATE_KEY, CONTRACT_ADDRESS } from 'react-native-dotenv';
 
 export default class UploadFilesToBlockChain extends Component {
 	constructor(props) {
@@ -31,32 +32,50 @@ export default class UploadFilesToBlockChain extends Component {
 			isLoading: true,
 			files: null,
 			fileShareContract: null,
+			statusMessage: 'Generating contract to communicate to blockchain',
 		};
 	}
 
 	async componentDidMount() {
 		try {
-			// const buckets = await generateBuckets();
-			// const bucketKey = await generateBucketKey(buckets);
-			const buckets = 'Yes';
-			const bucketKey = 'Yes';
-			const isLoading = false;
-			const wallet = SyncStorage.get('wallet');
+			// const wallet = SyncStorage.get('wallet');
+			const provider = SyncStorage.get('provider');
+			const wallet = new ethers.Wallet(TEST_PRIVATE_KEY, provider);
+
 			const { files } = this.props.route.params;
 
-			// new ThreadID probably
-			await this.getBucketLinks();
+			/*
+			 *	 Set up the FileShare contract
+			 */
+			// const contractAddress = FileShare.networks['5777'].address;	// local development environment
 
-			// Set up the FileShare contract
-			const contractAddress = FileShare.networks['5777'].address;
+			// const contractByteCode = FileShare.bytecode;
+			// const contractAbi = FileShare.abi;
+			// console.log('[DEBUG] Contract Abi: ', contractAbi);
+			// const factory = new ethers.ContractFactory(contractAbi, contractByteCode, wallet);
+			// const fileShareContract = await factory.deploy();
+			// await fileShareContract.deployed(); // deploy on ropsten
+
 			const contractAbi = FileShare.abi;
-			const provider = SyncStorage.get('provider');
-			const fileShareContract = new Contract(contractAddress, contractAbi, provider);
+			const contractAddress = CONTRACT_ADDRESS; // 0xDA72196E315E7522228DdDE776021eDD52DAD279 [Deployed on ropsten]
+			const fileShareContract = new ethers.Contract(contractAddress, contractAbi, wallet);
 			console.log('[DEBUG] FileShare Contract: ', fileShareContract);
+			console.log('[DEBUG] FileShare Contract address: ', fileShareContract.address);
+			// console.log('[DEBUG] FileShare Contract transaction hash: ', fileShareContract.deployTransaction.hash);
 
-			this.setState({ buckets, bucketKey, isLoading, wallet, files, fileShareContract }, () => {
+			// textile.io buckets for IPFS
+			const buckets = await generateBuckets();
+			const bucketKey = await generateBucketKey(buckets);
+			// const buckets = 'Yes';
+			// const bucketKey = 'Yes';
+			this.setState({ buckets, bucketKey, wallet, files, fileShareContract }, () => {
 				console.log('[DEBUG] STATUS, READY?: ', !this.state.isLoading);
 			});
+
+			// create a new ThreadID for user
+			await this.getBucketLinks();
+
+			this.setState({ isLoading: false });
 		} catch (err) {
 			Alert.alert('Unexpected error occured', err.message);
 			console.error(err);
@@ -76,16 +95,20 @@ export default class UploadFilesToBlockChain extends Component {
 	};
 
 	uploadFiles = async () => {
-		if (!this.state.buckets || !this.state.bucketKey) {
+		try {
+			if (!this.state.buckets || !this.state.bucketKey) {
+				return;
+			}
+		} catch (err) {
 			Alert.alert('Session expired, please reset your bucket[IPFS] with the key');
 			console.error('No bucket client or root key');
-			return;
 		}
 
 		const { files } = this.state;
 
 		for (const file of files) {
 			// console.log('[DEBUG] file: ', file);
+			this.setState({ isLoading: true, statusMessage: 'Reading file from device: ' + file.name });
 
 			const uri = file.uri;
 			const content = await RNFS.readFile(uri, 'base64');
@@ -98,14 +121,15 @@ export default class UploadFilesToBlockChain extends Component {
 			// console.log('[DEBUG] file: ', _file);
 
 			try {
+				this.setState({ isLoading: true, statusMessage: 'Generating IPFS Hash' });
 				const filePath = file.name;
 				const pushResult = await this.state.buckets.pushPath(this.state.bucketKey, filePath, _file);
 				console.log('[DEBUG] path: ', pushResult.path);
 				console.log('[DEBUG] ipfs address: ', pushResult.root);
 
 				const ipfsFileHash = pushResult.root;
-				const contractTransaction = await this.state.fileShareContract.storeHash(ipfsFileHash);
-				console.log('[DEBUG] contract result: ', contractTransaction);
+				const contractTransaction = await this.state.fileShareContract.functions.storeHash(ipfsFileHash, {});
+				console.log('[DEBUG] transaction result: ', contractTransaction);
 				/*
             Pull files from IPFS 
         */
@@ -129,16 +153,28 @@ export default class UploadFilesToBlockChain extends Component {
 				console.error(err);
 			}
 		}
+
+		this.setState({ isLoading: false, statusMessage: null });
 	};
 
 	destroy = async () => {
-		Alert.alert('Are you sure?', '! This action cannot be undone. The bucket and all associated data will be permanently deleted.', [
+		Alert.alert('Are you sure?', 'This action cannot be undone. The bucket/IPFS hashes and all associated data will be permanently deleted.', [
 			{
 				text: 'No',
-				onPress: () => console.log('Cancel Pressed'),
+				onPress: () => {
+					console.log('Cancel Pressed');
+					this.props.navigation.goBack();
+				},
 				style: 'cancel',
 			},
-			{ text: "Yes, I'm sure", onPress: async () => await deleteBucket(this.state.buckets, this.state.bucketKey) },
+			{
+				text: "Yes, I'm sure",
+				onPress: async () => {
+					await deleteBucket(this.state.buckets, this.state.bucketKey);
+					const contractTransaction = await this.state.fileShareContract.functions.clearStoredHashes();
+					console.log('[DEBUG] Cleared stored hashes: ', contractTransaction);
+				},
+			},
 		]);
 	};
 
@@ -163,6 +199,9 @@ export default class UploadFilesToBlockChain extends Component {
 						<Dialog.Content style={{ flexDirection: 'row' }}>
 							<ActivityIndicator animating={this.state.isLoading} />
 							<Paragraph style={styles.paragraph}>Loading please wait.</Paragraph>
+						</Dialog.Content>
+						<Dialog.Content>
+							<Paragraph style={styles.paragraph}>{this.state.statusMessage}</Paragraph>
 						</Dialog.Content>
 					</Dialog>
 				</Portal>

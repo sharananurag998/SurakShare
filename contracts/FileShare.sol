@@ -18,6 +18,13 @@ contract FileShare
         fileHash[msg.sender].push(_fileHash);
     }
 
+    function clearStoredHashes() public
+    {
+        require(fileHash[msg.sender].length > 0);
+
+        delete fileHash[msg.sender];
+    }
+
     // call this function to receive a file
     function receiveHash(address _from) public view returns(string[] memory)
     {   
