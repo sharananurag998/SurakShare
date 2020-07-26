@@ -18,7 +18,7 @@ export default class WalletCreated extends Component {
 
 	generateWalletFromMnemonics = () => {
 		let { mnemonics } = this.state;
-		console.log('[DEBUG] mnemonics: ', this.props.route.params.mnemonics);
+		// console.log('[DEBUG] mnemonics: ', this.props.route.params.mnemonics);
 
 		if (!(mnemonics instanceof Array) && typeof mnemonics !== 'string') throw new Error('invalid mnemonic');
 		else if (mnemonics instanceof Array) mnemonics = mnemonics.join(' ');

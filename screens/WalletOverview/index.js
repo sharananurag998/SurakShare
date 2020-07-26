@@ -30,11 +30,14 @@ export default class WalletOverview extends Component {
 								<Text style={styles.textBlock}>
 									In order to communicate to the blockchain and share files securely, you'll need a wallet.
 								</Text>
-								<Text style={styles.textBlock}>Click on the button below to begin</Text>
+								<Text style={styles.textBlock}>You can choose to create a new wallet or load wallet from stored mnemonic</Text>
 							</View>
 							<TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('CreateWallet')}>
-								<Text style={styles.text}>Create A Wallet</Text>
+								<Text style={styles.text}>Create a wallet</Text>
 							</TouchableOpacity>
+							{/* <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('LoadWallet')}>
+								<Text style={styles.text}>Load wallet</Text>
+							</TouchableOpacity> */}
 						</View>
 					</View>
 				</View>

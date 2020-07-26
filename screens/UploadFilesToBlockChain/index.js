@@ -2,21 +2,9 @@ import React, { Component } from 'react';
 import { StyleSheet, FlatList, View, Alert } from 'react-native';
 import RNFS from 'react-native-fs';
 import SyncStorage from 'sync-storage';
-import {
-	Button,
-	ActivityIndicator,
-	Text,
-	Title,
-	Headline,
-	Caption,
-	Paragraph,
-	Dialog,
-	Portal,
-	TextInput,
-	Surface,
-	DataTable,
-} from 'react-native-paper';
+import { Button, ActivityIndicator, Text, Title, Headline, Caption, Paragraph, Dialog, Portal, TextInput, Divider } from 'react-native-paper';
 import { ethers } from 'ethers';
+import QRCode from 'react-native-qrcode-svg';
 
 import { generateBuckets, generateBucketKey, deleteBucket, deleteFromBucket } from './bucketUtils';
 import * as FileShare from '../../build/contracts/FileShare.json';
@@ -29,10 +17,11 @@ export default class UploadFilesToBlockChain extends Component {
 			buckets: null,
 			bucketKey: null,
 			wallet: null,
-			isLoading: true,
+			isLoading: false,
 			files: null,
 			fileShareContract: null,
 			statusMessage: 'Generating contract to communicate to blockchain',
+			isDone: true,
 		};
 	}
 
@@ -131,8 +120,8 @@ export default class UploadFilesToBlockChain extends Component {
 				const contractTransaction = await this.state.fileShareContract.functions.storeHash(ipfsFileHash, {});
 				console.log('[DEBUG] transaction result: ', contractTransaction);
 				/*
-            Pull files from IPFS 
-        */
+				 *		Pull files from IPFS
+				 */
 				// const pullResult = await this.state.buckets.pullIpfsPath(ipfsFilePath);
 				// console.log('[DEBUG] pullResult: ', pullResult);
 
@@ -154,7 +143,7 @@ export default class UploadFilesToBlockChain extends Component {
 			}
 		}
 
-		this.setState({ isLoading: false, statusMessage: null });
+		this.setState({ isLoading: false, isDone: true, statusMessage: 'Successfully stored IPFS Hashes on the blockchain' });
 	};
 
 	destroy = async () => {
@@ -200,14 +189,16 @@ export default class UploadFilesToBlockChain extends Component {
 							<ActivityIndicator animating={this.state.isLoading} />
 							<Paragraph style={styles.paragraph}>Loading please wait.</Paragraph>
 						</Dialog.Content>
-						<Dialog.Content>
+						<Dialog.Content style={{ justifyContent: 'center', alignContent: 'center' }}>
 							<Paragraph style={styles.paragraph}>{this.state.statusMessage}</Paragraph>
 						</Dialog.Content>
 					</Dialog>
 				</Portal>
 				<View style={styles.fileList}>
 					<View style={{ padding: '5%' }}>
+						<Divider style={{ marginBottom: 5 }} />
 						<Headline>Selected files</Headline>
+						<Divider style={{ marginTop: 5 }} />
 					</View>
 					<FlatList
 						data={this.state.files}
@@ -245,6 +236,27 @@ export default class UploadFilesToBlockChain extends Component {
 						<Text>send</Text>
 					</Button>
 				</View>
+				<Portal>
+					<Dialog visible={this.state.isDone} style={styles.center}>
+						<Dialog.Content>
+							<Headline style={{ textAlign: 'center' }}>Please share your public address with the receiver.</Headline>
+							<Divider style={{ marginTop: 5 }} />
+						</Dialog.Content>
+						<Dialog.Content>
+							<QRCode value={this.state.wallet ? this.state.wallet.address : 'INVALID_WALLET_ADDRESS'} size={250} />
+						</Dialog.Content>
+						<Dialog.Content>
+							<Divider />
+							<Caption>Scan to share public address</Caption>
+							<Divider />
+						</Dialog.Content>
+						<Dialog.Content>
+							<Divider />
+							<Paragraph style={{ textAlign: 'center' }}>{this.state.statusMessage}</Paragraph>
+							<Divider />
+						</Dialog.Content>
+					</Dialog>
+				</Portal>
 			</View>
 		);
 	}
@@ -296,5 +308,10 @@ const styles = StyleSheet.create({
 		marginBottom: '5%',
 		borderBottomWidth: 2,
 		borderBottomColor: '#ddd',
+	},
+	center: {
+		justifyContent: 'center',
+		alignContent: 'center',
+		alignItems: 'center',
 	},
 });

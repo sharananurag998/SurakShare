@@ -60,6 +60,7 @@
     "react-native-permissions": "^2.1.5",
     "react-native-popup-dialog": "^0.18.3",
     "react-native-qrcode-scanner": "^1.4.1",
+    "react-native-qrcode-svg": "^6.0.6",
     "react-native-randombytes": "^3.5.3",
     "react-native-reanimated": "~1.9.0",
     "react-native-safe-area-context": "~3.0.7",
