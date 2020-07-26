@@ -17,11 +17,11 @@ export default class UploadFilesToBlockChain extends Component {
 			buckets: null,
 			bucketKey: null,
 			wallet: null,
-			isLoading: false,
+			isLoading: true,
 			files: null,
 			fileShareContract: null,
 			statusMessage: 'Generating contract to communicate to blockchain',
-			isDone: true,
+			isDone: false,
 		};
 	}
 
@@ -239,7 +239,7 @@ export default class UploadFilesToBlockChain extends Component {
 				<Portal>
 					<Dialog visible={this.state.isDone} style={styles.center}>
 						<Dialog.Content>
-							<Headline style={{ textAlign: 'center' }}>Please share your public address with the receiver.</Headline>
+							<Headline style={{ textAlign: 'center' }}>Please share your public address with the receiver</Headline>
 							<Divider style={{ marginTop: 5 }} />
 						</Dialog.Content>
 						<Dialog.Content>
@@ -247,7 +247,7 @@ export default class UploadFilesToBlockChain extends Component {
 						</Dialog.Content>
 						<Dialog.Content>
 							<Divider />
-							<Caption>Scan to share public address</Caption>
+							<Caption>QRScan of your public address</Caption>
 							<Divider />
 						</Dialog.Content>
 						<Dialog.Content>
