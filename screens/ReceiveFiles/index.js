@@ -6,6 +6,7 @@ import { Icon } from 'react-native-elements';
 import { RNCamera } from 'react-native-camera';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import RNFS from 'react-native-fs';
+import SyncStorage from 'sync-storage';
 
 import { INFURA_PROJECT_ID } from 'react-native-dotenv';
 import { setUpContract, generateBuckets, generateBucketKey, deleteBucket, deleteFromBucket } from '../../utils/InitUtilities';
@@ -28,12 +29,11 @@ export default class ReceiveFiles extends Component {
 		};
 	}
 
-	init = async () => {
+	init = async (walletOrProvider) => {
 		try {
 			this.setState({ isVisibleWalletPrompt: false, isLoading: true });
 
-			const provider = new ethers.providers.InfuraProvider('ropsten', INFURA_PROJECT_ID);
-			const fileShareContract = setUpContract(provider);
+			const fileShareContract = setUpContract(walletOrProvider);
 
 			// textile.io buckets for IPFS
 			const buckets = await generateBuckets();
@@ -50,7 +50,7 @@ export default class ReceiveFiles extends Component {
 			// create a new ThreadID for user
 			await buckets.links(bucketKey);
 
-			this.setState({ isLoading: false, buckets, bucketKey, fileShareContract, walletOrProvider: provider }, () => {
+			this.setState({ isLoading: false, buckets, bucketKey, fileShareContract, walletOrProvider }, () => {
 				console.log('[DEBUG] STATUS, READY?: ', !this.state.isLoading);
 			});
 		} catch (err) {
@@ -61,13 +61,12 @@ export default class ReceiveFiles extends Component {
 
 	componentDidMount = async () => {
 		try {
-			const walletOrProvider = SyncStorage.get('wallet');
-			// const walletOrProvider = null;
-
-			if (!walletOrProvider) {
-				this.setState({ isVisibleWalletPrompt: true });
+			const wallet = SyncStorage.get('wallet');
+			// const wallet = null;
+			if (wallet) {
+				this.init(wallet);
 			} else {
-				this.init();
+				this.setState({ isVisibleWalletPrompt: true });
 			}
 		} catch (err) {
 			Alert.alert('Unexpected error occured', err.message);
@@ -159,7 +158,13 @@ export default class ReceiveFiles extends Component {
 							<Paragraph style={styles.paragraph}>You can also choose to continue without a wallet and use a provider</Paragraph>
 						</Dialog.Content>
 						<Dialog.Actions>
-							<Button contentStyle={[styles.button, { color: '#ccc' }]} labelStyle={{ fontSize: 10 }} onPress={this.init}>
+							<Button
+								contentStyle={[styles.button, { color: '#ccc' }]}
+								labelStyle={{ fontSize: 10 }}
+								onPress={() => {
+									const provider = new ethers.providers.InfuraProvider('ropsten', INFURA_PROJECT_ID);
+									this.init(provider);
+								}}>
 								Continue w/ provider
 							</Button>
 							<Button
@@ -167,7 +172,10 @@ export default class ReceiveFiles extends Component {
 								mode='contained'
 								onPress={() => {
 									this.setState({ isVisibleWalletPrompt: false }, () => {
-										this.props.navigation.navigate('SecureFileShare', { screen: 'WalletOverview' });
+										this.props.navigation.navigate('SecureFileShare', {
+											screen: 'WalletOverview',
+											params: { navigateTo: 'ReceiveFiles' },
+										});
 									});
 								}}>
 								Get wallet

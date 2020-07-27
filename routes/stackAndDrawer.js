@@ -15,6 +15,7 @@ import ShareFiles from '../screens/shareFiles';
 import TransferHistory from '../screens/transferHistory';
 import WalletOverview from '../screens/WalletOverview';
 import CreateWallet from '../screens/CreateWallet';
+import LoadWallet from '../screens/LoadWallet';
 import RevealMnemonic from '../screens/RevealMnemonic';
 import ConfirmMnemonics from '../screens/ConfirmMnemonics';
 import WalletCreated from '../screens/WalletCreated';
@@ -315,6 +316,13 @@ function SecureFileShareStackNavigator({ navigation }) {
 				}}
 			/>
 			<Stack.Screen
+				name='LoadWallet'
+				component={LoadWallet}
+				options={{
+					title: 'Create a Wallet', //Set Header Title
+				}}
+			/>
+			<Stack.Screen
 				name='RevealMnemonic'
 				component={RevealMnemonic}
 				options={{
@@ -459,6 +467,7 @@ export default function SurakShare(props) {
 					name='SecureFileShare'
 					options={{
 						drawerIcon: ({ focused, color, size }) => <MaterialCommunityIcons name='web' style={{ color: '#000', fontSize: 30 }} />,
+						title: 'Secure File Share',
 					}}
 					component={SecureFileShareStackNavigator}
 				/>
@@ -466,7 +475,8 @@ export default function SurakShare(props) {
 				<Drawer.Screen
 					name='ReceiveFiles'
 					options={{
-						drawerIcon: ({ focused, color, size }) => <MaterialCommunityIcons name='web' style={{ color: '#000', fontSize: 30 }} />,
+						drawerIcon: ({ focused, color, size }) => <MaterialIcons name='get-app' style={{ color: '#000', fontSize: 30 }} />,
+						title: 'Receive Files',
 					}}
 					component={ReceiveFilesNavigator}
 				/>

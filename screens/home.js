@@ -70,7 +70,10 @@ export default function Home(props) {
 					</TouchableScale>
 				</View>
 				<View style={styles.ButtonRow}>
-					<TouchableScale onPress={() => props.navigation.navigate('SecureFileShare', { screen: 'WalletOverview' })}>
+					<TouchableScale
+						onPress={() =>
+							props.navigation.navigate('SecureFileShare', { screen: 'WalletOverview', params: { navigateTo: 'SelectFiles' } })
+						}>
 						<View style={styles.PrivateButton}>
 							<Text style={styles.ButtonText}>Secure Sharing</Text>
 							<Entypo name='network' color='white' size={40} style={styles.icon} />

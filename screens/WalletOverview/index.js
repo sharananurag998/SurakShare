@@ -6,7 +6,7 @@ import SyncStorage from 'sync-storage';
 export default class WalletOverview extends Component {
 	componentDidMount() {
 		if (SyncStorage.get('wallet')) {
-			this.props.navigation.navigate('SelectFiles');
+			this.props.navigation.navigate('SelectFiles', { methodOfSharing: 'Share on BlockChain' });
 		}
 	}
 
@@ -35,9 +35,13 @@ export default class WalletOverview extends Component {
 							<TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('CreateWallet')}>
 								<Text style={styles.text}>Create a wallet</Text>
 							</TouchableOpacity>
-							{/* <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('LoadWallet')}>
+							<TouchableOpacity
+								onPress={() => {
+									const { navigateTo } = this.props.route.params;
+									this.props.navigation.navigate('LoadWallet', { navigateTo });
+								}}>
 								<Text style={styles.text}>Load wallet</Text>
-							</TouchableOpacity> */}
+							</TouchableOpacity>
 						</View>
 					</View>
 				</View>

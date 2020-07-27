@@ -26,9 +26,9 @@ export default class UploadFilesToBlockChain extends Component {
 
 	async componentDidMount() {
 		try {
-			// const wallet = SyncStorage.get('wallet');
-			const provider = SyncStorage.get('provider');
-			const wallet = new ethers.Wallet(TEST_PRIVATE_KEY, provider);
+			const wallet = SyncStorage.get('wallet');
+			// const provider = new ethers.providers.InfuraProvider('ropsten', INFURA_PROJECT_ID);
+			// const wallet = new ethers.Wallet(TEST_PRIVATE_KEY, provider);
 
 			const { files } = this.props.route.params;
 
@@ -106,8 +106,8 @@ export default class UploadFilesToBlockChain extends Component {
 				console.log('[DEBUG] path: ', pushResult.path);
 				console.log('[DEBUG] ipfs address: ', pushResult.root);
 
-				let overrides = {
-					gasLimit: 8500000,
+				const overrides = {
+					// gasLimit: 9500000,
 				};
 				const ipfsFileHash = pushResult.root;
 				const contractTransaction = await this.state.fileShareContract.functions.storeHash(ipfsFileHash, overrides);
@@ -161,7 +161,7 @@ export default class UploadFilesToBlockChain extends Component {
 					<Dialog visible={this.state.isLoading}>
 						<Dialog.Content style={{ flexDirection: 'row' }}>
 							<ActivityIndicator animating={this.state.isLoading} />
-							<Paragraph style={styles.paragraph}>Loading please wait.</Paragraph>
+							<Paragraph style={styles.paragraph}>Loading, please wait.</Paragraph>
 						</Dialog.Content>
 						<Dialog.Content style={{ justifyContent: 'center', alignContent: 'center' }}>
 							<Paragraph style={styles.paragraph}>{this.state.statusMessage}</Paragraph>
@@ -183,7 +183,7 @@ export default class UploadFilesToBlockChain extends Component {
 					/>
 				</View>
 				<View style={styles.sendFilePrompt}>
-					<Headline style={{ fontSize: 19 }}>Send files to [optional]</Headline>
+					<Headline style={{ fontSize: 19 }}>[optional] Send files to</Headline>
 					<TextInput
 						mode='outlined'
 						label='address of the receiver'
