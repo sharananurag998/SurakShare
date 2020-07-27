@@ -62,7 +62,7 @@ export default function Home(props) {
 					</TouchableScale>
 				</View>
 				<View style={styles.ButtonRow}>
-					<TouchableScale>
+					<TouchableScale onPress={() => props.navigation.navigate('ReceiveFiles')}>
 						<View style={styles.ReceiveButton}>
 							<Text style={styles.ButtonText}>Receive Files</Text>
 							<MaterialIcons name='file-download' color='white' size={40} style={styles.icon} />

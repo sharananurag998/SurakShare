@@ -25,6 +25,7 @@ import Welcome from '../screens/welcomeScreen';
 import QrScan from '../screens/qrScan';
 import Login from '../screens/Login';
 import changePassword from '../screens/changePassword';
+import ReceiveFiles from '../screens/ReceiveFiles';
 
 const Stack = createStackNavigator();
 
@@ -252,6 +253,35 @@ function TransferHistoryStackNavigator({ navigation }) {
 	);
 }
 
+function ReceiveFilesNavigator({ navigation }) {
+	return (
+		<Stack.Navigator
+			initialRouteName='ReceiveFiles'
+			screenOptions={{
+				headerLeft: () => <NavigationDrawerStructure navigationProps={navigation} />,
+				headerStyle: {
+					backgroundColor: '#5DA1AC', //Set Header color
+				},
+				headerTintColor: '#fff', //Set Header text color
+				title: 'Receive files',
+				headerRight: () => (
+					<TouchableOpacity>
+						<MaterialCommunityIcons name='qrcode-scan' size={24} color='white' style={{ right: 10 }} />
+					</TouchableOpacity>
+				),
+				headerLayoutPreset: 'center',
+			}}>
+			<Stack.Screen
+				name='ReceiveFiles'
+				component={ReceiveFiles}
+				options={{
+					title: 'Receive files', //Set Header Title
+				}}
+			/>
+		</Stack.Navigator>
+	);
+}
+
 function SecureFileShareStackNavigator({ navigation }) {
 	return (
 		<Stack.Navigator
@@ -431,6 +461,14 @@ export default function SurakShare(props) {
 						drawerIcon: ({ focused, color, size }) => <MaterialCommunityIcons name='web' style={{ color: '#000', fontSize: 30 }} />,
 					}}
 					component={SecureFileShareStackNavigator}
+				/>
+
+				<Drawer.Screen
+					name='ReceiveFiles'
+					options={{
+						drawerIcon: ({ focused, color, size }) => <MaterialCommunityIcons name='web' style={{ color: '#000', fontSize: 30 }} />,
+					}}
+					component={ReceiveFilesNavigator}
 				/>
 
 				<Drawer.Screen

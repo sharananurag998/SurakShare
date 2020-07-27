@@ -92,6 +92,8 @@ target 'SurakShare' do
 
   pod 'react-native-document-picker', :path => '../node_modules/react-native-document-picker'
 
+  pod 'RNSVG', :path => '../node_modules/react-native-svg'
+
   post_install do |installer|
     flipper_post_install(installer)
   end

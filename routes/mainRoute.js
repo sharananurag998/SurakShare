@@ -9,6 +9,7 @@ import SignUp from '../screens/SignUp';
 import WalkthroughNavigator from './walkthroughRoutes';
 import SurakShare from './stackAndDrawer';
 import SecureFileShareStack from './SecureFileShareStack';
+import ReceiveFiles from '../screens/ReceiveFiles';
 
 const Stack = createStackNavigator();
 
@@ -22,6 +23,7 @@ function AppContainer() {
 				<Stack.Screen name='SignUp' component={SignUp} options={{ headerShown: false }} />
 				<Stack.Screen name='SurakShare' component={SurakShare} options={{ headerShown: false }} />
 				<Stack.Screen name='SecureFileShare' component={SecureFileShareStack} options={{ headerShown: false }} />
+				<Stack.Screen name='ReceiveFiles' component={ReceiveFiles} options={{ headerShown: false }} />
 			</Stack.Navigator>
 		</NavigationContainer>
 	);
