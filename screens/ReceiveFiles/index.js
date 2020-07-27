@@ -61,8 +61,8 @@ export default class ReceiveFiles extends Component {
 
 	componentDidMount = async () => {
 		try {
-			// const walletOrProvider = SyncStorage.get('wallet');
-			const walletOrProvider = null;
+			const walletOrProvider = SyncStorage.get('wallet');
+			// const walletOrProvider = null;
 
 			if (!walletOrProvider) {
 				this.setState({ isVisibleWalletPrompt: true });
