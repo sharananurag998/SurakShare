@@ -4,6 +4,7 @@ import { globalStyles } from '../styles/global';
 import TouchableScale from 'react-native-touchable-scale';
 import { MaterialIcons, Entypo } from '@expo/vector-icons';
 import { ListItem, Badge } from 'react-native-elements';
+import SyncStorage from 'sync-storage';
 
 export default function Home(props) {
 	const transfers = [
@@ -62,7 +63,7 @@ export default function Home(props) {
 					</TouchableScale>
 				</View>
 				<View style={styles.ButtonRow}>
-					<TouchableScale onPress={() => props.navigation.navigate('ReceiveFiles')}>
+					<TouchableScale onPress={() => props.navigation.navigate('ReceiveFiles', { methodOfSharing: 'Share on BlockChain' })}>
 						<View style={styles.ReceiveButton}>
 							<Text style={styles.ButtonText}>Receive Files</Text>
 							<MaterialIcons name='file-download' color='white' size={40} style={styles.icon} />
@@ -71,9 +72,10 @@ export default function Home(props) {
 				</View>
 				<View style={styles.ButtonRow}>
 					<TouchableScale
-						onPress={() =>
-							props.navigation.navigate('SecureFileShare', { screen: 'WalletOverview', params: { navigateTo: 'SelectFiles' } })
-						}>
+						onPress={() => {
+							SyncStorage.set('navigateBackTo', 'SelectFiles');
+							props.navigation.navigate('SecureFileShare', { screen: 'WalletOverview' });
+						}}>
 						<View style={styles.PrivateButton}>
 							<Text style={styles.ButtonText}>Secure Sharing</Text>
 							<Entypo name='network' color='white' size={40} style={styles.icon} />

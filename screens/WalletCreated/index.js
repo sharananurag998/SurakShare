@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Image, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, View, Image, TouchableOpacity, Linking } from 'react-native';
 import Svg, { Ellipse } from 'react-native-svg';
 import { ethers } from 'ethers';
 import SyncStorage from 'sync-storage';
+import { Headline, Portal, Button, Text, Paragraph, Chip, Dialog, Divider, Snackbar } from 'react-native-paper';
+import Clipboard from '@react-native-community/clipboard';
 
 import { INFURA_PROJECT_ID } from 'react-native-dotenv';
 
@@ -13,6 +15,10 @@ export default class WalletCreated extends Component {
 			mnemonics: this.props.route.params.mnemonics,
 			PROVIDER: new ethers.providers.InfuraProvider('ropsten', INFURA_PROJECT_ID),
 			// PROVIDER: new ethers.providers.JsonRpcProvider('http://localhost:9545'),
+			wallet: null,
+			isVisibleSnackbar: false,
+			isVisiblePortal: false,
+			isDone: false,
 		};
 	}
 
@@ -25,22 +31,93 @@ export default class WalletCreated extends Component {
 
 		try {
 			const wallet = new ethers.Wallet.fromMnemonic(mnemonics).connect(this.state.PROVIDER);
+			this.setState({ wallet });
 			SyncStorage.set('wallet', wallet);
 			SyncStorage.set('provider', this.state.PROVIDER);
 			console.log('[DEBUG] wallet (local): ', wallet);
 			console.log('[DEBUG] wallet in storage: ', SyncStorage.get('wallet'));
+			this.setState({ isVisiblePortal: true });
 		} catch (err) {
 			alert('Error Occured: ' + JSON.stringify(err));
 			throw err;
 		}
-		this.props.navigation.navigate('SelectFiles', {
-			methodOfSharing: 'Share on BlockChain',
-		});
 	};
 
 	render() {
 		return (
 			<View style={styles.container}>
+				<Portal>
+					<Dialog visible={this.state.isVisiblePortal}>
+						<Dialog.Content style={{ flexDirection: 'row' }}>
+							<Headline style={styles.paragraph}>Almost there!</Headline>
+						</Dialog.Content>
+						<Dialog.Content style={{ flexDirection: 'row' }}>
+							<Paragraph style={styles.paragraph}>
+								You'll need ether to make transactions, you can choose to purchase ether with real money or request ether for free on
+								Ropsten testnet's faucet
+							</Paragraph>
+							<Divider />
+						</Dialog.Content>
+						<Dialog.Content style={{ justifyContent: 'center', alignContent: 'center' }}>
+							<Paragraph style={styles.paragraph}>
+								please follow the link to make a request for free tesetnet ether if you wish to send files and make transactions to
+								the blockchain
+							</Paragraph>
+							<Divider />
+						</Dialog.Content>
+						<Dialog.Content style={{ justifyContent: 'center', alignContent: 'center' }}>
+							<Paragraph style={styles.paragraph}>Optionally you can skip this step if you choose to ONLY receive files</Paragraph>
+							<Divider />
+						</Dialog.Content>
+						<Dialog.Content style={{ justifyContent: 'center', alignContent: 'center' }}>
+							<Chip
+								icon='ethereum'
+								mode='flat'
+								style={{ alignSelf: 'center' }}
+								onPress={() => {
+									if (this.state.wallet) {
+										this.setState({ isVisibleSnackbar: true });
+										Clipboard.setString(this.state.wallet.address);
+									}
+								}}>
+								{this.state.wallet
+									? this.state.wallet.address.slice(0, 4) + '...' + this.state.wallet.address.slice(-4)
+									: 'Wallet not created'}
+							</Chip>
+							<Paragraph style={[styles.paragraph, { alignSelf: 'center' }]}>copy to clipboard</Paragraph>
+							<Divider />
+							<Snackbar
+								wrapperStyle={{ margin: 75, marginLeft: 50, width: 165 }}
+								duration={75}
+								visible={this.state.isVisibleSnackbar}
+								onDismiss={() => this.setState({ isVisibleSnackbar: false })}>
+								Copied to clipboard
+							</Snackbar>
+						</Dialog.Content>
+						<Dialog.Actions style={{ justifyContent: 'space-around' }}>
+							<Button
+								contentStyle={styles.promptButton}
+								mode='contained'
+								disabled={SyncStorage.get('navigateBackTo') === 'SelectFiles'}
+								onPress={() => {
+									this.setState({ isVisiblePortal: false });
+									const navigateBackTo = SyncStorage.get('navigateBackTo');
+									this.props.navigation.navigate(navigateBackTo, { methodOfSharing: 'Share on BlockChain' });
+								}}>
+								{this.state.isDone ? 'Done' : 'Skip'}
+							</Button>
+							<Button
+								contentStyle={styles.promptButton}
+								mode='contained'
+								onPress={async () => {
+									this.setState({ isDone: true });
+									await Linking.openURL('https://faucet.ropsten.be/');
+								}}>
+								Request ether
+							</Button>
+						</Dialog.Actions>
+					</Dialog>
+				</Portal>
 				<View style={styles.ellipseStack}>
 					<Svg viewBox='0 0 705.44 582.3' style={styles.ellipse}>
 						<Ellipse stroke='rgba(0,0,0,0.29)' strokeWidth={6} fill='rgba(230, 230, 230,1)' cx={353} cy={291} rx={350} ry={288}></Ellipse>
@@ -73,6 +150,12 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor: 'rgba(56,107,122,1)',
+	},
+	promptButton: {
+		padding: 'auto',
+		margin: 'auto',
+		height: 60,
+		width: 170,
 	},
 	ellipse: {
 		left: 11,
