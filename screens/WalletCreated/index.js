@@ -60,7 +60,7 @@ export default class WalletCreated extends Component {
 						</Dialog.Content>
 						<Dialog.Content style={{ justifyContent: 'center', alignContent: 'center' }}>
 							<Paragraph style={styles.paragraph}>
-								please follow the link to make a request for free tesetnet ether if you wish to send files and make transactions to
+								please follow the link to make a request for free tesetnet ether if you wish to send files and make transactions on
 								the blockchain
 							</Paragraph>
 							<Divider />
@@ -87,7 +87,7 @@ export default class WalletCreated extends Component {
 							<Paragraph style={[styles.paragraph, { alignSelf: 'center' }]}>copy to clipboard</Paragraph>
 							<Divider />
 							<Snackbar
-								wrapperStyle={{ margin: 75, marginLeft: 50, width: 165 }}
+								wrapperStyle={{ margin: 75, marginLeft: 90, width: 175 }}
 								duration={75}
 								visible={this.state.isVisibleSnackbar}
 								onDismiss={() => this.setState({ isVisibleSnackbar: false })}>
@@ -98,7 +98,7 @@ export default class WalletCreated extends Component {
 							<Button
 								contentStyle={styles.promptButton}
 								mode='contained'
-								disabled={SyncStorage.get('navigateBackTo') === 'SelectFiles'}
+								disabled={SyncStorage.get('navigateBackTo') === 'SelectFiles' && !this.state.isDone}
 								onPress={() => {
 									this.setState({ isVisiblePortal: false });
 									const navigateBackTo = SyncStorage.get('navigateBackTo');
