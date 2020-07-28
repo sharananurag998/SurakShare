@@ -26,9 +26,9 @@ export default class UploadFilesToBlockChain extends Component {
 
 	async componentDidMount() {
 		try {
-			const wallet = SyncStorage.get('wallet');
-			// const provider = new ethers.providers.InfuraProvider('ropsten', INFURA_PROJECT_ID);
-			// const wallet = new ethers.Wallet(TEST_PRIVATE_KEY, provider);
+			// const wallet = SyncStorage.get('wallet');
+			const provider = new ethers.providers.InfuraProvider('ropsten', INFURA_PROJECT_ID);
+			const wallet = new ethers.Wallet(TEST_PRIVATE_KEY, provider);
 
 			const { files } = this.props.route.params;
 
