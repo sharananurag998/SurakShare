@@ -172,6 +172,7 @@ export default class ReceiveFiles extends Component {
 								mode='contained'
 								onPress={() => {
 									this.setState({ isVisibleWalletPrompt: false }, () => {
+										SyncStorage.set('navigateBackTo', 'ReceiveFiles');
 										this.props.navigation.navigate('SecureFileShare', {
 											screen: 'WalletOverview',
 											params: { navigateTo: 'ReceiveFiles' },
@@ -237,7 +238,7 @@ export default class ReceiveFiles extends Component {
 						</View>
 						<View style={styles.buttonContainer}>
 							<Button
-								onPress={() => console.log('cancel presed')}
+								onPress={() => this.props.navgation.goBack()}
 								loading={this.state.isLoading}
 								disabled={this.state.isLoading}
 								contentStyle={[styles.button, { backgroundColor: '#ccc' }]}

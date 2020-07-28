@@ -35,11 +35,7 @@ export default class WalletOverview extends Component {
 							<TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('CreateWallet')}>
 								<Text style={styles.text}>Create a wallet</Text>
 							</TouchableOpacity>
-							<TouchableOpacity
-								onPress={() => {
-									const { navigateTo } = this.props.route.params;
-									this.props.navigation.navigate('LoadWallet', { navigateTo });
-								}}>
+							<TouchableOpacity onPress={() => this.props.navigation.navigate('LoadWallet')}>
 								<Text style={styles.text}>Load wallet</Text>
 							</TouchableOpacity>
 						</View>

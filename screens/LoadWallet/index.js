@@ -31,7 +31,8 @@ export default function LoadWallet({ navigation, route }) {
 				SyncStorage.set('wallet', wallet);
 
 				Alert.alert('wallet loaded successfully');
-				navigation.navigate(route.params.navigateTo, { methodOfSharing: 'Share on BlockChain' });
+				const navigateBackTo = SyncStorage.get('navigateBackTo');
+				navigation.navigate(navigateBackTo, { methodOfSharing: 'Share on BlockChain' });
 			} catch (err) {
 				Alert.alert('Invalid mnemonic phrase', 'Please try again with valid mnemonic phrase');
 				console.error(err);
