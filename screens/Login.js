@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
   },
   button3: {
     height: 59,
-    shadowColor: "rgba(0,0,0,1)",
+    shadowColor: "rgba(0,0,0,1)", #5b0a91
     shadowOffset: {
       width: 3,
       height: 3
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     shadowRadius: 0,
     borderRadius: 50,
     opacity: 0.87,
-    backgroundColor: "rgba(31,178,204,1)",
+    backgroundColor: "#5b0a91",
     marginTop: 136,
     marginLeft: 17,
     marginRight: 16,
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     shadowRadius: 0,
     borderRadius: 50,
     opacity: 0.87,
-    backgroundColor: "rgba(31,178,204,1)",
+    backgroundColor: "#5b0a91",
     marginTop: 16,
     marginLeft: 17,
     marginRight: 16,
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
   },
   button: {
     height: 59,
-    backgroundColor: "rgba(31,178,204,1)",
+    backgroundColor: "#5b0a91",
     borderRadius: 5,
     justifyContent: "center"
   },
