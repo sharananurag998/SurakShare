@@ -90,7 +90,7 @@ export default class App extends PureComponent {
   connectToDevice = (deviceAddress) => {
       console.log('Connect to: ', deviceAddress);
       connect(deviceAddress)
-          .then(() => alert('Successfully connected', `Successfully connected to device: ${deviceAddress}`, [{text:'Send Files', onPress: ()=>this.props.navigation.navigate("SendFilesOffline")}, {text:'Receive Files', onPress: ()=>this.props.navigation.navigate("ReceiveFilesOffline")}], { cancelable: false }));
+          .then(() => alert('Successfully connected', `Successfully connected to device: ${deviceAddress}`, [{text:'Send Files', onPress: ()=>this.props.navigation.navigate("SendFilesOffline")}, {text:'Receive Files', onPress: ()=>this.props.navigation.navigate("ReceiveFilesOffline")}], { cancelable: false }))
           .catch(err => alert(`Something gone wrong. Details: ${err}`));
   };
 

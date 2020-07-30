@@ -5,9 +5,10 @@ import SyncStorage from 'sync-storage';
 import { Button, ActivityIndicator, Text, Title, Headline, Caption, Paragraph, Dialog, Portal, TextInput, Divider } from 'react-native-paper';
 import { ethers } from 'ethers';
 import QRCode from 'react-native-qrcode-svg';
+// import * as base64 from 'byte-base64';
 
 import { generateBuckets, generateBucketKey, deleteBucket, setUpContract } from '../../utils/InitUtilities';
-import { TEST_PRIVATE_KEY } from 'react-native-dotenv';
+import { TEST_PRIVATE_KEY, INFURA_PROJECT_ID } from 'react-native-dotenv';
 
 export default class UploadFilesToBlockChain extends Component {
 	constructor(props) {
@@ -15,41 +16,30 @@ export default class UploadFilesToBlockChain extends Component {
 		this.state = {
 			buckets: null,
 			bucketKey: null,
+			threadID: null,
 			wallet: null,
 			isLoading: true,
 			files: null,
 			fileShareContract: null,
 			statusMessage: 'Generating contract to communicate to blockchain',
-			isDone: false,
 		};
 	}
 
 	async componentDidMount() {
 		try {
-			const wallet = SyncStorage.get('wallet');
-			// const provider = new ethers.providers.InfuraProvider('ropsten', INFURA_PROJECT_ID);
-			// const wallet = new ethers.Wallet(TEST_PRIVATE_KEY, provider);
+			// const wallet = SyncStorage.get('wallet');
+			const provider = new ethers.providers.InfuraProvider('ropsten', INFURA_PROJECT_ID);
+			const wallet = new ethers.Wallet(TEST_PRIVATE_KEY, provider);
 
 			const { files } = this.props.route.params;
 
-			/*
-			 *	 Set up the FileShare contract
-			 */
-			// const contractAddress = FileShare.networks['5777'].address;	// local development environment
-
-			// const contractByteCode = FileShare.bytecode;
-			// const contractAbi = FileShare.abi;
-			// console.log('[DEBUG] Contract Abi: ', contractAbi);
-			// const factory = new ethers.ContractFactory(contractAbi, contractByteCode, wallet);
-			// const fileShareContract = await factory.deploy();
-			// await fileShareContract.deployed(); // deploy on ropsten
-			// console.log('[DEBUG] FileShare Contract transaction hash: ', fileShareContract.deployTransaction.hash);
-
-			const fileShareContract = setUpContract(wallet);
-
 			// textile.io buckets for IPFS
 			const buckets = await generateBuckets();
-			const bucketKey = await generateBucketKey(buckets);
+			const { bucketKey, threadID } = await generateBucketKey(buckets);
+			// SyncStorage.set('threadID', threadID);
+
+			const links = await buckets.links(bucketKey);
+			console.log('[DEBUG] links: ', links);
 
 			if (!buckets || !bucketKey) {
 				Alert.alert('Session expired, please reset your bucket[IPFS] with the key');
@@ -57,10 +47,19 @@ export default class UploadFilesToBlockChain extends Component {
 				return;
 			}
 
-			// create a new ThreadID for user
-			await buckets.links(bucketKey);
+			/*
+			 *	 Set up the FileShare contract and store threadID
+			 */
+			const fileShareContract = setUpContract(wallet);
 
-			this.setState({ isLoading: false, buckets, bucketKey, wallet, files, fileShareContract }, () => {
+			// console.log('links: ', await buckets.links(bucketKey));
+			// const contractTransaction = await fileShareContract.functions.clearStoredHashes();
+			// console.log('[DEBUG] Cleared stored hashes [tx]: ', contractTransaction);
+
+			const transaction = await fileShareContract.functions.setThreadID(threadID);
+			console.log('[DEBUG] threadID transaction: ', transaction);
+
+			this.setState({ isLoading: false, buckets, bucketKey, threadID, wallet, files, fileShareContract }, () => {
 				console.log('[DEBUG] STATUS, READY?: ', !this.state.isLoading);
 			});
 		} catch (err) {
@@ -78,10 +77,6 @@ export default class UploadFilesToBlockChain extends Component {
 			Alert.alert('Session expired, please reset your bucket[IPFS] with the key');
 			console.error('No bucket client or root key');
 		}
-
-		await this.state.fileShareContract.clearStoredHashes().catch((err) => {
-			console.log('[DEBUG] err: ', err);
-		});
 
 		const { files } = this.state;
 
@@ -109,15 +104,32 @@ export default class UploadFilesToBlockChain extends Component {
 				const overrides = {
 					// gasLimit: 9500000,
 				};
-				const ipfsFileHash = pushResult.root;
-				const contractTransaction = await this.state.fileShareContract.functions.storeHash(ipfsFileHash, overrides);
-				console.log('[DEBUG] transaction result: ', contractTransaction);
+				const storeFileTransaction = await this.state.fileShareContract.functions.storeHash(filePath, overrides);
+				console.log('[DEBUG] store file transaction result: ', storeFileTransaction);
+
+				// const pullResult = this.state.buckets.pullPath(this.state.bucketKey, filePath);
+				// console.log('[DEBUG] pullResult: ', pullResult);
+				// const chunks = [];
+				// const iterator = pullResult[Symbol.asyncIterator]();
+				// while (chunks.length < Infinity) {
+				// 	// const { value, done } = await pullResult.next();
+				// 	const { value, done } = await iterator.next();
+				// 	if (done) break;
+				// 	chunks.push(value);
+				// 	console.log('[DEBUG] value: ', value);
+				// }
+				// console.log('[DEBUG] chunks: ', chunks);
+				// const combined = Uint8Array.from(Array.prototype.concat(...chunks.map((a) => Array.from(a))));
+				// console.log('[DEBUG] combined: ', combined);
+
+				// const buffer = base64.bytesToBase64(combined);
+				// console.log('[DEBUG] buffer from library: ', buffer);
 			} catch (err) {
 				console.error(err);
 			}
 		}
 
-		this.setState({ isLoading: false, isDone: true, statusMessage: 'Successfully stored IPFS Hashes on the blockchain' });
+		this.setState({ isLoading: false, isDone: true, statusMessage: 'Successfully stored IPFS Hashes on the blockchain' }, async () => {});
 	};
 
 	destroy = async () => {
@@ -234,7 +246,12 @@ export default class UploadFilesToBlockChain extends Component {
 								contentStyle={styles.button}
 								mode='contained'
 								onPress={() => {
-									this.setState({ isDone: false }, () => {
+									this.setState({ isDone: false }, async () => {
+										this.setState({ statusMessage: 'Clearing hashes stored on the blockchain' });
+										// await this.state.fileShareContract.functions.clearStoredHashes().catch((err) => {
+										// 	console.log('[DEBUG] err: ', err);
+										// });
+
 										this.props.navigation.navigate('Home');
 									});
 								}}>

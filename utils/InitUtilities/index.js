@@ -8,13 +8,30 @@ import { USER_API_KEY, USER_API_SECRET, CONTRACT_ADDRESS } from 'react-native-do
 
 export function setUpContract(walletOrProvider) {
 	const contractAbi = FileShare.abi;
-	const contractAddress = CONTRACT_ADDRESS; // 0xDA72196E315E7522228DdDE776021eDD52DAD279 [Deployed on ropsten]
+	const contractAddress = CONTRACT_ADDRESS; // 0xB16fB80E40fe7E570E489Fa10076A3975F3e6CA6 [Deployed on ropsten]
 	const fileShareContract = new ethers.Contract(contractAddress, contractAbi, walletOrProvider);
 	console.log('[DEBUG] FileShare Contract: ', fileShareContract);
 	console.log('[DEBUG] FileShare Contract address: ', fileShareContract.address);
 
 	return fileShareContract;
 }
+
+const generateIdentity = async () => {
+	// let idStr = await SyncStorage.get('IDENTITY');
+	// if (idStr) {
+	// return await Libp2pCryptoIdentity.fromString(idStr);
+	return await Libp2pCryptoIdentity.fromString(
+		'bbaareygqfzma2sgdu2nmynqky7jrnb6nodt65rkdqcuhibuf4mnnlpx45gklpzknnzyzse7tspkepfv7ubrw3kcb4umrgt57ewxzeue2c46qlffx4vgw44mzcpzzhvchs272ay3nvba6kgitj67sll4skcnbopif'
+	);
+	// } else {
+	// 	const id = await Libp2pCryptoIdentity.fromRandom();
+	// 	const id = await Libp2pCryptoIdentity.fromRandom();
+	// 	idStr = id.toString();
+	// 	console.log('id string: ', idStr);
+	// 	await SyncStorage.set('IDENTITY', idStr);
+	// 	return id;
+	// }
+};
 
 export const generateBuckets = async () => {
 	const info = {
@@ -34,16 +51,33 @@ export const generateBuckets = async () => {
 	return buckets;
 };
 
-export const generateBucketKey = async (buckets) => {
-	const isEncrypted = true;
-	const root = await buckets.open('userFiles', undefined, isEncrypted);
+export const getOrInitBucket = async (buckets, _threadID) => {
+	const root = await buckets.open('userFiles', 'buckets', false, _threadID);
+	console.log('Bucket root: ', root);
 	if (!root) {
 		throw new Error('Error opening bucket');
 	}
 	const bucketKey = root.key;
+	const threadID = root.thread;
 	console.log('[DEBUG] bucketKey: ', bucketKey);
+	console.log('[DEBUG] threadID: ', threadID);
 
-	return bucketKey;
+	return { bucketKey, threadID };
+};
+
+export const generateBucketKey = async (buckets) => {
+	const root = await buckets.open('userFiles');
+	console.log('SENDER Bucket root: ', root);
+	// console.log('SENDER Bucket threadID: ', threadID);
+	if (!root) {
+		throw new Error('Error opening bucket');
+	}
+	const bucketKey = root.key;
+	const threadID = root.thread;
+	console.log('[DEBUG] bucketKey: ', bucketKey);
+	console.log('[DEBUG] threadID: ', threadID);
+
+	return { bucketKey, threadID };
 };
 
 export const deleteBucket = async (buckets, bucketKey) => {
@@ -52,16 +86,4 @@ export const deleteBucket = async (buckets, bucketKey) => {
 
 export const deleteFromBucket = async (buckets, bucketKey, path, root = null) => {
 	await buckets.removePath(bucketKey, path, root);
-};
-
-const generateIdentity = async () => {
-	let idStr = await SyncStorage.get('IDENTITY');
-	if (idStr) {
-		return await Libp2pCryptoIdentity.fromString(idStr);
-	} else {
-		const id = await Libp2pCryptoIdentity.fromRandom();
-		idStr = id.toString();
-		await SyncStorage.set('IDENTITY', idStr);
-		return id;
-	}
 };

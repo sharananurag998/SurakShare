@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Alert } from 'react-native';
+import { StyleSheet, View, Alert, PermissionsAndroid } from 'react-native';
 import { ethers } from 'ethers';
-import { Button, ActivityIndicator, Text, Headline, Caption, Paragraph, Dialog, Portal, TextInput, Snackbar } from 'react-native-paper';
+import { Button, ActivityIndicator, Text, Headline, Paragraph, Dialog, Portal, TextInput, Snackbar } from 'react-native-paper';
 import { Icon } from 'react-native-elements';
-import { RNCamera } from 'react-native-camera';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import RNFS from 'react-native-fs';
 import SyncStorage from 'sync-storage';
+// import * as base64 from 'byte-base64';
 
 import { INFURA_PROJECT_ID } from 'react-native-dotenv';
-import { setUpContract, generateBuckets, generateBucketKey, deleteBucket, deleteFromBucket } from '../../utils/InitUtilities';
+import { setUpContract, generateBuckets, getOrInitBucket } from '../../utils/InitUtilities';
 
 export default class ReceiveFiles extends Component {
 	constructor(props) {
@@ -17,6 +17,7 @@ export default class ReceiveFiles extends Component {
 		this.state = {
 			buckets: null,
 			bucketKey: null,
+			threadID: null,
 			walletOrProvider: null,
 			fileShareContract: null,
 			sender: null,
@@ -26,31 +27,40 @@ export default class ReceiveFiles extends Component {
 			isVisibleQRScanner: false,
 			isDone: false,
 			isVisibleSnackbar: false,
+			bucket: null,
 		};
 	}
 
-	init = async (walletOrProvider) => {
+	init = async () => {
 		try {
-			this.setState({ isVisibleWalletPrompt: false, isLoading: true });
-
-			const fileShareContract = setUpContract(walletOrProvider);
-
-			// textile.io buckets for IPFS
-			const buckets = await generateBuckets();
-			const bucketKey = await generateBucketKey(buckets);
-			// const buckets = 'Yes';
-			// const bucketKey = 'Yes';
-
-			if (!buckets || !bucketKey) {
-				Alert.alert('Session expired, please reset your bucket[IPFS] with the key');
-				console.error('No bucket client or root key');
+			if (!this.state.sender) {
+				Alert.alert('Invalid public key', "Please correctly enter the sender's address or use the scanner[recommended]");
+				this.setState({ isVisibleQRScanner: true });
 				return;
 			}
 
-			// create a new ThreadID for user
-			await buckets.links(bucketKey);
+			if (!this.state.walletOrProvider) {
+				this.setState({ isVisibleWalletPrompt: true });
+				return;
+			}
 
-			this.setState({ isLoading: false, buckets, bucketKey, fileShareContract, walletOrProvider }, () => {
+			this.setState({ isVisibleWalletPrompt: false, isLoading: true, statusMessage: 'Generating buckets to pull files from IPFS' });
+
+			const fileShareContract = setUpContract(this.state.walletOrProvider);
+			const _threadID = await fileShareContract.getThreadID(this.state.sender);
+			console.log('[DEBUG] _threadID: ', _threadID);
+
+			// textile.io buckets for IPFS
+			const buckets = await generateBuckets();
+			const { bucketKey, threadID } = await getOrInitBucket(buckets, _threadID);
+
+			// if (!buckets) {
+			// 	Alert.alert('Session expired, please reset your bucket[IPFS] with the key');
+			// 	console.error('No bucket client or root key');
+			// 	return;
+			// }
+
+			this.setState({ isLoading: false, buckets, bucketKey, fileShareContract }, () => {
 				console.log('[DEBUG] STATUS, READY?: ', !this.state.isLoading);
 			});
 		} catch (err) {
@@ -61,16 +71,29 @@ export default class ReceiveFiles extends Component {
 
 	componentDidMount = async () => {
 		try {
-			const wallet = SyncStorage.get('wallet');
-			// const wallet = null;
-			if (wallet) {
-				this.init(wallet);
-			} else {
-				this.setState({ isVisibleWalletPrompt: true });
-			}
+			this.setState({ isVisibleQRScanner: true });
 		} catch (err) {
 			Alert.alert('Unexpected error occured', err.message);
 			console.error(err);
+		}
+	};
+
+	requestFileWritePermission = async () => {
+		try {
+			const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE, {
+				title: 'File write permission',
+				message: 'File write permission.',
+				buttonNeutral: 'Ask Me Later',
+				buttonNegative: 'Cancel',
+				buttonPositive: 'OK',
+			});
+			if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+				console.log('write file permission granted');
+			} else {
+				console.log('permissions denied');
+			}
+		} catch (err) {
+			console.warn(err);
 		}
 	};
 
@@ -81,39 +104,107 @@ export default class ReceiveFiles extends Component {
 		try {
 			if (!this.state.sender) {
 				Alert.alert('Invalid public key', "Please correctly enter the sender's address or use the scanner[recommended]");
+				this.setState({ isVisibleQRScanner: true });
 				return;
 			}
 
+			if (!this.state.walletOrProvider) {
+				this.setState({ isVisibleWalletPrompt: true });
+				return;
+			}
+
+			if (!this.state.fileShareContract) {
+				return;
+			}
+
+			await this.requestFileWritePermission();
+
 			this.setState({ isLoading: true, statusMessage: 'pulling files from IPFS and writing onto device' });
-			const ipfsFilePathList = await this.state.fileShareContract.receiveHash(this.state.sender);
-			console.log('[DEBUG] ipfsFilePathList: ', ipfsFilePathList);
+			const fileList = await this.state.fileShareContract.receiveHash(this.state.sender);
 
-			for (const ipfsFilePath of ipfsFilePathList) {
-				const pullResult = await this.state.buckets.pullIpfsPath(ipfsFilePath);
+			console.log('[DEBUG] fileList: ', fileList);
+
+			for (const filePath of fileList) {
+				const pullResult = this.state.buckets.pullPath(this.state.bucketKey, filePath);
 				console.log('[DEBUG] pullResult: ', pullResult);
-				const { value } = await pullResult.next();
-				console.log('[DEBUG] value: ', value);
+				const chunks = [];
+				const iterator = pullResult[Symbol.asyncIterator]();
+				while (chunks.length < Infinity) {
+					// const { value, done } = await pullResult.next();
+					const { value, done } = await iterator.next();
+					if (done) break;
+					chunks.push(value);
+					console.log('[DEBUG] value: ', value);
+				}
+				console.log('[DEBUG] chunks: ', chunks);
+				const combined = Uint8Array.from(Array.prototype.concat(...chunks.map((a) => Array.from(a))));
+				console.log('[DEBUG] combined: ', combined);
 
-				const finalValue = Array.prototype.slice.call(value);
-				console.log('[DEBUG] finalValue: ', finalValue);
-				// let buffer = '';
-				// for (var i = 0; i < value.length; i++) {
-				// 	buffer += String.fromCharCode(value[i]);
-				// }
-				// console.log('[DEBUG] buffer: ', buffer);
-				// // [or];
-				// const decoder = new TextDecoder();
-				// const tbuffer = decoder.decode(value);
-				// console.log('[DEBUG] TextDecoder buffer: ', tbuffer);
+				buffer = Buffer.from(combined);
+				console.log('[DEBUG] buffer: ', buffer.toString());
+
+				// const buffer = base64.bytesToBase64(combined);
+				// console.log('[DEBUG] buffer from library: ', buffer);
 
 				this.setState({ statusMessage: 'Writing files..' });
-				const path = RNFS.ExternalDirectoryPath + `/${ipfsFilePath.slice(6)}-${new Date().toDateString()}`;
+				const path = RNFS.ExternalDirectoryPath + `/${new Date().toDateString()}-${filePath}`;
 
-				await RNFS.writeFile(path, finalValue, 'ascii').then((success) => {
+				await RNFS.writeFile(path, buffer.toString(), 'base64').then((success) => {
+					Alert.alert('Wrote files successfully', `File Path: ${path}`, [
+						{
+							text: 'Done',
+							onPress: () => this.props.navigation.navigate('Home'),
+						},
+					]);
 					console.log('wrote files successfully');
+					this.setState({ isLoading: false });
 				});
+
+				// const url = `https://hub.textile.io/ipns/${this.state.bucketKey}/${filePath}`;
+				// // const url =
+				// // 'https://images.unsplash.com/photo-1593642632505-1f965e8426e9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=925&q=80';
+				// console.log('[DEBUG] url: ', url);
+				// const android = RNFetchBlob.android;
+
+				// let buffer;
+				// fetch('GET', url).then((res) => {
+				// 	console.log('res :', res);
+				// 	buffer = res;
+				// });
+				// console.log('buffer: ', buffer);
+
+				// let dirs = RNFetchBlob.fs.dirs;
+				// RNFetchBlob.config({
+				// 	// addAndroidDownloads: {
+				// 	// 	useDownloadManager: true, // <-- this is the only thing required
+				// 	// 	// Optional, override notification setting (default to true)
+				// 	// 	// Optional, but recommended since android DownloadManager will fail when
+				// 	// 	notification: true,
+				// 	// 	title: filePath,
+				// 	// 	// the url does not contains a file extension, by default the mime type will be text/plain
+				// 	// 	mime: 'image/jpeg',
+				// 	// 	description: 'File downloaded by download manager.',
+				// 	// },
+				// 	path: path,
+				// })
+				// 	.fetch('GET', url)
+				// 	.then((res) => {
+				// 		console.log('res: ', res);
+				// 		this.setState({ isLoading: false });
+				// 		Alert.alert('Wrote files successfully', `File Path: ${res.path()}`, [
+				// 			{
+				// 				text: 'Done',
+				// 				onPress: () => this.props.navigation.navigate('Home'),
+				// 			},
+				// 		]);
+				// 		// android.actionViewIntent(res.path(), 'image/jpeg');
+				// 		console.log('The file saved to ', res.path());
+				// 	})
+				// 	.catch((err) => {
+				// 		Alert.alert(err.message);
+				// 		console.error(err);
+				// 	});
 			}
-			this.setState({ isLoading: false });
 		} catch (err) {
 			Alert.alert('Unexpected error occured', err.message);
 			console.error(err);
@@ -124,7 +215,14 @@ export default class ReceiveFiles extends Component {
 		try {
 			const sender = ethers.utils.getAddress(event.data);
 			this.setState({ sender, isVisibleQRScanner: false, isVisibleSnackbar: true }, () => {
-				this.receiveFiles();
+				const wallet = SyncStorage.get('wallet');
+				if (wallet) {
+					this.setState({ walletOrProvider: wallet }, () => {
+						this.init();
+					});
+				} else {
+					this.setState({ isVisibleWalletPrompt: true });
+				}
 			});
 		} catch (err) {
 			Alert.alert('Invalid public key', err.message);
@@ -163,7 +261,9 @@ export default class ReceiveFiles extends Component {
 								labelStyle={{ fontSize: 10 }}
 								onPress={() => {
 									const provider = new ethers.providers.InfuraProvider('ropsten', INFURA_PROJECT_ID);
-									this.init(provider);
+									this.setState({ walletOrProvider: provider }, () => {
+										this.init();
+									});
 								}}>
 								Continue w/ provider
 							</Button>
@@ -187,7 +287,6 @@ export default class ReceiveFiles extends Component {
 				{this.state.isVisibleQRScanner && (
 					<QRCodeScanner
 						onRead={this.qrScanHandler}
-						flashMode={RNCamera.Constants.FlashMode.torch}
 						fadeIn={true}
 						topContent={<Headline>Scan sender's QR Code</Headline>}
 						topViewStyle={{ marginBottom: '5%' }}
@@ -238,12 +337,12 @@ export default class ReceiveFiles extends Component {
 						</View>
 						<View style={styles.buttonContainer}>
 							<Button
-								onPress={() => this.props.navgation.goBack()}
+								onPress={() => this.props.navigation.navigate('Home')}
 								loading={this.state.isLoading}
 								disabled={this.state.isLoading}
 								contentStyle={[styles.button, { backgroundColor: '#ccc' }]}
 								mode='contained'>
-								<Text>cancel</Text>
+								<Text>{this.state.isDone ? 'Done' : 'Cancel'}</Text>
 							</Button>
 							<Button
 								onPress={this.receiveFiles}
