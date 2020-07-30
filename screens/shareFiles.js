@@ -37,7 +37,8 @@ import Dialog, { DialogFooter, DialogButton, DialogContent, DialogTitle } from '
 
 export default class App extends PureComponent {
   state = {
-    devices: []
+    devices: [],
+    addressToConnect: ''
   };
 
   async componentDidMount() {
@@ -86,11 +87,11 @@ export default class App extends PureComponent {
       console.log('THIS_DEVICE_CHANGED_ACTION', groupInfo);
   };
 
-  connectToFirstDevice = () => {
-      console.log('Connect to: ', this.state.devices[0]);
-      connect(this.state.devices[0].deviceAddress)
-          .then(() => console.log('Successfully connected'))
-          .catch(err => console.error('Something gone wrong. Details: ', err));
+  connectToDevice = (deviceAddress) => {
+      console.log('Connect to: ', deviceAddress);
+      connect(deviceAddress)
+          .then(() => alert('Successfully connected', `Successfully connected to device: ${deviceAddress}`, [{text:'Send Files', onPress: ()=>this.props.navigation.navigate("SendFilesOffline")}, {text:'Receive Files', onPress: ()=>this.props.navigation.navigate("ReceiveFilesOffline")}], { cancelable: false }));
+          .catch(err => alert(`Something gone wrong. Details: ${err}`));
   };
 
   onCancelConnect = () => {
@@ -126,84 +127,6 @@ export default class App extends PureComponent {
   onGetAvailableDevices = () => {
       getAvailablePeers()
           .then(peers => console.log(peers));
-  };
-
-  onSendFile = () => {
-      //const url = '/storage/sdcard0/Music/Rammstein:Amerika.mp3';
-      const url = '/storage/emulated/0/Music/Bullet For My Valentine:Letting You Go.mp3';
-      PermissionsAndroid.request(
-                  PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-                  {
-                      'title': 'Access to read',
-                      'message': 'READ_EXTERNAL_STORAGE'
-                  }
-              )
-          .then(granted => {
-              if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-                  console.log("You can use the storage")
-              } else {
-                  console.log("Storage permission denied")
-              }
-          })
-          .then(() => {
-              return PermissionsAndroid.request(
-                  PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-                  {
-                      'title': 'Access to write',
-                      'message': 'WRITE_EXTERNAL_STORAGE'
-                  }
-              )
-          })
-          .then(() => {
-              return sendFile(url)
-                  .then((metaInfo) => console.log('File sent successfully', metaInfo))
-                  .catch(err => console.log('Error while file sending', err));
-          })
-          .catch(err => console.log(err));
-  };
-
-  onReceiveFile = () => {
-      PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-          {
-              'title': 'Access to read',
-              'message': 'READ_EXTERNAL_STORAGE'
-          }
-      )
-          .then(granted => {
-              if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-                  console.log("You can use the storage")
-              } else {
-                  console.log("Storage permission denied")
-              }
-          })
-          .then(() => {
-              return PermissionsAndroid.request(
-                  PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-                  {
-                      'title': 'Access to write',
-                      'message': 'WRITE_EXTERNAL_STORAGE'
-                  }
-              )
-          })
-          .then(() => {
-              return receiveFile('/storage/emulated/0/Music/', 'BFMV:Letting You Go.mp3')
-                  .then(() => console.log('File received successfully'))
-                  .catch(err => console.log('Error while file receiving', err))
-          })
-          .catch(err => console.log(err));
-  };
-
-  onSendMessage = () => {
-      sendMessage("Hello world!")
-        .then((metaInfo) => console.log('Message sent successfully', metaInfo))
-        .catch(err => console.log('Error while message sending', err));
-  };
-
-  onReceiveMessage = () => {
-      receiveMessage()
-          .then((msg) => console.log('Message received successfully', msg))
-          .catch(err => console.log('Error while message receiving', err))
   };
 
   onGetConnectionInfo = () => {
@@ -248,7 +171,7 @@ export default class App extends PureComponent {
                 />
                 <DialogButton
                   text="OK"
-                  // onPress={() => {this.props.navigation.navigate("connectToDevice")}} //Navigate to device connection screen
+                  onPress={() => {connectToDevice(this.state.addressToConnect)}}
                 />
               </DialogFooter>
             }

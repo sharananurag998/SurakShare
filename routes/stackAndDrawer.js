@@ -27,6 +27,8 @@ import QrScan from '../screens/qrScan';
 import Login from '../screens/Login';
 import changePassword from '../screens/changePassword';
 import ReceiveFiles from '../screens/ReceiveFiles';
+import SendFilesOffline from '../screens/sendFilesOffline';
+import ReceiveFilesOffline from '../screens/receiveFilesOffline';
 
 const Stack = createStackNavigator();
 
@@ -219,6 +221,20 @@ function ShareFilesStackNavigator({ navigation }) {
 				component={ShareFiles}
 				options={{
 					title: 'Share Files', //Set Header Title
+				}}
+			/>
+			<Stack.Screen
+				name='SendFilesOffline'
+				component={SendFilesOffline}
+				options={{
+					title: 'Send Files Offline', //Set Header Title
+				}}
+			/>
+			<Stack.Screen
+				name='ReceiveFilesOffline'
+				component={ReceiveFilesOffline}
+				options={{
+					title: 'Receive Files Offline', //Set Header Title
 				}}
 			/>
 		</Stack.Navigator>
