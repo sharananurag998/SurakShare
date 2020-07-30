@@ -15,7 +15,8 @@ function Login(props) {
       <StatusBar barStyle="light-content" backgroundColor="rgba(0,0,0,0)" />
       <View style={styles.background}>
       <LinearGradient
-          colors={["#09203f", "#537895"]}
+          colors={["#A88BEB", "#F8CEEC"]}
+
           start={[0.1, 0.1]}
           style={styles.linearGradient}
         >
