@@ -17,6 +17,7 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.surakshare.generated.BasePackageList;
+import com.BV.LinearGradient.LinearGradientPackage;
 
 import org.unimodules.adapters.react.ReactAdapterPackage;
 import org.unimodules.adapters.react.ModuleRegistryAdapter;
@@ -91,6 +92,13 @@ public class MainApplication extends Application implements ReactApplication {
 
     initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
   }
+  @Override
+protected List<ReactPackage> getPackages() {
+  return Arrays.<ReactPackage>asList(
+    new MainReactPackage(),
+    new LinearGradientPackage() 
+  );
+}
 
   /**
    * Loads Flipper in React Native templates. Call this in the onCreate method with something like
