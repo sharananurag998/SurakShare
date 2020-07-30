@@ -7,7 +7,7 @@ import {
   Text,
   TouchableOpacity
 } from "react-native";
-import { LinearGradient } from 'react-native-linear-gradient';
+import { LinearGradient } from 'expo-linear-gradient';
 
 function Login(props) {
   return (
@@ -15,8 +15,7 @@ function Login(props) {
       <StatusBar barStyle="light-content" backgroundColor="rgba(0,0,0,0)" />
       <View style={styles.background}>
       <LinearGradient
-          colors={["#414141", "#000000"]}    
-
+          colors={["#A88BEB", "#F8CEEC"]}
 
           start={[0.1, 0.1]}
           style={styles.linearGradient}
