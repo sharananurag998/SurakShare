@@ -27,7 +27,6 @@ import QrScan from '../screens/qrScan';
 import Login from '../screens/Login';
 import changePassword from '../screens/changePassword';
 import ReceiveFiles from '../screens/ReceiveFiles';
-import scanBot from '../screens/scanBot';
 
 const Stack = createStackNavigator();
 
