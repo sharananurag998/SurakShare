@@ -38,7 +38,8 @@ import Dialog, { DialogFooter, DialogButton, DialogContent, DialogTitle } from '
 export default class App extends PureComponent {
   state = {
     devices: [],
-    addressToConnect: ''
+    addressToConnect: '',
+    visible:false
   };
 
   async componentDidMount() {
@@ -91,7 +92,7 @@ export default class App extends PureComponent {
       console.log('Connect to: ', deviceAddress);
       connect(deviceAddress)
           .then(() => alert('Successfully connected', `Successfully connected to device: ${deviceAddress}`, [{text:'Send Files', onPress: ()=>this.props.navigation.navigate("SendFilesOffline")}, {text:'Receive Files', onPress: ()=>this.props.navigation.navigate("ReceiveFilesOffline")}], { cancelable: false }))
-          .catch(err => alert(`Something gone wrong. Details: ${err}`));
+          .catch(err => alert(`Something gone wrong.`, `Details: ${err}`));
   };
 
   onCancelConnect = () => {
