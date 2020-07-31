@@ -110,7 +110,8 @@ const styles = StyleSheet.create({
 		height: 80,
 		// borderWidth:4,
 		// borderColor:"#005221",
-		backgroundColor: '#20C203',
+		//backgroundColor: '#20C203',
+		backgroundColor: '#5b0a91',  
 		fontSize: 40,
 		flexDirection: 'row',
 		alignContent: 'center',
@@ -121,7 +122,8 @@ const styles = StyleSheet.create({
 	ReceiveButton: {
 		height: 80,
 		color: 'white',
-		backgroundColor: '#0B6FA4',
+		//backgroundColor: '#0B6FA4',
+		backgroundColor: '#5b0a91',
 		fontSize: 40,
 		flexDirection: 'row',
 		borderRadius: 45,
@@ -134,7 +136,8 @@ const styles = StyleSheet.create({
 	PrivateButton: {
 		height: 80,
 		color: 'white',
-		backgroundColor: '#C40B0B',
+		//backgroundColor: '#C40B0B',
+		backgroundColor: '#5b0a91',
 		fontSize: 40,
 		flexDirection: 'row',
 		borderRadius: 45,
@@ -168,7 +171,7 @@ const styles = StyleSheet.create({
 		borderRadius: 10,
 		width: '90%',
 		height: '70%',
-		backgroundColor: '#f3ccff',
+		backgroundColor: 'rgb(169,169,169)',
 	},
 	list: {
 		marginTop: 10,

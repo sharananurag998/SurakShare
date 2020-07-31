@@ -8,7 +8,7 @@ import {
   TextInput,
   TouchableOpacity
 } from "react-native";
-import { LinearGradient } from 'expo-linear-gradient';
+import { LinearGradient } from 'react-native-linear-gradient';
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
 
 
@@ -70,8 +70,7 @@ const styles = StyleSheet.create({
       flex: 2,
       justifyContent: "center",
       // alignItems: "center",
-      backgroundColor: "#F5FCFF",
-      backgroundColor: "rgba(189,16,224,1)"
+      backgroundColor: "#F5FCFF", 
     },
     input: {
       margin: 15,
@@ -81,7 +80,7 @@ const styles = StyleSheet.create({
       borderWidth: 1
     },
     submitButton: {
-      backgroundColor: "black",
+      backgroundColor: "rgb(91, 10, 145)",
       padding: 10,
       margin: 15,
       alignItems: "center",
@@ -199,7 +198,7 @@ const styles = StyleSheet.create({
     },
     button: {
       height: 55,
-      backgroundColor: "rgba(247,247,247,0)",
+      backgroundColor: "rgb(91, 10, 145)",
       borderRadius: 100,
       borderColor: "rgba(255,255,255,1)",
       borderWidth: 1,
@@ -222,4 +221,4 @@ const styles = StyleSheet.create({
     }
   });
 
-  export default LoginForm;
+  export default LoginForm; 
