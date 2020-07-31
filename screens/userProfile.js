@@ -14,7 +14,7 @@ export default class Home extends Component {
 			email: SyncStorage.get('email') || 'email not provided',
 			wallet: SyncStorage.get('wallet'),
 			fileUri: null,
-			visible: false,
+			isVisible: false,
 		};
 	}
 
@@ -71,7 +71,7 @@ export default class Home extends Component {
 							style={{ backgroundColor: '#fff', width: '90%' }}
 							value={this.state.email}
 							onChangeText={(email) => {
-								this.setState({ email, visible: true });
+								this.setState({ email, isVisible: true });
 							}}
 						/>
 					</View>
@@ -81,7 +81,7 @@ export default class Home extends Component {
 							style={{ backgroundColor: '#fff', width: '90%' }}
 							value={this.state.name}
 							onChangeText={(name) => {
-								this.setState({ name, visible: true });
+								this.setState({ name, isVisible: true });
 							}}
 						/>
 					</View>
@@ -111,6 +111,11 @@ export default class Home extends Component {
 							<Text>get wallet</Text>
 						</Button>
 					</View>
+				</View>
+				<View style={{ marginHorizontal: '5%' }}>
+					<Snackbar visible={this.state.isVisible} duration={400} onDismiss={() => this.setState({ isVisible: false })}>
+						Changes saved successfully
+					</Snackbar>
 				</View>
 			</View>
 		);
