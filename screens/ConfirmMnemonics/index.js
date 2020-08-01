@@ -84,7 +84,7 @@ export default class ConfirmMnemonics extends Component {
 					))}
 				</View>
 				<TouchableOpacity disabled={this.state.isDisabled} style={styles.button} onPress={this.isValidSequence}>
-					<Text style={styles.text}>Confirm</Text>
+					<Text style={[styles.text, { fontSize: 22 }]}>Confirm</Text>
 				</TouchableOpacity>
 			</View>
 		);
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center',
 		borderRadius: 10,
-		height: 50,
+		height: 38,
 		margin: 6,
 		padding: 15,
 	},

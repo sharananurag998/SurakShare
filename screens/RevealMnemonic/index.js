@@ -54,7 +54,7 @@ export default class RevealMnemonic extends Component {
 							{this.state.mnemonics ? null : (
 								<View style={styles.rect2}>
 									<Text style={styles.title}>Reveal Mnemonic</Text>
-									<Text style={styles.textBlock}>Click on the button Reveal the mnemonics</Text>
+									<Text style={styles.textBlock}>Click on the button below to reveal the mnemonic phrase</Text>
 								</View>
 							)}
 							{this.renderBody()}
@@ -164,7 +164,8 @@ const styles = StyleSheet.create({
 		shadowRadius: 0,
 	},
 	rect2: {
-		top: -100,
+		paddingHorizontal: 10,
+		paddingVertical: 20,
 		height: 'auto',
 		backgroundColor: 'rgba(93,161,172,0.96)',
 		borderRadius: 5,
@@ -179,7 +180,7 @@ const styles = StyleSheet.create({
 		marginRight: 34,
 	},
 	title: {
-		fontSize: 30,
+		fontSize: 35,
 		marginBottom: 40,
 		marginTop: 10,
 		color: 'white',

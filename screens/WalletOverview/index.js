@@ -22,21 +22,37 @@ export default class WalletOverview extends Component {
 						resizeMode='contain'
 						style={styles.image}></Image>
 					<View style={styles.rect}>
-						<View style={styles.endWrapperFiller}></View>
-						<View style={styles.textColumn}>
-							<View style={styles.rect2}>
-								<Text style={styles.title}>How It Works</Text>
-								<Text style={styles.textBlock}>SurakShare let's you share files on the blockchain through IPFS.</Text>
-								<Text style={styles.textBlock}>
-									In order to communicate to the blockchain and share files securely, you'll need a wallet.
-								</Text>
-								<Text style={styles.textBlock}>You can choose to create a new wallet or load wallet from stored mnemonic</Text>
+						<View style={{ flex: 2 }}>
+							<View style={styles.endWrapperFiller}></View>
+							<View style={styles.textColumn}>
+								<View style={styles.rect2}>
+									<Text style={styles.title}>How It Works</Text>
+									<Text style={styles.textBlock}>SurakShare let's you share files on the blockchain through IPFS.</Text>
+									<Text style={styles.textBlock}>
+										In order to communicate to the blockchain and share files securely, you'll need a wallet.
+									</Text>
+									<Text style={styles.textBlock}>You can choose to create a new wallet or load wallet from stored mnemonic</Text>
+								</View>
 							</View>
+						</View>
+
+						<View style={{ flexDirection: 'row', alignSelf: 'flex-end', flex: 1 }}>
+							<TouchableOpacity
+								style={{
+									backgroundColor: '#999f9d',
+									height: 60,
+									width: 130,
+									justifyContent: 'center',
+									margin: 5,
+									padding: 5,
+									borderRadius: 50,
+									alignSelf: 'center',
+								}}
+								onPress={() => this.props.navigation.navigate('LoadWallet')}>
+								<Text style={styles.text}>Load wallet</Text>
+							</TouchableOpacity>
 							<TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('CreateWallet')}>
 								<Text style={styles.text}>Create a wallet</Text>
-							</TouchableOpacity>
-							<TouchableOpacity onPress={() => this.props.navigation.navigate('LoadWallet')}>
-								<Text style={styles.text}>Load wallet</Text>
 							</TouchableOpacity>
 						</View>
 					</View>
@@ -90,14 +106,12 @@ const styles = StyleSheet.create({
 	},
 	button: {
 		backgroundColor: 'rgba(93,161,172,1)',
-		borderRadius: 5,
 		justifyContent: 'center',
-		top: 60,
 		height: 60,
-		borderRadius: 100,
-		marginBottom: 117,
-		marginLeft: 31,
-		marginRight: 30,
+		width: 150,
+		margin: 5,
+		alignSelf: 'center',
+		borderRadius: 50,
 	},
 	text: {
 		fontFamily: 'roboto-regular',
@@ -114,8 +128,8 @@ const styles = StyleSheet.create({
 		shadowRadius: 0,
 	},
 	rect2: {
+		padding: 10,
 		top: 40,
-		height: 350,
 		backgroundColor: 'rgba(93,161,172,0.96)',
 		borderRadius: 5,
 		opacity: 0.79,
@@ -124,9 +138,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 	},
 	textColumn: {
-		marginBottom: 64,
-		marginLeft: 34,
-		marginRight: 34,
+		margin: 20,
 	},
 	title: {
 		fontSize: 30,

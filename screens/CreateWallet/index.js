@@ -103,8 +103,9 @@ const styles = StyleSheet.create({
 		shadowRadius: 0,
 	},
 	rect2: {
+		paddingHorizontal: 10,
+		paddingVertical: 20,
 		top: 40,
-		height: 350,
 		backgroundColor: 'rgba(93,161,172,0.96)',
 		borderRadius: 5,
 		opacity: 0.79,
