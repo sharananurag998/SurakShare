@@ -77,7 +77,7 @@ function HomeStackNavigator({ navigation }) {
 				options={{
 					headerLeft: () => <NavigationDrawerStructure navigationProps={navigation} />,
 					headerStyle: {
-						backgroundColor: '#5b0a91', //Set Header color
+						backgroundColor: '#rgba(93,161,172,0.96)', //Set Header color
 					},
 					headerTintColor: '#fff', //Set Header text color
 					title: 'SurakShare',
@@ -446,17 +446,19 @@ export default function SurakShare(props) {
 				headerMode='none'
 				initialRouteName='Home'
 				drawerContentOptions={{
-					activeTintColor: '#5B0A91',
+					activeTintColor: '#000',
+					activeBackgroundColor: '#eee',
 					itemStyle: { marginVertical: 5 },
+					labelStyle: { fontSize: 14, fontWeight: '700', color: '#7a7a7a' },
 				}}
 				drawerStyle={{
-					backgroundColor: '#fbeeff',
+					backgroundColor: '#fff',
 					width: '70%',
 				}}>
 				<Drawer.Screen
 					name='Home'
 					options={{
-						drawerIcon: ({ focused, color, size }) => <Icon name='home' style={{ color: '#000', fontSize: 30 }} />,
+						drawerIcon: ({ focused, color, size }) => <Icon name='home' style={{ color: '#7a7a7a', fontSize: 25 }} />,
 					}}
 					component={HomeStackNavigator}
 				/>
@@ -464,7 +466,9 @@ export default function SurakShare(props) {
 				<Drawer.Screen
 					name='Profile'
 					options={{
-						drawerIcon: ({ focused, color, size }) => <MaterialCommunityIcons name='account' style={{ color: '#000', fontSize: 30 }} />,
+						drawerIcon: ({ focused, color, size }) => (
+							<MaterialCommunityIcons name='account' style={{ color: '#7a7a7a', fontSize: 25 }} />
+						),
 					}}
 					component={ProfileStackNavigator}
 				/>
@@ -473,7 +477,7 @@ export default function SurakShare(props) {
 					name='Share Files'
 					options={{
 						drawerIcon: ({ focused, color, size }) => (
-							<MaterialCommunityIcons name='share-variant' style={{ color: '#000', fontSize: 30 }} />
+							<MaterialCommunityIcons name='share-variant' style={{ color: '#7a7a7a', fontSize: 25 }} />
 						),
 					}}
 					component={ShareFilesStackNavigator}
@@ -482,7 +486,7 @@ export default function SurakShare(props) {
 				<Drawer.Screen
 					name='SecureFileShare'
 					options={{
-						drawerIcon: ({ focused, color, size }) => <MaterialCommunityIcons name='web' style={{ color: '#000', fontSize: 30 }} />,
+						drawerIcon: ({ focused, color, size }) => <MaterialCommunityIcons name='web' style={{ color: '#7a7a7a', fontSize: 25 }} />,
 						title: 'Secure File Share',
 					}}
 					component={SecureFileShareStackNavigator}
@@ -491,44 +495,46 @@ export default function SurakShare(props) {
 				<Drawer.Screen
 					name='ReceiveFiles'
 					options={{
-						drawerIcon: ({ focused, color, size }) => <MaterialIcons name='get-app' style={{ color: '#000', fontSize: 30 }} />,
+						drawerIcon: ({ focused, color, size }) => <MaterialIcons name='get-app' style={{ color: '#7a7a7a', fontSize: 25 }} />,
 						title: 'Receive Files',
 					}}
 					component={ReceiveFilesNavigator}
 				/>
 
-				<Drawer.Screen
+				{/* <Drawer.Screen
 					name='Groups'
 					options={{
 						drawerIcon: ({ focused, color, size }) => (
-							<MaterialCommunityIcons name='account-group' style={{ color: '#000', fontSize: 30 }} />
+							<MaterialCommunityIcons name='account-group' style={{ color: '#7a7a7a', fontSize: 25 }} />
 						),
 					}}
 					component={TransferHistoryStackNavigator}
-				/>
+				/> */}
 
 				<Drawer.Screen
 					name='Transfer History'
 					options={{
-						drawerIcon: ({ focused, color, size }) => <MaterialCommunityIcons name='history' style={{ color: '#000', fontSize: 30 }} />,
-					}}
-					component={TransferHistoryStackNavigator}
-				/>
-
-				<Drawer.Screen
-					name='Document Scanner'
-					options={{
 						drawerIcon: ({ focused, color, size }) => (
-							<MaterialCommunityIcons name='file-document' style={{ color: '#000', fontSize: 30 }} />
+							<MaterialCommunityIcons name='history' style={{ color: '#7a7a7a', fontSize: 25 }} />
 						),
 					}}
 					component={TransferHistoryStackNavigator}
 				/>
+				{/* 
+				<Drawer.Screen
+					name='Document Scanner'
+					options={{
+						drawerIcon: ({ focused, color, size }) => (
+							<MaterialCommunityIcons name='file-document' style={{ color: '#7a7a7a', fontSize: 25 }} />
+						),
+					}}
+					component={TransferHistoryStackNavigator}
+				/> */}
 
 				<Drawer.Screen
 					name='About Us'
 					options={{
-						drawerIcon: ({ focused, color, size }) => <MaterialCommunityIcons name='dev-to' style={{ color: '#000', fontSize: 30 }} />,
+						drawerIcon: ({ focused, color, size }) => <MaterialCommunityIcons name='dev-to' style={{ color: '#7a7a7a', fontSize: 25 }} />,
 					}}
 					component={AboutUsStackNavigator}
 				/>
@@ -536,7 +542,9 @@ export default function SurakShare(props) {
 				<Drawer.Screen
 					name='Setting'
 					options={{
-						drawerIcon: ({ focused, color, size }) => <MaterialCommunityIcons name='settings' style={{ color: '#000', fontSize: 30 }} />,
+						drawerIcon: ({ focused, color, size }) => (
+							<MaterialCommunityIcons name='settings' style={{ color: '#7a7a7a', fontSize: 25 }} />
+						),
 					}}
 					component={ProfileStackNavigator}
 				/>
@@ -544,7 +552,7 @@ export default function SurakShare(props) {
 				<Drawer.Screen
 					name='Sign Out'
 					options={{
-						drawerIcon: ({ focused, color, size }) => <MaterialCommunityIcons name='logout' style={{ color: '#000', fontSize: 30 }} />,
+						drawerIcon: ({ focused, color, size }) => <MaterialCommunityIcons name='logout' style={{ color: '#7a7a7a', fontSize: 25 }} />,
 					}}
 					component={SignOutStackNavigator}
 				/>
