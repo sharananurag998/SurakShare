@@ -1,181 +1,149 @@
 import React from 'react';
-import { Text, View, StatusBar, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
-import { globalStyles } from '../styles/global';
-import TouchableScale from 'react-native-touchable-scale';
-import { MaterialIcons, Entypo } from '@expo/vector-icons';
-import { ListItem, Badge } from 'react-native-elements';
+import { StyleSheet, View, ScrollView, Dimensions, ImageBackground, StatusBar } from 'react-native';
 import SyncStorage from 'sync-storage';
+import { Text, Headline, Card, Paragraph, Title, Subheading, Button, Divider, Avatar } from 'react-native-paper';
 
-export default function Home(props) {
-	const transfers = [
-		{
-			from: 'Adarsh',
-			to: 'Anurag',
-			date: '12-10-2020',
-			filename: 'file.jpg',
-		},
-		{
-			from: 'Aniketh',
-			to: 'Anurag',
-			date: '12-10-2020',
-			filename: 'file.jpg',
-		},
-		{
-			from: 'Aniketh',
-			to: 'Anurag',
-			date: '12-10-2020',
-			filename: 'file.jpg',
-		},
-	];
+const { width, height } = Dimensions.get('window');
 
-	const shortTransfers = transfers.slice(0, 2);
+export default function Home({ navigation, route }) {
+	const LeftContent = (props) => <Avatar.Icon {...props} style={{ backgroundColor: '#fff' }} size={75} icon={props.iconName} />;
 
-	const keyExtractor = (item, index) => index.toString();
-
-	const renderItem = ({ item }) => (
-		<ListItem
-			title={item.from}
-			bottomDivider
-			rightTitle={item.to}
-			subtitle={item.filename}
-			rightSubtitle={item.date}
-			rightSubtitleStyle={styles.date}
-			style={styles.list}
-		/>
-	);
 	return (
-		<View style={globalStyles.container}>
-			<StatusBar style='auto' backgroundColor='#5b0a91' />
-
-			<View style={styles.ButtonContainer}>
-				<View style={styles.ButtonRow}>
-					<TouchableScale
-						onPress={() =>
-							props.navigation.navigate('SecureFileShare', {
-								screen: 'SelectFiles',
-								params: { methodOfSharing: 'Share files P2P via Wifi' },
-							})
-						}>
-						<View style={styles.SendButton}>
-							<Text style={styles.ButtonText}>Send Files</Text>
-							<MaterialIcons name='send' color='white' size={40} style={styles.icon} />
-						</View>
-					</TouchableScale>
-				</View>
-				<View style={styles.ButtonRow}>
-					<TouchableScale onPress={() => props.navigation.navigate('ReceiveFiles', { methodOfSharing: 'Share on BlockChain' })}>
-						<View style={styles.ReceiveButton}>
-							<Text style={styles.ButtonText}>Receive Files</Text>
-							<MaterialIcons name='file-download' color='white' size={40} style={styles.icon} />
-						</View>
-					</TouchableScale>
-				</View>
-				<View style={styles.ButtonRow}>
-					<TouchableScale
-						onPress={() => {
-							SyncStorage.set('navigateBackTo', 'SelectFiles');
-							props.navigation.navigate('SecureFileShare', { screen: 'WalletOverview' });
-						}}>
-						<View style={styles.PrivateButton}>
-							<Text style={styles.ButtonText}>Secure Sharing</Text>
-							<Entypo name='network' color='white' size={40} style={styles.icon} />
-						</View>
-					</TouchableScale>
-				</View>
-				<View style={styles.RecentItemsContainer}>
-					<Text style={{ alignSelf: 'center', fontSize: 20, color: 'black', margin: 10 }}>Recently Shared</Text>
-					<FlatList keyExtractor={keyExtractor} data={shortTransfers} renderItem={renderItem} />
-					<View style={{ alignSelf: 'center', marginTop: -90, marginBottom: 10, backgroundColor: '#5b0a91', height: 40, borderRadius: 20 }}>
-						<TouchableOpacity onPress={() => props.navigation.navigate('TransferHistory')}>
-							<Text style={{ color: 'white', padding: 10 }}>View More</Text>
-						</TouchableOpacity>
+		<View style={styles.container}>
+			<StatusBar backgroundColor='rgba(93,161,172,0.96)' barStyle={'default'} />
+			<ImageBackground
+				source={require('../assets/images/toa-heftiba-FV3GConVSss-unsplash.jpg')}
+				imageStyle={{ resizeMode: 'cover', opacity: 0.35 }}
+				style={styles.backgroundImage}>
+				<Headline style={{ lineHeight: 40, fontWeight: '700', fontSize: 32, textShadowColor: '#ccc', textShadowRadius: 5, flexWrap: 'wrap' }}>
+					Welcome, {SyncStorage.get('name') || 'John'}
+				</Headline>
+				<Divider style={{ marginVertical: 5 }} />
+				<Subheading style={{ lineHeight: 25, fontSize: 18 }}>Share documents, images, apps with your friends quickly and securely</Subheading>
+			</ImageBackground>
+			<View style={styles.bodyComponent}>
+				<ScrollView scrollEventThrottle={16} horizontal={true} showsHorizontalScrollIndicator={false} style={styles.scrollView}>
+					<View style={styles.listItem}>
+						<Card elevation={15} style={styles.card}>
+							<Card.Cover source={require('../assets/images/maxim-ilyahov-0aRycsfH57A-unsplash.jpg')} />
+							<Card.Title title='Share files' subtitle='secure sharing' right={LeftContent} iconName='ethereum' />
+							<Card.Content>
+								<Title>Secure file sharing</Title>
+								<Paragraph>
+									Seamlessly and securely share files on the blockchain with the help of IPFS and the decentralised web
+								</Paragraph>
+							</Card.Content>
+							<Card.Actions style={styles.actionContainer}>
+								<Button
+									onPress={() => {
+										if (!SyncStorage.get('wallet')) {
+											SyncStorage.set('navigateBackTo', 'SelectFiles');
+											navigation.navigate('SecureFileShare', { screen: 'WalletOverview' });
+										} else {
+											navigation.navigate('SecureFileShare', {
+												screen: 'SelectFiles',
+												params: { methodOfSharing: 'Share files on blockchain' },
+											});
+										}
+									}}
+									icon='ethereum'
+									mode='contained'
+									color='rgba(93,161,172,0.96)'
+									style={styles.button}>
+									<Text style={{ color: '#fff' }}>SEND FILES SECURELY</Text>
+								</Button>
+							</Card.Actions>
+						</Card>
 					</View>
-				</View>
+					<View style={styles.listItem}>
+						<Card elevation={15} style={styles.card}>
+							<Card.Cover source={require('../assets/images/paul-hanaoka-HbyYFFokvm0-unsplash.jpg')} />
+							<Card.Title title='Receive files' subtitle='secure sharing' right={LeftContent} iconName='get-app' />
+							<Card.Content>
+								<Title>Secure file sharing</Title>
+								<Paragraph>
+									Make use of a provider or a signer such as a wallet to make transaction and retrieve files from IPFS using
+									textile.io buckets
+								</Paragraph>
+							</Card.Content>
+							<Card.Actions style={styles.actionContainer}>
+								<Button
+									onPress={() => navigation.navigate('ReceiveFiles', { methodOfSharing: 'Share files on BlockChain' })}
+									icon='download'
+									mode='contained'
+									color='rgba(93,161,172,0.96)'
+									style={styles.button}>
+									<Text style={{ color: '#fff' }}>Receive files securely</Text>
+								</Button>
+							</Card.Actions>
+						</Card>
+					</View>
+					<View style={styles.listItem}>
+						<Card elevation={15} style={styles.card}>
+							<Card.Cover source={require('../assets/images/luis-villasmil-4V8uMZx8FYA-unsplash.jpg')} />
+							<Card.Title title='Wifi p2p sharing' subtitle='offline sharing' right={LeftContent} iconName='share-variant' />
+							<Card.Content>
+								<Title>p2p by wifi direct</Title>
+								<Paragraph>
+									quick and convenient way of sharing files directly with peers, SurakShare also provides a simpler solution to file
+									sharing.
+								</Paragraph>
+							</Card.Content>
+							<Card.Actions style={styles.actionContainer}>
+								<Button
+									onPress={() =>
+										navigation.navigate('SecureFileShare', {
+											screen: 'SelectFiles',
+											params: { methodOfSharing: 'Share files P2P via Wifi' },
+										})
+									}
+									icon='share'
+									mode='contained'
+									color='rgba(93,161,172,0.96)'
+									style={styles.button}>
+									<Text style={{ color: '#fff' }}>WiFi p2p sharing</Text>
+								</Button>
+							</Card.Actions>
+						</Card>
+					</View>
+				</ScrollView>
 			</View>
 		</View>
 	);
 }
 
 const styles = StyleSheet.create({
-	ButtonContainer: {
-		position: 'absolute',
-		top: 25,
+	container: {
 		flex: 1,
-		flexDirection: 'column',
-		justifyContent: 'flex-start',
-		alignItems: 'center',
-		maxHeight: '70%',
-	},
-	SendButton: {
-		height: 80,
-		// borderWidth:4,
-		// borderColor:"#005221",
-		//backgroundColor: '#20C203',
-		backgroundColor: '#5b0a91',  
-		fontSize: 40,
-		flexDirection: 'row',
-		alignContent: 'center',
-		alignSelf: 'center',
-		width: '80%',
-		borderRadius: 45,
-	},
-	ReceiveButton: {
-		height: 80,
-		color: 'white',
-		//backgroundColor: '#0B6FA4',
-		backgroundColor: '#5b0a91',
-		fontSize: 40,
-		flexDirection: 'row',
-		borderRadius: 45,
-		alignContent: 'center',
-		alignSelf: 'center',
-		width: '80%',
-		//borderWidth:4,
-		//borderColor:"#1c2e4a",
-	},
-	PrivateButton: {
-		height: 80,
-		color: 'white',
-		//backgroundColor: '#C40B0B',
-		backgroundColor: '#5b0a91',
-		fontSize: 40,
-		flexDirection: 'row',
-		borderRadius: 45,
-		alignContent: 'center',
-		alignSelf: 'center',
-		width: '80%',
-		//borderWidth:4,
-		//borderColor:"#7C0A02",
-	},
-	ButtonRow: {
-		margin: 10,
-		width: 370,
-		paddingBottom: 10,
-	},
-	ButtonText: {
-		fontSize: 25,
-		color: 'white',
 		justifyContent: 'center',
-		marginLeft: '10%',
-		marginTop: '8%',
+		alignContent: 'center',
 	},
-	icon: {
-		position: 'absolute',
-		right: '10%',
-		top: '30%',
-		paddingTop: '8%',
+
+	backgroundImage: {
+		flex: 2,
+		backgroundColor: '#fff',
+		padding: 40,
+		paddingTop: 60,
 	},
-	RecentItemsContainer: {
-		margin: 10,
-		marginTop: 35,
-		borderRadius: 10,
-		width: '90%',
-		height: '70%',
-		backgroundColor: 'rgb(169,169,169)',
+	bodyComponent: {
+		flex: 5,
+		height: '100%',
 	},
-	list: {
-		marginTop: 10,
-		marginLeft: 7,
-		marginRight: 7,
+	listItem: {
+		elevation: 25,
+		height: '100%',
+		width: width - 40,
+	},
+	actionContainer: {
+		justifyContent: 'center',
+		padding: 30,
+	},
+	button: {
+		borderRadius: 50,
+		scaleX: 1.2,
+		scaleY: 1.4,
+	},
+	card: {
+		marginHorizontal: 20,
 	},
 });
