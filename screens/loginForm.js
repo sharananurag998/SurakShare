@@ -10,9 +10,25 @@ import {
 } from "react-native";
 import { LinearGradient } from 'react-native-linear-gradient';
 import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
-
+import SyncStorage from 'sync-storage';
 
 function LoginForm(props) {
+  var entered_email = "";
+  var entered_pass = "";
+  const verifyCredentials = (email, password) => {
+    try {
+      const storedemail = SyncStorage.get('email');
+      const storedpass = SyncStorage.get('password');
+      if(email == storedemail && password == storedpass)
+        SyncStorage.set('isLoggedIn', "true");
+      else{
+        alert(`Invalid username or password : ${storedemail}`);
+      }
+    } catch (e) {
+        alert("Invalid username or password");
+    }
+  }
+
   return (
     
     <View style={styles.background}>
@@ -35,7 +51,10 @@ function LoginForm(props) {
                 placeholderTextColor="rgba(255,255,255,1)"
                 secureTextEntry={false}
                 style={styles.emailInput}
-                onChangeText={(text) => email=text}
+                onChangeText={(text) => {
+                  email=text;
+                  entered_email = text;
+                }}
               ></TextInput>
             </View>
           </View>
@@ -47,7 +66,11 @@ function LoginForm(props) {
               placeholderTextColor="rgba(255,255,255,1)"
               secureTextEntry={true}
               style={styles.passwordInput}
-              onChangeText={(text) => password=text}
+              onChangeText={(text) => 
+                {
+                  password=text;
+                  entered_pass=text;
+                }}
             ></TextInput>
           </View>
         </View>
@@ -55,6 +78,9 @@ function LoginForm(props) {
       <View style={styles.buttonColumn}>
         <TouchableOpacity
           style={styles.button}
+          onPress = {()=>{
+            verifyCredentials(entered_email, entered_pass);
+          }}
         >
           <Text style={styles.text2}>Continue</Text>
         </TouchableOpacity>
