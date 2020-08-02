@@ -35,17 +35,9 @@ function SignUp(props) {
     <View style={styles.root}>
       <StatusBar barStyle="light-content" backgroundColor="rgba(0,0,0,0)" />
       <View style={styles.background}>
-        <ImageBackground
-          style={styles.rect2}
-          imageStyle={styles.rect2_imageStyle}
-          source={require("../assets/images/Gradient_OBnqoPE.png")}
-        >
           <View style={styles.text3Column}>
             <Text style={styles.text3}>CREATE ACCOUNT</Text>
-            <MaterialCommunityIconsIcon
-              name="account-circle"
-              style={styles.icon8}
-            ></MaterialCommunityIconsIcon>
+            <View style={styles.iconSpace}></View>
             <View style={styles.form}>
               <View style={styles.nameColumn}>
                 <View style={styles.name}>
@@ -113,7 +105,7 @@ function SignUp(props) {
             </TouchableOpacity>
             <Text style={styles.text4}>Terms &amp; Conditions</Text>
           </View>
-        </ImageBackground>
+        {/* </ImageBackground> */}
       </View>
     </View>
   );
@@ -122,7 +114,7 @@ function SignUp(props) {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: "rgba(144,19,254,1)"
+    backgroundColor: "#788eec"
   },
   background: {
     flex: 1
@@ -144,6 +136,12 @@ const styles = StyleSheet.create({
     marginTop: 28,
     marginLeft: 87
   },
+  iconSpace:{
+    height: 114,
+    width: 105,
+    marginTop: 28,
+    marginLeft: 87  
+  }
   form: {
     height: 230,
     borderRadius: 70,
