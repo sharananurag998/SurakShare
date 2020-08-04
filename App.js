@@ -4,7 +4,7 @@ import AppContainer from './routes/mainRoute';
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
 
-import { setCustomText } from 'react-native-global-props';
+import { setCustomText, setCustomTextInput} from 'react-native-global-props';
 
 function App() {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
@@ -42,5 +42,6 @@ const customTextProps = {
 };
 
 setCustomText(customTextProps);
+setCustomTextInput(customTextProps);
 
 export default App;
