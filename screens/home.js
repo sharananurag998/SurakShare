@@ -40,10 +40,7 @@ export default function Home({ navigation, route }) {
 											SyncStorage.set('navigateBackTo', 'SelectFiles');
 											navigation.navigate('SecureFileShare', { screen: 'WalletOverview' });
 										} else {
-											navigation.navigate('SecureFileShare', {
-												screen: 'SelectFiles',
-												params: { methodOfSharing: 'Share files on blockchain' },
-											});
+											navigation.navigate('SecureFileShare', {screen: 'SelectFiles',});
 										}
 									}}
 									icon='ethereum'
@@ -68,7 +65,10 @@ export default function Home({ navigation, route }) {
 							</Card.Content>
 							<Card.Actions style={styles.actionContainer}>
 								<Button
-									onPress={() => navigation.navigate('ReceiveFiles', { methodOfSharing: 'Share files on BlockChain' })}
+									onPress={() => {
+										SyncStorage.set('navigateBackTo', 'ReceiveFiles');
+										navigation.navigate('ReceiveFiles', { methodOfSharing: 'Share files on BlockChain' });
+									}}
 									icon='download'
 									mode='contained'
 									color='rgba(93,161,172,0.96)'

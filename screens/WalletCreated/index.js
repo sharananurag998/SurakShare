@@ -102,7 +102,7 @@ export default class WalletCreated extends Component {
 								onPress={() => {
 									this.setState({ isVisiblePortal: false });
 									const navigateBackTo = SyncStorage.get('navigateBackTo');
-									this.props.navigation.navigate(navigateBackTo, { methodOfSharing: 'Share on BlockChain' });
+									this.props.navigation.navigate(navigateBackTo);
 								}}>
 								{this.state.isDone ? 'Done' : 'Skip'}
 							</Button>

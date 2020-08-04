@@ -6,7 +6,7 @@ import SyncStorage from 'sync-storage';
 export default class WalletOverview extends Component {
 	componentDidMount() {
 		if (SyncStorage.get('wallet')) {
-			this.props.navigation.navigate('SelectFiles', { methodOfSharing: 'Share on BlockChain' });
+			this.props.navigation.navigate('SelectFiles');
 		}
 	}
 

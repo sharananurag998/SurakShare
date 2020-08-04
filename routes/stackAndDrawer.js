@@ -1,11 +1,11 @@
-import { NavigationContainer } from '@react-navigation/native';
+import React, { useCallback } from 'react';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import { NavigationContainer, useFocusEffect } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerContent } from '@react-navigation/drawer';
 import 'react-native-gesture-handler';
+import SyncStorage from 'sync-storage';
 
-import * as React from 'react';
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
-import { Avatar, Title, Caption, Paragraph, Text, TouchableRipple, Switch } from 'react-native-paper';
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 //Screen Imports
@@ -302,7 +302,7 @@ function ReceiveFilesNavigator({ navigation }) {
 function SecureFileShareStackNavigator({ navigation }) {
 	return (
 		<Stack.Navigator
-			initialRouteName='WalletOverview'
+			initialRouteName='SelectFiles'
 			screenOptions={{
 				headerLeft: () => <NavigationDrawerStructure navigationProps={navigation} />,
 				headerStyle: {
@@ -485,10 +485,10 @@ export default function SurakShare(props) {
 
 				<Drawer.Screen
 					name='SecureFileShare'
-					options={{
+					options={({navigation}) => ({
 						drawerIcon: ({ focused, color, size }) => <MaterialCommunityIcons name='web' style={{ color: '#7a7a7a', fontSize: 25 }} />,
 						title: 'Secure File Share',
-					}}
+					})}
 					component={SecureFileShareStackNavigator}
 				/>
 

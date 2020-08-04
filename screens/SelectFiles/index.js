@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { StyleSheet, FlatList, ScrollView, View, Alert } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import DocumentPicker from 'react-native-document-picker';
 import { Block, Button, Text } from 'galio-framework';
 import SyncStorage from 'sync-storage';
@@ -8,6 +9,16 @@ export default function SelectFiles({ navigation, route }) {
 	const [files, setFiles] = useState([]);
 	const [isVisibleAdd, setIsVisibleAdd] = useState(true);
 	const [isVisibleMain, setIsVisibleMain] = useState(false);
+
+	useFocusEffect(
+		useCallback(() => {
+			const wallet = SyncStorage.get('wallet');
+			if (!wallet) {
+				SyncStorage.set('navigateBackTo', 'SelectFiles');
+				navigation.navigate('WalletOverview');			
+			}
+		}, [])
+	)
 
 	const addFiles = async () => {
 		try {
@@ -102,7 +113,7 @@ export default function SelectFiles({ navigation, route }) {
 				<Text h4 style={{ marginBottom: 10 }}>
 					Add your files
 				</Text>
-				<Text muted>{route.params.methodOfSharing}</Text>
+				<Text muted>Share on BlockChain</Text>
 			</Block>
 		);
 	};
@@ -144,7 +155,7 @@ export default function SelectFiles({ navigation, route }) {
 							<AddFileButton size={45} />
 							<View style={styles.textBlock}>
 								<Text style={{ fontWeight: '700', fontSize: 25 }}>Add more files</Text>
-								<Text muted>{route.params.methodOfSharing}</Text>
+								<Text muted>Share on BlockChain</Text>
 							</View>
 						</View>
 						<FlatList data={files} renderItem={renderFileItem} keyExtractor={(file, index) => file.uri + index} />

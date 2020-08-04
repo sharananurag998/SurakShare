@@ -275,7 +275,6 @@ export default class ReceiveFiles extends Component {
 										SyncStorage.set('navigateBackTo', 'ReceiveFiles');
 										this.props.navigation.navigate('SecureFileShare', {
 											screen: 'WalletOverview',
-											params: { navigateTo: 'ReceiveFiles' },
 										});
 									});
 								}}>
