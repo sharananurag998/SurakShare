@@ -63,14 +63,14 @@ const styles = StyleSheet.create({
   },
   topRow:{
     flexDirection:"row",
-    backgroundColor:"#45046a"
+    backgroundColor:"#28494f" //5DA1AC
   },
   from:{
     flex:1,
     fontSize:20,
     textAlign:"center",
-    backgroundColor:"#5c2a9d",
-    borderColor:"#45046a",
+    backgroundColor:"#396a71",
+    borderColor:"#28494f",
     borderWidth: 2,
     borderRadius:10,
     padding:10,
@@ -80,8 +80,8 @@ const styles = StyleSheet.create({
     flex:1,
     textAlign:"center",
     fontSize:20,
-    backgroundColor:"#5c2a9d",
-    borderColor:"#45046a",
+    backgroundColor:"#396a71",
+    borderColor:"#28494f",
     borderWidth: 2,
     padding:10,
     color:"#F8F8FF",

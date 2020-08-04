@@ -16,12 +16,13 @@ const theme = {
     },
 };
 
-LogBox.ignoreLogs([
-    'Waarning: SplashScreen.hide',
-    'Warning: SplashScreen.preventAutoHide',
-    'Warning: VirtualizedLists',
-    'Warning: componentWillReceiveProps',
-]);
+// LogBox.ignoreLogs([
+//     'Waarning: SplashScreen.hide',
+//     'Warning: SplashScreen.preventAutoHide',
+//     'Warning: VirtualizedLists',
+//     'Warning: componentWillReceiveProps',
+// ]);
+LogBox.ignoreAllLogs();
 
 export default function Main() {
     return (

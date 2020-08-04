@@ -4,7 +4,6 @@ import { StyleSheet, View, StatusBar } from 'react-native';
 import SyncStorage from 'sync-storage';
 import { Avatar, Button, Text, Card, Paragraph, Title, Divider, Snackbar, TextInput, IconButton } from 'react-native-paper';
 import ImagePicker from 'react-native-image-picker';
-// More info on all the options is below in the API Reference... just some common use cases shown here
 
 export default class Home extends Component {
 	constructor(props) {
@@ -54,7 +53,7 @@ export default class Home extends Component {
 	render() {
 		return (
 			<View style={{ backgroundColor: '#fff', flex: 1 }}>
-				<Card style={{ flex: 1 }}>
+				<Card style={{ flex: 1, marginBottom: '10%' }}>
 					<Card.Cover style={{ opacity: 0.35 }} source={this.imageUriOrPath()} />
 					<Card.Title title={this.state.name} subtitle='Bangalore, IN' left={this.LeftContent} leftStyle={{ width: '35%' }} />
 					<IconButton icon='circle-edit-outline' color={'#343434'} size={30} onPress={this.chooseImage} />

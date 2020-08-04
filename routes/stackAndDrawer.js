@@ -40,9 +40,9 @@ const NavigationDrawerStructure = (props) => {
 	};
 
 	return (
-		<View style={{ flexDirection: 'row' }}>
+		<View style={{ flexDirection: 'row', marginLeft: 15 }}>
 			<TouchableOpacity onPress={() => toggleDrawer()}>
-				<MaterialIcons name='menu' size={29} style={{ left: 20, color: 'white' }} />
+				<MaterialIcons name='menu' size={29} style={{ color: 'white' }} />
 			</TouchableOpacity>
 		</View>
 	);
@@ -53,7 +53,7 @@ const NavigationDrawerStructure = (props) => {
 const header = {
 	headerLeft: () => <NavigationDrawerStructure navigationProps={navigation} />,
 	headerStyle: {
-		backgroundColor: '#5b0a91', //Set Header color
+		backgroundColor: '#5DA1AC', //Set Header color
 	},
 	headerTintColor: '#fff', //Set Header text color
 	title: 'SurakShare',
@@ -98,7 +98,7 @@ function HomeStackNavigator({ navigation }) {
 				options={{
 					headerLeft: () => <NavigationDrawerStructure navigationProps={navigation} />,
 					headerStyle: {
-						backgroundColor: '#5b0a91', //Set Header color
+						backgroundColor: '#5DA1AC', //Set Header color
 					},
 					headerTintColor: '#fff', //Set Header text color
 					title: 'Transfer History',
@@ -119,7 +119,7 @@ function HomeStackNavigator({ navigation }) {
 				options={{
 					headerLeft: () => <NavigationDrawerStructure navigationProps={navigation} />,
 					headerStyle: {
-						backgroundColor: '#5b0a91', //Set Header color
+						backgroundColor: '#5DA1AC', //Set Header color
 					},
 					headerTintColor: '#fff', //Set Header text color
 					title: 'QR Scanner',
@@ -145,7 +145,7 @@ function ProfileStackNavigator({ navigation }) {
 			screenOptions={{
 				headerLeft: () => <NavigationDrawerStructure navigationProps={navigation} />,
 				headerStyle: {
-					backgroundColor: '#5b0a91', //Set Header color
+					backgroundColor: '#5DA1AC', //Set Header color
 				},
 				headerTintColor: '#fff', //Set Header text color
 				title: 'SurakShare',
@@ -179,7 +179,7 @@ function ProfileStackNavigator({ navigation }) {
 				options={{
 					headerLeft: () => <NavigationDrawerStructure navigationProps={navigation} />,
 					headerStyle: {
-						backgroundColor: '#5b0a91', //Set Header color
+						backgroundColor: '#5DA1AC', //Set Header color
 					},
 					headerTintColor: '#fff', //Set Header text color
 					title: 'QR Scanner',
@@ -205,7 +205,7 @@ function ShareFilesStackNavigator({ navigation }) {
 			screenOptions={{
 				headerLeft: () => <NavigationDrawerStructure navigationProps={navigation} />,
 				headerStyle: {
-					backgroundColor: '#5b0a91', //Set Header color
+					backgroundColor: '#5DA1AC', //Set Header color
 				},
 				headerTintColor: '#fff', //Set Header text color
 				title: 'SurakShare',
@@ -248,7 +248,7 @@ function TransferHistoryStackNavigator({ navigation }) {
 			screenOptions={{
 				headerLeft: () => <NavigationDrawerStructure navigationProps={navigation} />,
 				headerStyle: {
-					backgroundColor: '#5b0a91', //Set Header color
+					backgroundColor: '#5DA1AC', //Set Header color
 				},
 				headerTintColor: '#fff', //Set Header text color
 				title: 'SurakShare',
@@ -384,7 +384,7 @@ function AboutUsStackNavigator({ navigation }) {
 			screenOptions={{
 				headerLeft: () => <NavigationDrawerStructure navigationProps={navigation} />,
 				headerStyle: {
-					backgroundColor: '#5b0a91', //Set Header color
+					backgroundColor: '#5DA1AC', //Set Header color
 				},
 				headerTintColor: '#fff', //Set Header text color
 				title: 'SurakShare',
@@ -413,7 +413,7 @@ function SignOutStackNavigator({ navigation }) {
 			screenOptions={{
 				headerLeft: () => <NavigationDrawerStructure navigationProps={navigation} />,
 				headerStyle: {
-					backgroundColor: '#5b0a91', //Set Header color
+					backgroundColor: '#5DA1AC', //Set Header color
 				},
 				headerTintColor: '#fff', //Set Header text color
 				title: 'SurakShare',

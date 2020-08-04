@@ -41,18 +41,18 @@ function aboutUs(props)
             tension={100} // These props are passed to the parent component (here TouchableScale)
             activeScale={0.95} //
             linearGradientProps={{
-                colors: ['#FF9800', '#F44336'],
+                colors: ['#788eec', '#788eec'],
                 start: [1, 0],
                 end: [0.2, 0],
             }}
             ViewComponent={LinearGradient} // Only if no expo
             leftAvatar={{ rounded: true, source: {avatarImage} }}
             title={item.name}
-            titleStyle={{ color: 'white', fontWeight: 'bold' }}
-            subtitleStyle={{ color: 'white' }}
+            titleStyle={{ color: '#fff', fontWeight: 'bold' }}
+            subtitleStyle={{ color: '#ddd' }}
             subtitle={item.role}
             style={styles.aboutus}
-            chevron={{ color: 'white' }}
+            chevron={{ color: '#fff' }}
             bottomDivider
         />
     )
@@ -69,5 +69,8 @@ export default aboutUs;
 const styles = StyleSheet.create({
     aboutus:{
         margin:15,
+        borderRadius: 2,
+        borderWidth: 2, 
+        borderColor: '#ccc'
     },
 });
