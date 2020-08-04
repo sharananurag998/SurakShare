@@ -1,7 +1,7 @@
 import React from 'react';
 
 import TouchableScale from 'react-native-touchable-scale'; // https://github.com/kohver/react-native-touchable-scale
-import { LinearGradient } from 'expo-linear-gradient';
+import { LinearGradient } from 'react-native-linear-gradient';
 import { StyleSheet, View, Text, Image, FlatList } from "react-native";
 import { Card, ListItem, Button, Icon, Badge } from 'react-native-elements'
 import avatarImage from '../assets/images/aniketh1.jpg'

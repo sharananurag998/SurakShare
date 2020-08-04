@@ -7,7 +7,7 @@ import {
   Text,
   TouchableOpacity
 } from "react-native";
-import { LinearGradient } from 'expo-linear-gradient';
+import { LinearGradient } from 'react-native-linear-gradient';
 
 function Login(props) {
   return (

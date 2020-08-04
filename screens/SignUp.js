@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     width: 105,
     marginTop: 28,
     marginLeft: 87  
-  }
+  },
   form: {
     height: 230,
     borderRadius: 70,
