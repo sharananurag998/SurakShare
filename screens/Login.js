@@ -7,18 +7,14 @@ import {
   Text,
   TouchableOpacity
 } from "react-native";
-import { LinearGradient } from 'react-native-linear-gradient';
 
 function Login(props) {
   return (
     <View style={styles.root}>
       <StatusBar barStyle="light-content" backgroundColor="rgba(0,0,0,0)" />
       <View style={styles.background}>
-      <LinearGradient
-          colors={["#788EEC", "#788EEC"]}
-
-          start={[0.1, 0.1]}
-          style={styles.linearGradient}
+      <View
+          style={styles.bodyContent}
         >
           <View style={styles.imageColumn}>
             <ImageBackground
@@ -49,7 +45,7 @@ function Login(props) {
             <View style={styles.needHelpFiller}></View>
             <Text style={styles.needHelp}>Need Help?</Text>
           </View>
-        </LinearGradient>
+        </View>
       </View>
     </View>
   );
@@ -149,7 +145,8 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
     marginRight: -1
   },
-  linearGradient: {
+  bodyContent: {
+    backgroundColor: '#788EEC',
     width: '100%',
     height: '100%',
     opacity: 0.95,
