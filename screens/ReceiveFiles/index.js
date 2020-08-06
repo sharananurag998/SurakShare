@@ -6,7 +6,6 @@ import { Icon } from 'react-native-elements';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import RNFS from 'react-native-fs';
 import SyncStorage from 'sync-storage';
-// import * as base64 from 'byte-base64';
 
 import { INFURA_PROJECT_ID } from 'react-native-dotenv';
 import { generateBuckets, generateBucketKey, deleteFromBucket, deleteBucket, setUpContract, generateIdentity } from '../../utils/InitUtilities';
@@ -48,7 +47,7 @@ export default class ReceiveFiles extends Component {
 			this.setState({ isVisibleWalletPrompt: false, isLoading: true, statusMessage: 'Generating buckets to pull files from IPFS' });
 
 			const fileShareContract = setUpContract(this.state.walletOrProvider);
-			const idStr = await fileShareContract.getThreadID(this.state.sender);
+			const idStr = await fileShareContract.functions.getThreadID(this.state.sender);
 			if (!idStr) {
 				Alert.alert('ID not found', "Sender's Lip2p ID is required to receive files");
 				throw new Error('Lip2p ID from sender not found');
