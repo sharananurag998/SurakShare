@@ -30,7 +30,7 @@ export default class UploadFilesToBlockChain extends Component {
 			const provider = new ethers.providers.InfuraProvider('ropsten', INFURA_PROJECT_ID);
 			const wallet = new ethers.Wallet(TEST_PRIVATE_KEY, provider);
 
-			const { files } = this.props.route.params;
+			const { files } = this.props.route.params; 
 
 			// textile.io buckets for IPFS
 			const id = await generateIdentity()
@@ -73,7 +73,10 @@ export default class UploadFilesToBlockChain extends Component {
 			console.error('No bucket client or root key');
 		}
 
-		const transaction = await this.state.fileShareContract.functions.setThreadID(this.state.id.toString());
+		const overrides = {
+			gasLimit: 4000000,
+		};
+		const transaction = await this.state.fileShareContract.functions.setThreadID(this.state.id.toString(), overrides);
 		console.log('[DEBUG] id transaction: ', transaction);
 
 		const { files } = this.state;
@@ -96,10 +99,7 @@ export default class UploadFilesToBlockChain extends Component {
 				console.log('[DEBUG] path: ', pushResult.path);
 				console.log('[DEBUG] ipfs address: ', pushResult.root);
 
-				const overrides = {
-					// gasLimit: 9500000,
-				};
-				const storeFileTransaction = await this.state.fileShareContract.functions.storeHash(filePath, overrides);
+				const storeFileTransaction = await this.state.fileShareContract.functions.storeHash(filePath);
 				console.log('[DEBUG] store file transaction result: ', storeFileTransaction);
 
 			} catch (err) {

@@ -57,15 +57,6 @@ export default class ConfirmMnemonics extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<View style={styles.headerContainer}>
-					<Image
-						source={require('../../assets/images/eberhard-grossgasteiger-xC7Ho08RYF4-unsplash.jpg')}
-						resizeMode='contain'
-						style={styles.image}></Image>
-					<View style={styles.card}>
-						<Text style={styles.title}>Confirm Passphrase</Text>
-					</View>
-				</View>
 				<View style={[styles.mnemonicsContainer, styles.selected]}>
 					{this.state.selected.map((mnemonicWord, index) => (
 						<View key={index} style={styles.mnemonic}>

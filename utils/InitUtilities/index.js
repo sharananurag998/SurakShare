@@ -1,7 +1,6 @@
 import { ethers } from 'ethers';
 import { Buckets } from '@textile/hub';
 import { Libp2pCryptoIdentity } from '@textile/threads-core';
-import SyncStorage from 'sync-storage';
 
 import * as FileShare from '../../build/contracts/FileShare.json';
 import { USER_API_KEY, USER_API_SECRET, CONTRACT_ADDRESS } from 'react-native-dotenv';
@@ -31,7 +30,7 @@ export const generateIdentity = async (idStr = null) => {
 export const generateBuckets = async (id) => {
 	const info = {
 		key: USER_API_KEY,
-		secret: USER_API_SECRET,
+		// secret: USER_API_SECRET,
 	};
 
 	const buckets = await Buckets.withKeyInfo(info);
