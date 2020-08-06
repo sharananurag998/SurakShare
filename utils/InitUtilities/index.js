@@ -16,33 +16,23 @@ export function setUpContract(walletOrProvider) {
 	return fileShareContract;
 }
 
-const generateIdentity = async () => {
-	// let idStr = await SyncStorage.get('IDENTITY');
-	// if (idStr) {
-	// return await Libp2pCryptoIdentity.fromString(idStr);
-	return await Libp2pCryptoIdentity.fromString(
-		'bbaareygqfzma2sgdu2nmynqky7jrnb6nodt65rkdqcuhibuf4mnnlpx45gklpzknnzyzse7tspkepfv7ubrw3kcb4umrgt57ewxzeue2c46qlffx4vgw44mzcpzzhvchs272ay3nvba6kgitj67sll4skcnbopif'
-	);
-	// } else {
-	// 	const id = await Libp2pCryptoIdentity.fromRandom();
-	// 	const id = await Libp2pCryptoIdentity.fromRandom();
-	// 	idStr = id.toString();
-	// 	console.log('id string: ', idStr);
-	// 	await SyncStorage.set('IDENTITY', idStr);
-	// 	return id;
-	// }
+export const generateIdentity = async (idStr = null) => {
+	if (idStr) {
+		return await Libp2pCryptoIdentity.fromString(idStr);
+	} else {
+		const id = await Libp2pCryptoIdentity.fromRandom();
+		idStr = id.toString();
+		console.log('[DEBUG] ID NOT FOUND');
+		console.log('new id string: ', idStr);
+		return id;
+	}
 };
 
-export const generateBuckets = async () => {
+export const generateBuckets = async (id) => {
 	const info = {
 		key: USER_API_KEY,
 		secret: USER_API_SECRET,
 	};
-	// console.log('[DEBUG] info: ', info);
-
-	const id = await generateIdentity();
-	// const identity = id.toString();
-	// console.log('[DEBUG] identity: ', identity);
 
 	const buckets = await Buckets.withKeyInfo(info);
 	await buckets.getToken(id);
@@ -51,33 +41,16 @@ export const generateBuckets = async () => {
 	return buckets;
 };
 
-export const getOrInitBucket = async (buckets, _threadID) => {
-	const root = await buckets.open('userFiles', 'buckets', true, _threadID);
-	console.log('Bucket root: ', root);
-	if (!root) {
-		throw new Error('Error opening bucket');
-	}
-	const bucketKey = root.key;
-	const threadID = root.thread;
-	console.log('[DEBUG] bucketKey: ', bucketKey);
-	console.log('[DEBUG] threadID: ', threadID);
-
-	return { bucketKey, threadID };
-};
-
 export const generateBucketKey = async (buckets) => {
 	const root = await buckets.open('userFiles', 'buckets', true);
 	console.log('SENDER Bucket root: ', root);
-	// console.log('SENDER Bucket threadID: ', threadID);
 	if (!root) {
 		throw new Error('Error opening bucket');
 	}
 	const bucketKey = root.key;
-	const threadID = root.thread;
 	console.log('[DEBUG] bucketKey: ', bucketKey);
-	console.log('[DEBUG] threadID: ', threadID);
 
-	return { bucketKey, threadID };
+	return bucketKey;
 };
 
 export const deleteBucket = async (buckets, bucketKey) => {

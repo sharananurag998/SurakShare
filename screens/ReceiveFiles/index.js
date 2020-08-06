@@ -9,7 +9,7 @@ import SyncStorage from 'sync-storage';
 // import * as base64 from 'byte-base64';
 
 import { INFURA_PROJECT_ID } from 'react-native-dotenv';
-import { setUpContract, generateBuckets, getOrInitBucket, deleteFromBucket , deleteBucket} from '../../utils/InitUtilities';
+import { generateBuckets, generateBucketKey, deleteFromBucket, deleteBucket, setUpContract, generateIdentity } from '../../utils/InitUtilities';
 
 export default class ReceiveFiles extends Component {
 	constructor(props) {
@@ -36,36 +36,34 @@ export default class ReceiveFiles extends Component {
 			if (!this.state.sender) {
 				Alert.alert('Invalid public key', "Please correctly enter the sender's address or use the scanner[recommended]");
 				this.setState({ isVisibleQRScanner: true });
-				return;
+				throw new Error('Invalid public key');
 			}
-
+			
 			if (!this.state.walletOrProvider) {
+				Alert.alert('Wallet not found', "Please load or create a valid wallet or use a provider instead");
 				this.setState({ isVisibleWalletPrompt: true });
-				return;
+				throw new Error('Wallet not found');
 			}
 
 			this.setState({ isVisibleWalletPrompt: false, isLoading: true, statusMessage: 'Generating buckets to pull files from IPFS' });
 
 			const fileShareContract = setUpContract(this.state.walletOrProvider);
-			const _threadID = await fileShareContract.getThreadID(this.state.sender);
-			console.log('[DEBUG] _threadID: ', _threadID);
+			const idStr = await fileShareContract.getThreadID(this.state.sender);
+			if (!idStr) {
+				Alert.alert('ID not found', "Sender's Lip2p ID is required to receive files");
+				throw new Error('Lip2p ID from sender not found');
+			}
 
 			// textile.io buckets for IPFS
-			const buckets = await generateBuckets();
-			const { bucketKey, threadID } = await getOrInitBucket(buckets, _threadID);
-
-			// if (!buckets) {
-			// 	Alert.alert('Session expired, please reset your bucket[IPFS] with the key');
-			// 	console.error('No bucket client or root key');
-			// 	return;
-			// }
-
+			const id = await generateIdentity(idStr);
+			const buckets = await generateBuckets(id);
+			const bucketKey = await generateBucketKey(buckets);
 
 			this.setState({ isLoading: false, buckets, bucketKey, fileShareContract }, () => {
 				console.log('[DEBUG] STATUS, READY?: ', !this.state.isLoading);
 			});
 		} catch (err) {
-			Alert.alert('Unexpected error occured', err.message);
+			Alert.alert('Error encountered', err.message);
 			console.error(err);
 		}
 	};
@@ -128,10 +126,10 @@ export default class ReceiveFiles extends Component {
 			for (const filePath of fileList) {
 				const pullResult = this.state.buckets.pullPath(this.state.bucketKey, filePath);
 				console.log('[DEBUG] pullResult: ', pullResult);
+
 				const chunks = [];
 				const iterator = pullResult[Symbol.asyncIterator]();
 				while (chunks.length < Infinity) {
-					// const { value, done } = await pullResult.next();
 					const { value, done } = await iterator.next();
 					if (done) break;
 					chunks.push(value);
@@ -143,9 +141,6 @@ export default class ReceiveFiles extends Component {
 
 				buffer = Buffer.from(combined);
 				console.log('[DEBUG] buffer: ', buffer.toString());
-
-				// const buffer = base64.bytesToBase64(combined);
-				// console.log('[DEBUG] buffer from library: ', buffer);
 
 				this.setState({ statusMessage: 'Writing files..' });
 				const path = RNFS.ExternalDirectoryPath + `/${new Date().toDateString()}-${filePath}`;
@@ -163,51 +158,6 @@ export default class ReceiveFiles extends Component {
 
 				await deleteFromBucket(this.state.buckets, this.state.bucketKey, filePath);
 				console.log('[DEBUG] deleted from bucket: ', filePath);
-
-				// const url = `https://hub.textile.io/ipns/${this.state.bucketKey}/${filePath}`;
-				// // const url =
-				// // 'https://images.unsplash.com/photo-1593642632505-1f965e8426e9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=925&q=80';
-				// console.log('[DEBUG] url: ', url);
-				// const android = RNFetchBlob.android;
-
-				// let buffer;
-				// fetch('GET', url).then((res) => {
-				// 	console.log('res :', res);
-				// 	buffer = res;
-				// });
-				// console.log('buffer: ', buffer);
-
-				// let dirs = RNFetchBlob.fs.dirs;
-				// RNFetchBlob.config({
-				// 	// addAndroidDownloads: {
-				// 	// 	useDownloadManager: true, // <-- this is the only thing required
-				// 	// 	// Optional, override notification setting (default to true)
-				// 	// 	// Optional, but recommended since android DownloadManager will fail when
-				// 	// 	notification: true,
-				// 	// 	title: filePath,
-				// 	// 	// the url does not contains a file extension, by default the mime type will be text/plain
-				// 	// 	mime: 'image/jpeg',
-				// 	// 	description: 'File downloaded by download manager.',
-				// 	// },
-				// 	path: path,
-				// })
-				// 	.fetch('GET', url)
-				// 	.then((res) => {
-				// 		console.log('res: ', res);
-				// 		this.setState({ isLoading: false });
-				// 		Alert.alert('Wrote files successfully', `File Path: ${res.path()}`, [
-				// 			{
-				// 				text: 'Done',
-				// 				onPress: () => this.props.navigation.navigate('Home'),
-				// 			},
-				// 		]);
-				// 		// android.actionViewIntent(res.path(), 'image/jpeg');
-				// 		console.log('The file saved to ', res.path());
-				// 	})
-				// 	.catch((err) => {
-				// 		Alert.alert(err.message);
-				// 		console.error(err);
-				// 	});
 			}
 			// await deleteBucket(this.state.buckets, this.state.bucketKey);
 			// console.log('[DEBUG] buckets deleted ');

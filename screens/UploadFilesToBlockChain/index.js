@@ -5,9 +5,8 @@ import SyncStorage from 'sync-storage';
 import { Button, ActivityIndicator, Text, Title, Headline, Caption, Paragraph, Dialog, Portal, TextInput, Divider } from 'react-native-paper';
 import { ethers } from 'ethers';
 import QRCode from 'react-native-qrcode-svg';
-// import * as base64 from 'byte-base64';
 
-import { generateBuckets, generateBucketKey, deleteBucket, setUpContract } from '../../utils/InitUtilities';
+import { generateBuckets, generateBucketKey, generateIdentity, deleteBucket, setUpContract } from '../../utils/InitUtilities';
 import { TEST_PRIVATE_KEY, INFURA_PROJECT_ID } from 'react-native-dotenv';
 
 export default class UploadFilesToBlockChain extends Component {
@@ -16,7 +15,7 @@ export default class UploadFilesToBlockChain extends Component {
 		this.state = {
 			buckets: null,
 			bucketKey: null,
-			threadID: null,
+			id: null,
 			wallet: null,
 			isLoading: true,
 			files: null,
@@ -34,9 +33,9 @@ export default class UploadFilesToBlockChain extends Component {
 			const { files } = this.props.route.params;
 
 			// textile.io buckets for IPFS
-			const buckets = await generateBuckets();
-			const { bucketKey, threadID } = await generateBucketKey(buckets);
-			// SyncStorage.set('threadID', threadID);
+			const id = await generateIdentity()
+			const buckets = await generateBuckets(id);
+			const bucketKey = await generateBucketKey(buckets);
 
 			const links = await buckets.links(bucketKey);
 			console.log('[DEBUG] links: ', links);
@@ -52,14 +51,10 @@ export default class UploadFilesToBlockChain extends Component {
 			 */
 			const fileShareContract = setUpContract(wallet);
 
-			// console.log('links: ', await buckets.links(bucketKey));
 			const contractTransaction = await fileShareContract.functions.clearStoredHashes();
 			console.log('[DEBUG] Cleared stored hashes [tx]: ', contractTransaction);
 
-			const transaction = await fileShareContract.functions.setThreadID(threadID);
-			console.log('[DEBUG] threadID transaction: ', transaction);
-
-			this.setState({ isLoading: false, buckets, bucketKey, threadID, wallet, files, fileShareContract }, () => {
+			this.setState({ isLoading: false, buckets, bucketKey, id, wallet, files, fileShareContract }, () => {
 				console.log('[DEBUG] STATUS, READY?: ', !this.state.isLoading);
 			});
 		} catch (err) {
@@ -78,21 +73,21 @@ export default class UploadFilesToBlockChain extends Component {
 			console.error('No bucket client or root key');
 		}
 
+		const transaction = await this.state.fileShareContract.functions.setThreadID(this.state.id.toString());
+		console.log('[DEBUG] id transaction: ', transaction);
+
 		const { files } = this.state;
 
 		for (const file of files) {
-			// console.log('[DEBUG] file: ', file);
 			this.setState({ isLoading: true, statusMessage: 'Reading file from device: ' + file.name });
 
 			const uri = file.uri;
 			const content = await RNFS.readFile(uri, 'base64');
-			// console.log('[DEBUG] content: ', content);
 
 			const _file = {
 				path: '/' + file.name,
 				content: Buffer.from(content),
 			};
-			// console.log('[DEBUG] file: ', _file);
 
 			try {
 				this.setState({ isLoading: true, statusMessage: 'Generating IPFS Hash' });
@@ -107,23 +102,6 @@ export default class UploadFilesToBlockChain extends Component {
 				const storeFileTransaction = await this.state.fileShareContract.functions.storeHash(filePath, overrides);
 				console.log('[DEBUG] store file transaction result: ', storeFileTransaction);
 
-				// const pullResult = this.state.buckets.pullPath(this.state.bucketKey, filePath);
-				// console.log('[DEBUG] pullResult: ', pullResult);
-				// const chunks = [];
-				// const iterator = pullResult[Symbol.asyncIterator]();
-				// while (chunks.length < Infinity) {
-				// 	// const { value, done } = await pullResult.next();
-				// 	const { value, done } = await iterator.next();
-				// 	if (done) break;
-				// 	chunks.push(value);
-				// 	console.log('[DEBUG] value: ', value);
-				// }
-				// console.log('[DEBUG] chunks: ', chunks);
-				// const combined = Uint8Array.from(Array.prototype.concat(...chunks.map((a) => Array.from(a))));
-				// console.log('[DEBUG] combined: ', combined);
-
-				// const buffer = base64.bytesToBase64(combined);
-				// console.log('[DEBUG] buffer from library: ', buffer);
 			} catch (err) {
 				console.error(err);
 			}
