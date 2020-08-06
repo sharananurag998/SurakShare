@@ -9,7 +9,7 @@ import SyncStorage from 'sync-storage';
 // import * as base64 from 'byte-base64';
 
 import { INFURA_PROJECT_ID } from 'react-native-dotenv';
-import { setUpContract, generateBuckets, getOrInitBucket } from '../../utils/InitUtilities';
+import { setUpContract, generateBuckets, getOrInitBucket, deleteFromBucket , deleteBucket} from '../../utils/InitUtilities';
 
 export default class ReceiveFiles extends Component {
 	constructor(props) {
@@ -59,6 +59,7 @@ export default class ReceiveFiles extends Component {
 			// 	console.error('No bucket client or root key');
 			// 	return;
 			// }
+
 
 			this.setState({ isLoading: false, buckets, bucketKey, fileShareContract }, () => {
 				console.log('[DEBUG] STATUS, READY?: ', !this.state.isLoading);
@@ -160,6 +161,9 @@ export default class ReceiveFiles extends Component {
 					this.setState({ isLoading: false });
 				});
 
+				await deleteFromBucket(this.state.buckets, this.state.bucketKey, filePath);
+				console.log('[DEBUG] deleted from bucket: ', filePath);
+
 				// const url = `https://hub.textile.io/ipns/${this.state.bucketKey}/${filePath}`;
 				// // const url =
 				// // 'https://images.unsplash.com/photo-1593642632505-1f965e8426e9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=925&q=80';
@@ -205,6 +209,9 @@ export default class ReceiveFiles extends Component {
 				// 		console.error(err);
 				// 	});
 			}
+			// await deleteBucket(this.state.buckets, this.state.bucketKey);
+			// console.log('[DEBUG] buckets deleted ');
+
 		} catch (err) {
 			Alert.alert('Unexpected error occured', err.message);
 			console.error(err);

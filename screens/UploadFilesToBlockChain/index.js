@@ -53,8 +53,8 @@ export default class UploadFilesToBlockChain extends Component {
 			const fileShareContract = setUpContract(wallet);
 
 			// console.log('links: ', await buckets.links(bucketKey));
-			// const contractTransaction = await fileShareContract.functions.clearStoredHashes();
-			// console.log('[DEBUG] Cleared stored hashes [tx]: ', contractTransaction);
+			const contractTransaction = await fileShareContract.functions.clearStoredHashes();
+			console.log('[DEBUG] Cleared stored hashes [tx]: ', contractTransaction);
 
 			const transaction = await fileShareContract.functions.setThreadID(threadID);
 			console.log('[DEBUG] threadID transaction: ', transaction);

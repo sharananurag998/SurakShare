@@ -52,7 +52,7 @@ export const generateBuckets = async () => {
 };
 
 export const getOrInitBucket = async (buckets, _threadID) => {
-	const root = await buckets.open('userFiles', 'buckets', false, _threadID);
+	const root = await buckets.open('userFiles', 'buckets', true, _threadID);
 	console.log('Bucket root: ', root);
 	if (!root) {
 		throw new Error('Error opening bucket');
@@ -66,7 +66,7 @@ export const getOrInitBucket = async (buckets, _threadID) => {
 };
 
 export const generateBucketKey = async (buckets) => {
-	const root = await buckets.open('userFiles');
+	const root = await buckets.open('userFiles', 'buckets', true);
 	console.log('SENDER Bucket root: ', root);
 	// console.log('SENDER Bucket threadID: ', threadID);
 	if (!root) {
