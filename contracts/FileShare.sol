@@ -4,6 +4,7 @@ pragma experimental ABIEncoderV2;
 contract FileShare
 {
     mapping (address => string[]) fileHash;
+    mapping (address => string) senderID;
     address owner;
 
     // constructor function
@@ -12,24 +13,31 @@ contract FileShare
         owner = msg.sender;
     }
 
+    function setThreadID(string memory threadID) public
+    {
+        senderID[msg.sender] = threadID;
+    }
+
+    function getThreadID(address _sender) public view returns(string memory)
+    {
+        return senderID[_sender];
+    }
+
     // call this function to send a file
     function storeHash(string memory _fileHash) public
     {
         fileHash[msg.sender].push(_fileHash);
     }
 
-    function clearStoredHashes() public
-    {
-        require(fileHash[msg.sender].length > 0);
-
-        delete fileHash[msg.sender];
-    }
-
     // call this function to receive a file
     function receiveHash(address _from) public view returns(string[] memory)
     {   
-        require(fileHash[_from].length > 0);
-
         return fileHash[_from];
+    }
+
+    function clearStoredHashes() public
+    {
+        delete fileHash[msg.sender];
+        delete senderID[msg.sender];
     }
 }
