@@ -37,4 +37,7 @@ A P2P files sharing app for Android made using React Native.
 
 #### - environment variables
 
-- Edit the `.env` file to include: - `USER_API_KEY` - shared in the offical group channel. - `TEST_WALLET_ADDRESS`- funded with sufficient ether. - `CONTRACT_ADDRESS` - `0x12FA8Ec7300f3f8C2A4b1cD41901DdEA70D80B16`
+- Edit the `.env` file to include:
+  - `USER_API_KEY` - shared in the offical group channel.
+  - `TEST_WALLET_ADDRESS`- funded with sufficient ether.
+  - `CONTRACT_ADDRESS` - `0x12FA8Ec7300f3f8C2A4b1cD41901DdEA70D80B16`
