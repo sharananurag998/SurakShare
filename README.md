@@ -28,7 +28,7 @@ A P2P files sharing app for Android made using React Native.
 - Install: `npm install -g truffle`
 - Build contract abi and bytecode: `truffle compile`
 
-### - textile&#46;io
+#### - textile&#46;io
 
 - Installation: download and install the latest Hub CLI binary for your platform from the [latest releases](https://github.com/textileio/textile/releases/latest).
 - Unix distribution includes an install script: `./install`
