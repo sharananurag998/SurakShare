@@ -26,7 +26,7 @@ A P2P files sharing app for Android made using React Native.
 #### - truffle
 
 - Install: `npm install -g truffle`
-- Build contract abi and bytecode: `truffle compile`
+- Build contract abi and bytecode: `truffle migrate --reset`
 
 #### - textile&#46;io
 
